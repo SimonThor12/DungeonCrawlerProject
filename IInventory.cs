@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawlerProject
 {
-  interface IInventory
+  interface IInventory<IItem> 
   {
     List<IItem> Items { get; set; }
     void AddItem(IItem item);
