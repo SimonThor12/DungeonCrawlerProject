@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawlerProject
 {
-  class Inventory : IInventory
+  class Inventory : IInventory<IItem>
   {
     public int MaxInventorySize = 9;
     public List<IItem> Items { get; set; }
