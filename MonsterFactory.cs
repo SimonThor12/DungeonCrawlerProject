@@ -1,7 +1,7 @@
 ﻿namespace DungeonCrawlerProject
 {
-  public interface IMonsterFactory
+  public abstract class MonsterFactory
   {
-    ICharacter CreateMonster();
+    public abstract ICharacter CreateMonster();
   }
 }
