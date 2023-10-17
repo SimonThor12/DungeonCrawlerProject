@@ -1,8 +1,8 @@
 ﻿namespace DungeonCrawlerProject
 {
-  public class GoblinMonsterFactory
+  public class GoblinMonsterFactory : MonsterFactory
   {
-    public ICharacter CreateMonster()
+    public override ICharacter CreateMonster()
     {
       return new MonsterCharacter("Goblin", 100, new NormalAttack());
     }

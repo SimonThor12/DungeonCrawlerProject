@@ -21,7 +21,6 @@
       Items.Add(item);
 
     }
-
     public void RemoveItem(IItem item)
     {
       //if the item is not in the inventory, don't remove it
@@ -40,7 +39,6 @@
     }
     public void UseItem(IItem item)
     {
-      Items.Remove(item);
     }
   }
 }
