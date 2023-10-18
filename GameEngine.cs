@@ -20,7 +20,7 @@
             }
          else
             {
-                Console.Writeline("Thank you for playing our game!");
+                Console.WriteLine("Thank you for playing our game!");
             }
     }
     public void CreateWorld()
