@@ -1,6 +1,8 @@
-﻿namespace DungeonCrawlerProject
+﻿using System.Collections;
+
+namespace DungeonCrawlerProject
 {
-  class Inventory : IInventory<IItem>
+  class Inventory : IEnumerable<IItem>
   {
     public int MaxInventorySize = 9;
     public List<IItem> Items { get; set; }
@@ -32,13 +34,24 @@
       Items.Remove(item);
     }
 
-
     public void RemoveAll()
     {
       Items.Clear();
     }
     public void UseItem(IItem item)
     {
+    }
+
+    public IEnumerator<IItem> GetEnumerator()
+    {
+      for (int i = 0; i < Items.Count; i++)
+        if (Items[i] != null)
+          yield return Items[i];
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
     }
   }
 }
