@@ -11,7 +11,7 @@
 
     public void StartGame()
     {
-         console.WriteLine("Create a new game? (y/n")
+            Console.WriteLine("Create a new game? (y/n");
          string input = Console.ReadLine().ToLower();
          if (input == "y")
             {
@@ -20,7 +20,7 @@
             }
          else
             {
-                Console.Writeline("Thank you for playing our game!")
+                Console.WriteLine("Thank you for playing our game!");
             }
     }
     public void CreateWorld()
@@ -32,7 +32,7 @@
         while (Player.Health > 0)
         {
                 InventoryManagement(); //här får man kolla och använda items
-                Console.WriteLine("Enter the next room? (y/n")
+                Console.WriteLine("Enter the next room? (y/n");
                 string input = Console.ReadLine().ToLower();
                 if (input == "y")
                 {
@@ -40,12 +40,12 @@
                 }
                 else
                 {
-                    Console.WriteLine("You dont have a choice, you enter the room anyways")
+                    Console.WriteLine("You dont have a choice, you enter the room anyways");
                     GenerateRoom(); //här skapar vi rummet, monster, combatloopen och looten
                 }
                 
         }
-        Console.WriteLine("You have died! Game Over!")
+            Console.WriteLine("You have died! Game Over!");
     }
   }
 }
