@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawlerProject
 {
-  class PlayerCharacter : ICharacter
+  public class PlayerCharacter : ICharacter
   {
     public string Name { get; set; }
     public int Health { get; set; }

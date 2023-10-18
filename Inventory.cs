@@ -1,4 +1,6 @@
-﻿namespace DungeonCrawlerProject
+﻿using System.Collections;
+
+namespace DungeonCrawlerProject
 {
   class Inventory : IEnumerable<IItem>
   {
@@ -42,8 +44,14 @@
 
     public IEnumerator<IItem> GetEnumerator()
     {
-      return Items.GetEnumerator();
+      for (int i = 0; i < Items.Count; i++)
+        if (Items[i] != null)
+          yield return Items[i];
     }
 
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
+    }
   }
 }
