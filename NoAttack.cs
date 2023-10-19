@@ -2,7 +2,7 @@
 {
   public class NoAttack : ICharacterAttackBehaviour
   {
-    public int Attack(ICharacter character, ICharacter target)
+    public int Attack(ICharacter character)
     {
       return 0;
     }

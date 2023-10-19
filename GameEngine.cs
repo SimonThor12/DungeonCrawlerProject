@@ -29,7 +29,7 @@
         Console.WriteLine("As your eyes adjust to the inky blackness, a faint whisper of magic stirs in the air,");
         Console.WriteLine("beckoning you to explore the enigmatic depths of this wondrous realm");
 
-        Console.Write("Press enter to Continue");
+        Console.WriteLine("Press enter to Continue");
         Console.ReadKey();
         Delay();
 
@@ -45,7 +45,9 @@
         Console.ReadKey();
 
         Encounter encounter = new Encounter(currentPlayer);
-        encounter.StartEncounter();
+
+        while (currentPlayer.Health > 0)
+          encounter.StartEncounter();
 
       }
       else if (input == "n")

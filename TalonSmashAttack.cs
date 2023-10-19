@@ -2,11 +2,9 @@
 {
   public class TalonSmashAttack : ICharacterAttackBehaviour
   {
-    public int Attack(ICharacter character, ICharacter target)
+    public int Attack(ICharacter character)
     {
-      int damage = 1;
-      damage += 5; // dynamic later: attacker.Weapon.ItemPower; 
-      target.Health -= damage;
+      int damage = 500;
       return damage;
     }
   }
