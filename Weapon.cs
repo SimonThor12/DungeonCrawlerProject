@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonCrawlerProject
 {
-    public class Weapon : IItem
+    public class Weapon : IWeapon
     {
         public string Name { get; set; }
         public int ItemPower { get; set; }

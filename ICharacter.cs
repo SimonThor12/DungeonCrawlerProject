@@ -6,8 +6,8 @@
     string Name { get; set; }
     public int Health { get; set; }
     public ICharacterAttackBehaviour AttackBehaviour { get; set; }
+ 
     IItem equipedWeapon { get; set; }
-
   }
 
 }
