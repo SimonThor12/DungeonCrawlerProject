@@ -45,11 +45,14 @@
         Console.ReadKey();
 
         Encounter encounter = new Encounter(currentPlayer);
-
-        while (currentPlayer.Health > 0)
-          encounter.StartEncounter();
-
-      }
+               
+                while (currentPlayer.Health > 0)
+                {
+                    encounter.StartEncounter();
+                    Console.WriteLine("After the room has been looted you find yourself staring at another door");  //random lore 
+                    HandleUserDoorAction();
+                }
+            }
       else if (input == "n")
       {
         Console.WriteLine("Thank you for playing our game!");

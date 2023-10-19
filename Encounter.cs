@@ -119,7 +119,10 @@
           Player.equipedWeapon = new Weapon("Sword", 100);
           //Här kommer inventory in vid lootning
           encounterOver = true;
-        }
+                    Console.WriteLine("Encounter has ended. Press any key to continue...");    //tester om detta slutar encountern
+                    Console.ReadKey();
+                    return;
+                }
 
         playerTurn = !playerTurn; // Switch turns between player and monster
       }
