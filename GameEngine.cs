@@ -28,8 +28,11 @@
         Console.WriteLine("your memories a distant echo in the darkness.");
         Console.WriteLine("As your eyes adjust to the inky blackness, a faint whisper of magic stirs in the air,");
         Console.WriteLine("beckoning you to explore the enigmatic depths of this wondrous realm");
+
+        Console.WriteLine("Press enter to Continue");
         Console.ReadKey();
         Delay();
+
         Console.WriteLine("As you can not see or hear anything,");
         Console.WriteLine("you decide to randomly feel your way around the room");
         Delay();
@@ -41,7 +44,11 @@
         Delay();
         Console.ReadKey();
 
-        //GameLoop(); //Hela spelloopen
+        Encounter encounter = new Encounter(currentPlayer);
+
+        while (currentPlayer.Health > 0)
+          encounter.StartEncounter();
+
       }
       else if (input == "n")
       {
@@ -60,12 +67,12 @@
       string action = Console.ReadLine();
       if (action.ToLower().Trim() != "open" && action.ToLower().Trim() != "open door" && action.ToLower().Trim() != "hit")
       {
-        Console.WriteLine("This can not be done on door");
+        Console.WriteLine("Try something else");
         HandleUserDoorAction();
       }
       else if (action.ToLower().Trim() == "hit")
       {
-        Console.WriteLine("You hit with stick in the door opening");
+        Console.WriteLine($"You hit with {currentPlayer.equipedWeapon.Name} in the door opening");
         Console.WriteLine("Nothing happens");
         HandleUserDoorAction();
       }
@@ -76,6 +83,7 @@
       }
 
     }
+
 
     public void CreateWorld()
     {
