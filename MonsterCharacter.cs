@@ -5,13 +5,13 @@
     public string Name { get; set; }
     public int Health { get; set; }
     public int Attack { get; set; }
-    public ICharacterAttackBevaviour AttackBevaviour { get; set; }
+    public ICharacterAttackBehaviour AttackBehaviour { get; set; }
 
-    public MonsterCharacter(string name, int health, ICharacterAttackBevaviour attackBehaviour)
+    public MonsterCharacter(string name, int health, ICharacterAttackBehaviour attackBehaviour)
     {
       Name = name;
       Health = health;
-      AttackBevaviour = attackBehaviour;
+      AttackBehaviour = attackBehaviour;
     }
   }
 }
