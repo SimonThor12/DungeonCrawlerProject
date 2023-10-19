@@ -1,3 +1,4 @@
+
 ﻿namespace DungeonCrawlerProject
 {
   public void GenerateRoom()
@@ -5,9 +6,10 @@
     int roomNumber = 0;
     roomNumber++;
 
-    Console.WriteLine($"A wild {monster.Name} appears!");
 
-    bool combat = true;
+//    Console.WriteLine($"A wild {monster.Name} appears!");
+
+//    bool combat = true;
 
     while (combat)
     {
@@ -39,5 +41,6 @@
       }
     }
   }
+
 
 }

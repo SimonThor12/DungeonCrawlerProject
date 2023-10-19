@@ -1,8 +1,8 @@
 ﻿namespace DungeonCrawlerProject
 {
-  public class NoAttack : ICharacterAttackBevaviour
+  public class NoAttack : ICharacterAttackBehaviour
   {
-    public void Attack(ICharacter target)
+    public void Attack(ICharacter character, ICharacter target)
     {
       // Do nothing
     }
