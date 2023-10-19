@@ -11,41 +11,53 @@
 
     public void StartGame()
     {
-            Console.WriteLine("Create a new game? (y/n");
-         string input = Console.ReadLine().ToLower();
-         if (input == "y")
-            {
-                CreateWorld(); //VI BEHÖVER DENNA FUNKTION
-                GameLoop(); //Hela spelloopen
-            }
-         else
-            {
-                Console.WriteLine("Thank you for playing our game!");
-            }
+      Console.WriteLine("Create a new game? (y/n");
+      string input = Console.ReadLine().ToLower();
+      if (input == "y")
+      {
+        Console.BackgroundColor = ConsoleColor.DarkBlue;
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Clear();
+        PlayerCharacter currentCharacter = new PlayerCharacter("Player", 100, new SwordAttackBehaviour());
+        Console.WriteLine("Welcome to our game!");
+        Console.WriteLine("What is your name?");
+
+        CreateWorld(); //VI BEHÖVER DENNA FUNKTION
+        GameLoop(); //Hela spelloopen
+      }
+      else if (input == "n")
+      {
+        Console.WriteLine("Thank you for playing our game!");
+      }
+      else
+      {
+        Console.WriteLine("Wrong input, try again!");
+        StartGame();
+      }
     }
     public void CreateWorld()
     {
-         //STARTVÄRDEN
+      //STARTVÄRDEN
     }
     public void GameLoop()
     {
-        while (Player.Health > 0)
+      while (Player.Health > 0)
+      {
+        InventoryManagement(); //här får man kolla och använda items
+        Console.WriteLine("Enter the next room? (y/n");
+        string input = Console.ReadLine().ToLower();
+        if (input == "y")
         {
-                InventoryManagement(); //här får man kolla och använda items
-                Console.WriteLine("Enter the next room? (y/n");
-                string input = Console.ReadLine().ToLower();
-                if (input == "y")
-                {
-                    GenerateRoom(); //här skapar vi rummet, monster, combatloopen och looten
-                }
-                else
-                {
-                    Console.WriteLine("You dont have a choice, you enter the room anyways");
-                    GenerateRoom(); //här skapar vi rummet, monster, combatloopen och looten
-                }
-                
+          GenerateRoom(); //här skapar vi rummet, monster, combatloopen och looten
         }
-            Console.WriteLine("You have died! Game Over!");
+        else
+        {
+          Console.WriteLine("You dont have a choice, you enter the room anyways");
+          GenerateRoom(); //här skapar vi rummet, monster, combatloopen och looten
+        }
+
+      }
+      Console.WriteLine("You have died! Game Over!");
     }
   }
 }
