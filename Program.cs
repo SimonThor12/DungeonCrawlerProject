@@ -1,9 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-Console.WriteLine("Hello, TEST!");
 
-//Game engine = new GameEngine(); 
+using DungeonCrawlerProject;
 
+GameEngine engine = new GameEngine();
+
+engine.StartGame();
 //userInterface UI = new userInterface();
 
 //enigne.StartGame(UI);

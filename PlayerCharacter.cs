@@ -5,11 +5,10 @@
     public string Name { get; set; }
     public int Health { get; set; }
     public ICharacterAttackBehaviour AttackBehaviour { get; set; }
-    public IItem Weapon { get; set; }
-
-    public PlayerCharacter(string name, int health, ICharacterAttackBehaviour attackBehaviour)
+    public IItem equipedWeapon { get; set; }
+    public Inventory<IItem> powerUpInventory { get; set; }
+    public PlayerCharacter(int health, ICharacterAttackBehaviour attackBehaviour)
     {
-      Name = name;
       Health = health;
       AttackBehaviour = attackBehaviour;
     }
