@@ -2,6 +2,6 @@
 {
   public abstract class MonsterFactory
   {
-    public abstract ICharacter CreateMonster();
+    public abstract MonsterCharacter CreateMonster();
   }
 }

@@ -4,7 +4,6 @@
   {
     public string Name { get; set; }
     public int Health { get; set; }
-    public int Attack { get; set; }
     public ICharacterAttackBehaviour AttackBehaviour { get; set; }
     public IItem equipedWeapon { get; set; }
 
@@ -13,6 +12,11 @@
       Name = name;
       Health = health;
       AttackBehaviour = attackBehaviour;
+    }
+
+    public int Attack(ICharacter target)
+    {
+      return AttackBehaviour.Attack(this, target);
     }
   }
 }
