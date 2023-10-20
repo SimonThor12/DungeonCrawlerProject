@@ -6,12 +6,9 @@
     public int Health { get; set; }
 
     public int CompletedRooms = 0;
-
-    public int PlayerScore = 0;
     public ICharacterAttackBehaviour AttackBehaviour { get; set; }
 
     public Inventory<IItem> personalInventory = new Inventory<IItem>();
-
     public IWeapon equipedWeapon { get; set; }
 
 
