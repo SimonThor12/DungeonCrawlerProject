@@ -39,20 +39,19 @@
         Console.WriteLine("You find a stick and decide to pick it up");
         currentPlayer.equipedWeapon = new Weapon("Stick", 10);
         Delay();
-        Console.WriteLine("You find a door");
+        Console.WriteLine("You find a door, what do you want to do?");
         HandleUserDoorAction();
-        Delay();
-        Console.ReadKey();
+
 
         Encounter encounter = new Encounter(currentPlayer);
-               
-                while (currentPlayer.Health > 0)
-                {
-                    encounter.StartEncounter();
-                    Console.WriteLine("After the room has been looted you find yourself staring at another door");  //random lore 
-                    HandleUserDoorAction();
-                }
-            }
+
+        while (currentPlayer.Health > 0)
+        {
+          encounter.StartEncounter();
+          Console.WriteLine("After the room has been looted you find yourself staring at another door");  //random lore 
+          HandleUserDoorAction();
+        }
+      }
       else if (input == "n")
       {
         Console.WriteLine("Thank you for playing our game!");
@@ -81,12 +80,12 @@
       }
       else
       {
+        Delay();
         Console.WriteLine("Door opened");
-
+        Console.Clear();
       }
 
     }
-
 
     public void CreateWorld()
     {
