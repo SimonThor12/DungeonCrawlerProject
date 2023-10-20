@@ -6,8 +6,6 @@
     public MonsterFactory MonsterFactory { get; set; }
     public MonsterCharacter Monster { get; set; }
     public PlayerCharacter Player { get; set; }
-
-
     public Encounter(PlayerCharacter player)
     {
       Player = player;
@@ -23,18 +21,8 @@
       MonsterCharacter encounteredMonster = CreateMonsterForEncounter();
       Monster = encounteredMonster;
 
-      Console.WriteLine("As you cautiously step into the dimly lit chamber,");
-      Console.WriteLine("a menacing growl echoes off the cold stone walls.");
-      Console.WriteLine("The air feels thick with tension,");
-      Console.WriteLine($"and your heart quickens as you catch a glimpse of movement in the shadows.");
-      Console.WriteLine($"There, emerging from the darkness, is a {Monster.Name}!");
-      Console.WriteLine("Its eyes gleam with malevolence,");
-      Console.WriteLine("and its grotesque form sends shivers down your spine.");
+      PlayEncounterText(Player, Monster);
       Console.ReadKey();
-      Console.WriteLine("Prepare for battle!");
-      Console.Clear();
-
-
 
       while (!encounterOver)
       {
@@ -101,7 +89,7 @@
         else if (Monster.Health <= 0)
         {
           Console.WriteLine($"You have defeated the {Monster.Name}!");
-          Player.PlayerScore++;
+          Player.CompletedRooms++;
           Player.Health = 100;
           //ska randomisa vapen man får, ej hårdkoda
           Player.equipedWeapon = new Weapon("Sword", 100);
@@ -119,14 +107,14 @@
 
     private MonsterCharacter CreateMonsterForEncounter()
     {
-      if (Player.PlayerScore >= 10)
+      if (Player.CompletedRooms >= 10)
       {
         MonsterFactory = new BossMonsterFactory();
         Monster = MonsterFactory.CreateMonster();
         Monster.equipedWeapon = new Weapon("Fist", 1000);
 
       }
-      else if (Player.PlayerScore >= 7)
+      else if (Player.CompletedRooms >= 7)
       {
         MonsterFactory = new HardMonsterFactory();
         Monster = MonsterFactory.CreateMonster();
@@ -134,7 +122,7 @@
 
 
       }
-      else if (Player.PlayerScore >= 3)
+      else if (Player.CompletedRooms >= 3)
       {
         MonsterFactory = new MediumMonsterFactory();
         Monster = MonsterFactory.CreateMonster();
@@ -148,19 +136,53 @@
         Monster.equipedWeapon = new Weapon("Fist", 5);
       }
 
-
-      Console.WriteLine($"You have encountered a {Monster.Name}!");
-
       return Monster;
 
     }
 
-    public static void PlayEncounter(PlayerCharacter player)
+    private void PlayEncounterText(PlayerCharacter player, MonsterCharacter monster)
     {
+
+      // Define a Dictionary to store descriptions for each monster
+      var monsterDescriptions = new Dictionary<string, string>
+      {
+          { "Gremlin", "A small and mischievous creature lurks in the shadows." },
+          { "Orc", "A hulking and fearsome orc stands before you, ready for battle." },
+          { "Pesky Troll", "A massive, regenerating troll with a club confronts you." },
+          { "Goblin", "A cunning goblin with a sharp blade prepares to strike." },
+          { "Dragon", "A colossal dragon with scales as hard as steel looms over you, its fiery breath ready to incinerate everything." },
+          { "Vampire", "A suave and mysterious vampire with sharp fangs approaches, his eyes glowing with hunger for your blood." },
+          { "Werewolf", "A massive, feral werewolf, its fur bristling and claws extended, prepares to pounce." },
+          { "Witch", "A cunning witch with a cackling laugh and a wicked coven of spells stands in your path, brewing mischief." },
+          { "Ogre", "A monstrous ogre with immense strength and a giant club threatens to crush you." },
+          { "Minotaur", "A formidable minotaur, part man and part bull, charges at you with its massive horns." },
+          { "Skeleton", "A skeletal warrior, risen from the dead, wields a rusty sword and clatters menacingly." },
+          { "Harpy", "A fierce harpy with razor-sharp talons and wings that can whip up storms swoops down to attack." },
+          { "Chimera", "A nightmarish chimera, a fusion of lion, goat, and serpent, stands ready to unleash its deadly breath." },
+          { "Goblin King", "A powerful and cunning goblin king, adorned with a crown, rules over his minions with authority." },
+          { "Smaller Dragon", "A smaller but no less dangerous dragon awaits, ready to spit fire and claws at you." },
+          { "Blob", "A grotesque, amorphous blob oozes towards you, its acidic touch melting everything in its path." },
+          { "Netherlord Zorath", "The ground trembles as Netherlord Zorath,\nan otherworldly terror, emerges from the void.\nHis dark eyes pierce your soul, and his power is immeasurable." },
+          { "Serpentix the Devourer", "Serpentix, a colossal serpent with jagged fangs and venomous breath,\nslithers forth with an insatiable hunger for destruction." },
+          { "Molten Core Guardian", "The Molten Core Guardian, a living inferno of molten rock and searing flames,\nradiates intense heat and an aura of pure annihilation." },
+          { "Abyssal Leviathan", "From the depths of the abyss, the Abyssal Leviathan rises,\nan ancient sea terror with jaws that can crush ships and a hunger for chaos." },
+
+      };
+
+      // Lambda expression that generates the description based on the monster's name
+      Func<MonsterCharacter, string> generateMonsterDescription = (monster) =>
+      {
+        if (monsterDescriptions.TryGetValue(monster.Name, out var description))
+        {
+          return description;
+        }
+        return "A mysterious and powerful creature stands before you.";
+      };
+
       Console.Clear();
       Console.WriteLine("As you cautiously step through the door, you find yourself in a vast chamber.");
       Console.WriteLine("The air is thick with tension as you notice shadows dancing across the walls.");
-      Console.WriteLine($"Suddenly, a menacing screech pierces the silence, and a monster swoops down before you!");
+      Console.WriteLine(generateMonsterDescription(monster));
       Console.WriteLine($"Prepare for battle, {player.Name}!");
     }
 
