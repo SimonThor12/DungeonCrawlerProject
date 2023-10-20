@@ -4,19 +4,45 @@
   {
     public string Name { get; set; }
     public int Health { get; set; }
-    public ICharacterAttackBehaviour AttackBehaviour { get; set; }
-    public IWeapon equipedWeapon { get; set; }
-    public Inventory<IItem> powerUpInventory { get; set; }
 
-    public int PlayerScore = 0;
-    public PlayerCharacter(int health, ICharacterAttackBehaviour attackBehaviour)
+    public int CompletedRooms = 0;
+
+    public ICharacterAttackBevaviour AttackBevaviour { get; set; }
+
+    public Inventory personalInventory = new Inventory();
+
+    public List<Achievement> Achievements { get; } = new List<Achievement>();
+
+
+
+    public PlayerCharacter(string name, int health, ICharacterAttackBevaviour attackBevaviour, AchievementManager achievementManager)
     {
+      Name = name;
       Health = health;
-      AttackBehaviour = attackBehaviour;
+
     }
-    public int Attack(ICharacter target)
+    //method that takes the attackbehaviour and the weapon and uses the attackbehaviour to attack with the weapon
+
+    //event handling for sending information about achievements
+
+    public event EventHandler<AchievementEventArgs> AchievementCompleted;
+    public void AddAchievement(Achievement achievement)
     {
-      return AttackBehaviour.Attack(this);
+      Achievements.Add(achievement);
+    }
+
+
+
+    public void SubscribeToAchievements(AchievementManager achievementManager)
+    {
+      achievementManager.AchievementCompleted += HandleAchievementCompleted;
+    }
+
+    private void HandleAchievementCompleted(object sender, AchievementEventArgs e)
+    {
+      Achievement completedAchievement = e.CompletedAchievement;
+      Console.WriteLine($"Achievement Unlocked: {completedAchievement.Description}");
+      // Display achievement details or perform other related actions
     }
   }
 }
