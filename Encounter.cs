@@ -29,6 +29,13 @@
         if (playerTurn)
         {
           Console.Clear();
+          if (Player.Strength > 1)
+          {
+            Player.Strength -= 2;
+
+
+          }
+
           Console.WriteLine("It's your turn. What will you do?");
           Console.WriteLine(Player.Name + " HP: " + Player.Health + " | " + Monster.Name + " HP: " + Monster.Health);
           Console.WriteLine("******************");
@@ -61,6 +68,28 @@
 
             case "3":
               Console.WriteLine("You open your inventory");
+              var inv = Player.personalInventory.GetEnumerator();
+              int invNum = 1;
+              while (inv.MoveNext())
+              {
+                Console.WriteLine(invNum + ": " + inv.Current.Name);
+                invNum++;
+              }
+              Console.WriteLine("What do you want to use?");
+              switch (Console.ReadLine())
+              {
+                case "1":
+                  Player.personalInventory.GetItem(0).UseItem(Player);
+                  //Remove item from inventory
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(0));
+                  break;
+                case "2":
+                  Player.personalInventory.GetItem(1).UseItem(Player);
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(1));
+
+                  break;
+              }
+
               break;
 
             default:
@@ -90,7 +119,6 @@
         {
           Console.WriteLine($"You have defeated the {Monster.Name}!");
           Player.CompletedRooms++;
-          Player.Health = 100;
           //ska randomisa vapen man får, ej hårdkoda
           Player.equipedWeapon = new Weapon("Sword", 100);
           //Här kommer inventory in vid lootning
@@ -188,15 +216,14 @@
 
     private void PlayerAttack()
     {
-      int damage = Player.Attack(Monster);
+      int damage = Player.Attack();
       Console.WriteLine($"You attack the {Monster.Name} and deal {damage} damage!");
       Monster.Health -= damage;
-
     }
 
     private void MonsterAttack()
     {
-      int damage = Monster.Attack(Player);
+      int damage = Monster.Attack();
       Console.WriteLine($"The {Monster.Name} attacks you and deals {damage} damage!");
       Player.Health -= damage;
     }

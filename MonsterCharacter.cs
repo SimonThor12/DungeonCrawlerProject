@@ -7,6 +7,7 @@
     public ICharacterAttackBehaviour AttackBehaviour { get; set; }
     public IWeapon equipedWeapon { get; set; }
 
+    public int Strength = 5;
     public MonsterCharacter(string name, int health, ICharacterAttackBehaviour attackBehaviour)
     {
       Name = name;
@@ -14,9 +15,9 @@
       AttackBehaviour = attackBehaviour;
     }
 
-    public int Attack(ICharacter target)
+    public int Attack()
     {
-      return AttackBehaviour.Attack(this);
+      return Strength + AttackBehaviour.Attack(this);
     }
   }
 }

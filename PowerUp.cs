@@ -4,9 +4,16 @@
   {
     public string Name { get; set; }
 
-    public PowerUp(string name)
+    public IPowerUpEffect Effect { get; set; }
+    public PowerUp(string name, IPowerUpEffect effect)
     {
       Name = name;
+      Effect = effect;
+    }
+
+    public void UseItem(PlayerCharacter player)
+    {
+      Effect.UsePowerUp(player);
     }
 
   }

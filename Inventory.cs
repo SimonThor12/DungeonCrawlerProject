@@ -38,9 +38,7 @@ namespace DungeonCrawlerProject
     {
       Items.Clear();
     }
-    public void UseItem(IItem item)
-    {
-    }
+
 
     public IEnumerator<IItem> GetEnumerator()
     {
@@ -52,6 +50,11 @@ namespace DungeonCrawlerProject
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
+    }
+
+    public IItem GetItem(int v)
+    {
+      return Items[v];
     }
   }
 }

@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DungeonCrawlerProject
+﻿namespace DungeonCrawlerProject
 {
-    public class Weapon : IWeapon
+  public class Weapon : IWeapon
+  {
+    public string Name { get; set; }
+    public int ItemPower { get; set; }
+
+    public Weapon(string name, int itemPower)
     {
-        public string Name { get; set; }
-        public int ItemPower { get; set; }
-        
-        public Weapon(string name, int itemPower)
-        {
-            Name = name;
-            ItemPower = itemPower;
-        }
+      Name = name;
+      ItemPower = itemPower;
     }
+
+    public void UseItem(PlayerCharacter player)
+    {
+
+    }
+  }
 }

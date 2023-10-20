@@ -7,10 +7,8 @@
     //make a player
     public PlayerCharacter currentPlayer { get; set; }
     //make a list of items
-
     public void StartGame()
     {
-
       Console.WriteLine("Create a new game? (y/n)");
       string input = Console.ReadLine().ToLower();
       if (input == "y")
@@ -36,12 +34,14 @@
         Console.WriteLine("As you can not see or hear anything,");
         Console.WriteLine("you decide to randomly feel your way around the room");
         Delay();
-        Console.WriteLine("You find a stick and decide to pick it up");
+        Console.WriteLine("You find a sturdy stick beside 2 small potions, one yellow and one red, and decide to pick them up");
         currentPlayer.equipedWeapon = new Weapon("Stick", 10);
+        currentPlayer.personalInventory.AddItem(new PowerUp("Red Potion", new HealEffect(30)));
+        currentPlayer.personalInventory.AddItem(new PowerUp("Yellow Potion", new StrengthEffect(10)));
+
         Delay();
         Console.WriteLine("You find a door, what do you want to do?");
         HandleUserDoorAction();
-
 
         Encounter encounter = new Encounter(currentPlayer);
 
@@ -62,10 +62,8 @@
         StartGame();
       }
     }
-
     private void HandleUserDoorAction()
     {
-
       string action = Console.ReadLine();
       if (action.ToLower().Trim() != "open" && action.ToLower().Trim() != "open door" && action.ToLower().Trim() != "hit")
       {
@@ -84,33 +82,7 @@
         Console.WriteLine("Door opened");
         Console.Clear();
       }
-
     }
-
-    public void CreateWorld()
-    {
-      //STARTVÄRDEN
-    }
-    //public void GameLoop()
-    //{
-    //  while (Player.Health > 0)
-    //  {
-    //    InventoryManagement(); //här får man kolla och använda items
-    //    Console.WriteLine("Enter the next room? (y/n");
-    //    string input = Console.ReadLine().ToLower();
-    //    if (input == "y")
-    //    {
-    //      GenerateRoom(); //här skapar vi rummet, monster, combatloopen och looten
-    //    }
-    //    else
-    //    {
-    //      Console.WriteLine("You dont have a choice, you enter the room anyways");
-    //      GenerateRoom(); //här skapar vi rummet, monster, combatloopen och looten
-    //    }
-
-    //  }
-    //  Console.WriteLine("You have died! Game Over!");
-    //}
 
     public void Delay()
     {
