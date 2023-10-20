@@ -38,6 +38,11 @@
         Delay();
         Console.WriteLine("You find a stick and decide to pick it up");
         currentPlayer.equipedWeapon = new Weapon("Stick", 10);
+        currentPlayer.personalInventory.AddItem(new PowerUp("Health potion"));
+        currentPlayer.personalInventory.AddItem(new PowerUp("Death potion"));
+        currentPlayer.personalInventory.AddItem(new PowerUp("mana potion"));
+        currentPlayer.personalInventory.AddItem(new PowerUp("kill potion"));
+
         Delay();
         Console.WriteLine("You find a door, what do you want to do?");
         HandleUserDoorAction();

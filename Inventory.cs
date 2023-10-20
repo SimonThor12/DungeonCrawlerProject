@@ -33,15 +33,6 @@ namespace DungeonCrawlerProject
       }
       Items.Remove(item);
     }
-
-    public void RemoveAll()
-    {
-      Items.Clear();
-    }
-    public void UseItem(IItem item)
-    {
-    }
-
     public IEnumerator<IItem> GetEnumerator()
     {
       for (int i = 0; i < Items.Count; i++)
@@ -53,5 +44,6 @@ namespace DungeonCrawlerProject
     {
       return GetEnumerator();
     }
+
   }
 }

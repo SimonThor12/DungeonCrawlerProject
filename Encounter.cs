@@ -60,7 +60,18 @@
               }
 
             case "3":
+
               Console.WriteLine("You open your inventory");
+              int i = 1;
+              foreach (var item in Player.personalInventory)
+              {
+                Console.WriteLine(i + ": " + item.Name);
+                i++;
+
+              }
+              Console.WriteLine("Choose an item to use (1-9)");
+              Console.ReadKey();
+
               break;
 
             default:
@@ -90,8 +101,6 @@
         {
           Console.WriteLine($"You have defeated the {Monster.Name}!");
           Player.CompletedRooms++;
-          Player.Health = 100;
-          //ska randomisa vapen man får, ej hårdkoda
           Player.equipedWeapon = new Weapon("Sword", 100);
           //Här kommer inventory in vid lootning
           encounterOver = true;
