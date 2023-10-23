@@ -10,7 +10,7 @@
     public void UsePowerUp(PlayerCharacter player)
     {
       player.Health += HealAmount;
-      Console.WriteLine("You have been healed for " + HealAmount + " HP!");
+      Console.WriteLine("You have gained " + HealAmount + " HP!");
       Console.WriteLine("Press any key to continue...");
       Console.ReadKey();
     }
