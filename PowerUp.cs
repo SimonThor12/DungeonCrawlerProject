@@ -3,7 +3,6 @@
   class PowerUp : IItem
   {
     public string Name { get; set; }
-
     public IPowerUpEffect Effect { get; set; }
     public PowerUp(string name, IPowerUpEffect effect)
     {

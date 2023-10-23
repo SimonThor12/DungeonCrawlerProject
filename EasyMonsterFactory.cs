@@ -5,20 +5,19 @@
     public override MonsterCharacter CreateMonster()
     {
       //Random number generator
-      Random rand = new Random();
+      Random random = new Random();
 
-      switch (rand.Next(1, 4))
+      switch (random.Next(1, 4))
       {
         case 1:
-          return new MonsterCharacter("Gremlin", 50, new NormalAttack());
+          return new MonsterCharacter("Gremlin", random.Next(70, 100), new NormalAttack(), random.Next(5, 10));
         case 2:
-          return new MonsterCharacter("Orc", 70, new NormalAttack());
+          return new MonsterCharacter("Orc", random.Next(70, 100), new NormalAttack(), random.Next(5, 10));
         case 3:
-          return new MonsterCharacter("Pesky Troll", 100, new NormalAttack());
+          return new MonsterCharacter("Pesky Troll", random.Next(70, 100), new NormalAttack(), random.Next(5, 10));
         default:
-          return new MonsterCharacter("Goblin", 40, new NormalAttack());
+          return new MonsterCharacter("Goblin", random.Next(70, 100), new NormalAttack(), random.Next(5, 10));
       }
-
     }
   }
 }

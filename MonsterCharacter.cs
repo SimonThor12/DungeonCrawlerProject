@@ -4,20 +4,23 @@
   {
     public string Name { get; set; }
     public int Health { get; set; }
+
+    public int Strength { get; set; }
     public ICharacterAttackBehaviour AttackBehaviour { get; set; }
     public IWeapon equipedWeapon { get; set; }
 
-    public int Strength = 5;
-    public MonsterCharacter(string name, int health, ICharacterAttackBehaviour attackBehaviour)
+    public MonsterCharacter(string name, int health, ICharacterAttackBehaviour attackBehaviour, int strength)
     {
       Name = name;
       Health = health;
       AttackBehaviour = attackBehaviour;
+      Strength = strength;
+      equipedWeapon = new Weapon("Fists", 1);
     }
 
     public int Attack()
     {
-      return Strength + AttackBehaviour.Attack(this);
+      return AttackBehaviour.Attack(this);
     }
   }
 }

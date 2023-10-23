@@ -36,11 +36,11 @@
           Console.Clear();
           Console.WriteLine("It's your turn. What will you do? (1-3)");
           Console.WriteLine(Player.Name + " HP: " + Player.Health + " | " + Monster.Name + " HP: " + Monster.Health);
-          Console.WriteLine("******************");
-          Console.WriteLine("|> 1. Attack    <|");
-          Console.WriteLine("|> 2. Flee      <|");
-          Console.WriteLine("|> 3. Inventory <|");
-          Console.WriteLine("******************");
+          Console.WriteLine("**************************");
+          Console.WriteLine("|> 1. Attack            <|");
+          Console.WriteLine("|> 2. Flee (10% chance) <|");
+          Console.WriteLine("|> 3. Inventory         <|");
+          Console.WriteLine("**************************");
 
           string input = Console.ReadLine();
 
@@ -52,7 +52,7 @@
 
             case "2":
               //try to flee from the encounter, with a small chance of success
-              if (new Random().Next(1, 10) == 1)
+              if (new Random().Next(1, 11) == 1)
               {
                 Console.WriteLine("You successfully flee from the encounter!");
                 encounterOver = true;
@@ -78,16 +78,42 @@
               {
                 case "1":
                   Player.personalInventory.GetItem(0).UseItem(Player);
-                  //Remove item from inventory
                   Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(0));
                   break;
                 case "2":
                   Player.personalInventory.GetItem(1).UseItem(Player);
                   Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(1));
-
                   break;
-              }
+                case "3":
+                  Player.personalInventory.GetItem(2).UseItem(Player);
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(2));
+                  break;
+                case "4":
+                  Player.personalInventory.GetItem(3).UseItem(Player);
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(3));
+                  break;
+                case "5":
+                  Player.personalInventory.GetItem(4).UseItem(Player);
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(4));
+                  break;
+                case "6":
+                  Player.personalInventory.GetItem(5).UseItem(Player);
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(5));
+                  break;
+                case "7":
+                  Player.personalInventory.GetItem(6).UseItem(Player);
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(6));
+                  break;
+                case "8":
+                  Player.personalInventory.GetItem(7).UseItem(Player);
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(7));
+                  break;
+                case "9":
+                  Player.personalInventory.GetItem(8).UseItem(Player);
+                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(8));
+                  break;
 
+              }
               break;
 
             default:
@@ -113,7 +139,6 @@
           Console.Clear();
 
           encounterOver = true;
-
         }
         else if (Monster.Health <= 0)
         {
@@ -122,20 +147,27 @@
           //ska randomisa vapen man får, ej hårdkoda
 
           List<PowerUp> powerups = new List<PowerUp> {
-            new PowerUp("Health Potion", new HealEffect(30)),
+            new PowerUp("Health Potion", new HealEffect(50)),
+            new PowerUp("Strong Health Potion", new HealEffect(100)),
+            new PowerUp("Divine Health Potion", new HealEffect(200)),
             new PowerUp("Strength Potion", new StrengthEffect(20)),
+            new PowerUp("Strong Strength Potion", new StrengthEffect(40)),
+            new PowerUp("Divine Strength Potion", new StrengthEffect(80)),
+            new PowerUp("Devious Health Potion", new HealEffect(0)),
+            new PowerUp("Devious Strength Potion", new StrengthEffect(0)),
+            new PowerUp("Water bottle", new HealEffect(10)),
           };
           List<Weapon> weapons = new List<Weapon>
         {
-            new Weapon("Dragonfang Blade", 100),
+            new Weapon("Dragonfang Blade", 40),
             new Weapon("Shadowstrike Dagger", 90),
-            new Weapon("Mjölnir's Hammer", 120),
+            new Weapon("Mjölnir's Hammer", 50),
             new Weapon("Elven Longsword", 80),
-            new Weapon("Obsidian Waraxe", 110),
+            new Weapon("Obsidian Waraxe", 60),
             new Weapon("Serpent's Fang", 95),
-            new Weapon("Holy Avenger", 130),
-            new Weapon("Runeblade of Frost", 105),
-            new Weapon("Thunderstrike Maul", 125),
+            new Weapon("Holy Avenger", 100),
+            new Weapon("Runeblade of Frost", 80),
+            new Weapon("Thunderstrike Maul", 75),
             new Weapon("Orcish Cleaver", 85)
         };
 
@@ -156,13 +188,14 @@
 
           if (Player.equipedWeapon.ItemPower < weapLoot.ItemPower)
           {
-            Player.equipedWeapon = weaponFactory.Pick();
+            Player.equipedWeapon = weapLoot;
             TypeTextWithDelay("You found a " + weapLoot.Name + " and equipped it!");
             Console.ReadKey();
           }
           else
           {
-            TypeTextWithDelay("You found a " + weapLoot.Name + " but it was not as strong as your current weapon, so you left it behind.");
+            TypeTextWithDelay("You found a " + weapLoot.Name + " but it was not as strong as your current weapon, so you leave it behind.");
+            Console.ReadKey();
           }
 
           encounterOver = true;
@@ -170,7 +203,6 @@
           Console.ReadKey();
           return;
         }
-
         playerTurn = !playerTurn; // Switch turns between player and monster
       }
 
@@ -178,18 +210,18 @@
 
     private MonsterCharacter CreateMonsterForEncounter()
     {
+      //make a list of weapons that the bosses can equip when they are created
+
       if (Player.CompletedRooms >= 10)
       {
         MonsterFactory = new BossMonsterFactory();
         Monster = MonsterFactory.CreateMonster();
-        Monster.equipedWeapon = new Weapon("Fist", 1000);
 
       }
       else if (Player.CompletedRooms >= 7)
       {
         MonsterFactory = new HardMonsterFactory();
         Monster = MonsterFactory.CreateMonster();
-        Monster.equipedWeapon = new Weapon("Fist", 500);
 
 
       }
@@ -197,14 +229,11 @@
       {
         MonsterFactory = new MediumMonsterFactory();
         Monster = MonsterFactory.CreateMonster();
-        Monster.equipedWeapon = new Weapon("Fist", 50);
-
       }
       else
       {
         MonsterFactory = new EasyMonsterFactory();
         Monster = MonsterFactory.CreateMonster();
-        Monster.equipedWeapon = new Weapon("Fist", 5);
       }
 
       return Monster;
@@ -251,16 +280,13 @@
       };
 
       Console.Clear();
-      TypeTextWithDelay("As you cautiously step through the door, you find yourself in a vast chamber.");
-      TypeTextWithDelay("The air is thick with tension as you notice shadows dancing across the walls.");
       TypeTextWithDelay(generateMonsterDescription(monster));
       TypeTextWithDelay($"Prepare for battle, {player.Name}!");
     }
-
     private void PlayerAttack()
     {
       int damage = Player.Attack();
-      Console.WriteLine($"You attack the {Monster.Name} and deal {damage} damage!");
+      Console.WriteLine($"You attack the {Monster.Name} with {Player.equipedWeapon.Name} and deal {damage} damage!");
       Monster.Health -= damage;
       Console.WriteLine("Press any key to continue...");
       Console.ReadKey();
@@ -273,7 +299,6 @@
       Player.Health -= damage;
       Console.WriteLine("Press any key to continue...");
       Console.ReadKey();
-
     }
     public void TypeTextWithDelay(string text)
     {
