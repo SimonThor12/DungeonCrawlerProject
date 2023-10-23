@@ -35,7 +35,7 @@
             Player.Strength -= 2;
 
           }
-
+          Console.Clear();
           Console.WriteLine("It's your turn. What will you do?");
           Console.WriteLine(Player.Name + " HP: " + Player.Health + " | " + Monster.Name + " HP: " + Monster.Health);
           Console.WriteLine("******************");
@@ -100,6 +100,7 @@
         else
         {
           MonsterAttack();
+          Console.Clear();
         }
 
         // Check if the encounter is over (e.g., player or monster health reaches zero)
