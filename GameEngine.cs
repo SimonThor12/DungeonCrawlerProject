@@ -2,8 +2,6 @@
 {
   public class GameEngine
   {
-    //make a list of monster
-    public List<ICharacter> Monsters { get; set; }
     //make a player
     public PlayerCharacter currentPlayer { get; set; }
     //make a list of items
@@ -15,31 +13,30 @@
       {
         Console.Clear();
         currentPlayer = new PlayerCharacter(100, new NormalAttack());
-        Console.WriteLine("Welcome to the Monster Dungeon!");
-        Thread.SpinWait(50000000);
-        Console.WriteLine("What is your name?");
+        TypeTextWithDelay("Welcome to the Monster Dungeon!");
+        TypeTextWithDelay("What is your name?");
 
         currentPlayer.Name = GetPlayerName();
         Console.Clear();
 
-        Console.WriteLine("In a realm shrouded in mystery, you awaken in a dimly lit chamber");
-        Console.WriteLine("your memories a distant echo in the darkness.");
-        Console.WriteLine("As your eyes adjust to the inky blackness, a faint whisper of magic stirs in the air,");
-        Console.WriteLine("beckoning you to explore the enigmatic depths of this wondrous realm");
+        TypeTextWithDelay("In a realm shrouded in mystery, you awaken in a dimly lit chamber");
+        TypeTextWithDelay("your memories a distant echo in the darkness.");
+        TypeTextWithDelay("As your eyes adjust to the inky blackness, a faint whisper of magic stirs in the air,");
+        TypeTextWithDelay("beckoning you to explore the enigmatic depths of this wondrous realm");
 
 
         Console.WriteLine("Press enter to Continue");
         Console.ReadKey();
 
-        Console.WriteLine("As you can not see or hear anything in the darkness, ");
-        Console.WriteLine("you decide to randomly feel your way around the room");
-        Delay();
-        Console.WriteLine("You find a sturdy stick beside 2 small potions, one yellow and one red, and decide to pick them up");
+        TypeTextWithDelay("As you can not see or hear anything in the darkness, ");
+        TypeTextWithDelay("you decide to randomly feel your way around the room");
+        DotDelay();
+        TypeTextWithDelay("You find a sturdy stick beside 2 small potions, one yellow and one red, and decide to pick them up");
         currentPlayer.equipedWeapon = new Weapon("Stick", 10);
         currentPlayer.personalInventory.AddItem(new PowerUp("Red Potion", new HealEffect(30)));
         currentPlayer.personalInventory.AddItem(new PowerUp("Yellow Potion", new StrengthEffect(10)));
 
-        Delay();
+        DotDelay();
         Console.WriteLine("You find a door, what do you want to do?");
         HandleUserDoorAction();
 
@@ -78,19 +75,30 @@
       }
       else
       {
-        Delay();
+        DotDelay();
         Console.WriteLine("Door opened");
         Console.Clear();
       }
     }
 
-    public void Delay()
+    public void TypeTextWithDelay(string text)
+    {
+      foreach (char c in text)
+      {
+        Console.Write(c);
+        Thread.Sleep(40); // Adjust the sleep duration to control the typing speed
+      }
+      Console.WriteLine();
+
+    }
+    public void DotDelay()
     {
       for (int i = 0; i < 3; i++)
       {
         Console.Write(".");
         Thread.Sleep(1000); // Adjust the delay in milliseconds (1000ms = 1 second)
       }
+      Console.WriteLine();
     }
 
     public string GetPlayerName()
@@ -99,7 +107,7 @@
 
       if (name == null || name == "")
       {
-        Console.WriteLine("Try again!");
+        Console.WriteLine("Not valid name! Try again!");
         return GetPlayerName();
       }
       else

@@ -4,7 +4,8 @@
   {
     public int Attack(ICharacter character)
     {
-      int damage = 500;
+      Random random = new Random();
+      int damage = character.equipedWeapon.ItemPower + random.Next(10, 40);
       return damage;
     }
   }

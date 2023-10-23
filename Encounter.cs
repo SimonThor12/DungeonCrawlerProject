@@ -207,10 +207,10 @@
       };
 
       Console.Clear();
-      Console.WriteLine("As you cautiously step through the door, you find yourself in a vast chamber.");
-      Console.WriteLine("The air is thick with tension as you notice shadows dancing across the walls.");
-      Console.WriteLine(generateMonsterDescription(monster));
-      Console.WriteLine($"Prepare for battle, {player.Name}!");
+      TypeTextWithDelay("As you cautiously step through the door, you find yourself in a vast chamber.");
+      TypeTextWithDelay("The air is thick with tension as you notice shadows dancing across the walls.");
+      TypeTextWithDelay(generateMonsterDescription(monster));
+      TypeTextWithDelay($"Prepare for battle, {player.Name}!");
     }
 
     private void PlayerAttack()
@@ -231,5 +231,16 @@
       Console.ReadKey();
 
     }
+    public void TypeTextWithDelay(string text)
+    {
+      foreach (char c in text)
+      {
+        Console.Write(c);
+        Thread.Sleep(30); // Adjust the sleep duration to control the typing speed
+      }
+      Console.WriteLine();
+
+    }
+
   }
 }
