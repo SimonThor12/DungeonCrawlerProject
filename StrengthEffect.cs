@@ -11,6 +11,9 @@
     {
       player.Strength += StrengthAmount;
       Console.WriteLine("You gained some mass!");
+      Console.WriteLine("Press any key to continue...");
+      Console.ReadKey();
+
     }
   }
 

@@ -26,13 +26,13 @@
 
       while (!encounterOver)
       {
+
+        //Slowly lose strength gained from item over time
         if (playerTurn)
         {
-          Console.Clear();
           if (Player.Strength > 1)
           {
             Player.Strength -= 2;
-
 
           }
 
@@ -93,7 +93,7 @@
               break;
 
             default:
-              Console.WriteLine("Invalid choice. Try again next time.");
+              Console.WriteLine("You fumble and flail your arms, to no use. Try again next time.");
               break;
           }
         }
@@ -101,7 +101,7 @@
         {
           MonsterAttack();
         }
-        Console.Clear();
+
         // Check if the encounter is over (e.g., player or monster health reaches zero)
         if (Player.Health <= 0)
         {
@@ -219,6 +219,9 @@
       int damage = Player.Attack();
       Console.WriteLine($"You attack the {Monster.Name} and deal {damage} damage!");
       Monster.Health -= damage;
+      Console.WriteLine("Press any key to continue...");
+      Console.ReadKey();
+
     }
 
     private void MonsterAttack()
@@ -226,6 +229,9 @@
       int damage = Monster.Attack();
       Console.WriteLine($"The {Monster.Name} attacks you and deals {damage} damage!");
       Player.Health -= damage;
+      Console.WriteLine("Press any key to continue...");
+      Console.ReadKey();
+
     }
   }
 }
