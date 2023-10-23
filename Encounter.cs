@@ -2,7 +2,6 @@
 {
   public class Encounter
   {
-
     public MonsterFactory MonsterFactory { get; set; }
     public MonsterCharacter Monster { get; set; }
     public PlayerCharacter Player { get; set; }
@@ -10,7 +9,6 @@
     {
       Player = player;
     }
-
     public void StartEncounter()
     {
       bool encounterOver = false;
@@ -222,7 +220,6 @@
       Monster.Health -= damage;
       Console.WriteLine("Press any key to continue...");
       Console.ReadKey();
-
     }
 
     private void MonsterAttack()

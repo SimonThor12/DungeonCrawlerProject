@@ -27,11 +27,11 @@
         Console.WriteLine("As your eyes adjust to the inky blackness, a faint whisper of magic stirs in the air,");
         Console.WriteLine("beckoning you to explore the enigmatic depths of this wondrous realm");
 
+
         Console.WriteLine("Press enter to Continue");
         Console.ReadKey();
-        Delay();
 
-        Console.WriteLine("As you can not see or hear anything,");
+        Console.WriteLine("As you can not see or hear anything in the darkness, ");
         Console.WriteLine("you decide to randomly feel your way around the room");
         Delay();
         Console.WriteLine("You find a sturdy stick beside 2 small potions, one yellow and one red, and decide to pick them up");
@@ -91,7 +91,6 @@
         Console.Write(".");
         Thread.Sleep(1000); // Adjust the delay in milliseconds (1000ms = 1 second)
       }
-      Console.WriteLine();
     }
 
     public string GetPlayerName()
