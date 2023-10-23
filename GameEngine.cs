@@ -86,7 +86,7 @@
       foreach (char c in text)
       {
         Console.Write(c);
-        Thread.Sleep(40); // Adjust the sleep duration to control the typing speed
+        Thread.Sleep(30); // Adjust the sleep duration to control the typing speed
       }
       Console.WriteLine();
 
