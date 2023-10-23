@@ -16,5 +16,10 @@
       Effect.UsePowerUp(player);
     }
 
+    public IItem GetPowerUpItem(PlayerCharacter player)
+    {
+      return this;
+    }
+
   }
 }

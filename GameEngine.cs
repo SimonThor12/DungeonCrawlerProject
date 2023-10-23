@@ -27,6 +27,7 @@
 
         Console.WriteLine("Press enter to Continue");
         Console.ReadKey();
+        Console.Clear();
 
         TypeTextWithDelay("As you can not see or hear anything in the darkness, ");
         TypeTextWithDelay("you decide to randomly feel your way around the room");

@@ -34,7 +34,7 @@
 
           }
           Console.Clear();
-          Console.WriteLine("It's your turn. What will you do?");
+          Console.WriteLine("It's your turn. What will you do? (1-3)");
           Console.WriteLine(Player.Name + " HP: " + Player.Health + " | " + Monster.Name + " HP: " + Monster.Health);
           Console.WriteLine("******************");
           Console.WriteLine("|> 1. Attack    <|");
@@ -92,6 +92,7 @@
 
             default:
               Console.WriteLine("You fumble and flail your arms, to no use. Try again next time.");
+              Console.ReadKey();
               break;
           }
         }
@@ -119,8 +120,51 @@
           Console.WriteLine($"You have defeated the {Monster.Name}!");
           Player.CompletedRooms++;
           //ska randomisa vapen man får, ej hårdkoda
-          Player.equipedWeapon = new Weapon("Sword", 100);
-          //Här kommer inventory in vid lootning
+
+          List<PowerUp> powerups = new List<PowerUp> {
+            new PowerUp("Health Potion", new HealEffect(30)),
+            new PowerUp("Strength Potion", new StrengthEffect(20)),
+          };
+          List<Weapon> weapons = new List<Weapon>
+        {
+            new Weapon("Dragonfang Blade", 100),
+            new Weapon("Shadowstrike Dagger", 90),
+            new Weapon("Mjölnir's Hammer", 120),
+            new Weapon("Elven Longsword", 80),
+            new Weapon("Obsidian Waraxe", 110),
+            new Weapon("Serpent's Fang", 95),
+            new Weapon("Holy Avenger", 130),
+            new Weapon("Runeblade of Frost", 105),
+            new Weapon("Thunderstrike Maul", 125),
+            new Weapon("Orcish Cleaver", 85)
+        };
+
+          ItemFactory<Weapon> weaponFactory = new ItemFactory<Weapon>(weapons);
+          ItemFactory<PowerUp> powerUpFactory = new ItemFactory<PowerUp>(powerups);
+
+          var loot1 = powerUpFactory.Pick();
+          var loot2 = powerUpFactory.Pick();
+          var weapLoot = weaponFactory.Pick();
+
+          Player.personalInventory.AddItem(loot1);
+          TypeTextWithDelay("You have gained a " + loot1.Name + "!");
+          Console.ReadKey();
+
+          Player.personalInventory.AddItem(loot2);
+          TypeTextWithDelay("You have gained a " + loot2.Name + "!");
+          Console.ReadKey();
+
+          if (Player.equipedWeapon.ItemPower < weapLoot.ItemPower)
+          {
+            Player.equipedWeapon = weaponFactory.Pick();
+            TypeTextWithDelay("You found a " + weapLoot.Name + " and equipped it!");
+            Console.ReadKey();
+          }
+          else
+          {
+            TypeTextWithDelay("You found a " + weapLoot.Name + " but it was not as strong as your current weapon, so you left it behind.");
+          }
+
           encounterOver = true;
           Console.WriteLine("Encounter has ended, and your health was restored. Press any key to continue...");    //tester om detta slutar encountern
           Console.ReadKey();
