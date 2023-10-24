@@ -2,11 +2,15 @@
 {
   public class GameEngine
   {
+    public event Action<char> CharacterTyped;
+
     //make a player
     public PlayerCharacter currentPlayer { get; set; }
     //make a list of items
     public void StartGame()
     {
+
+
       Console.WriteLine("Create a new game? (y/n)");
       string input = Console.ReadLine().ToLower();
       if (input == "y")
@@ -154,13 +158,18 @@
 
     public void TypeTextWithDelay(string text)
     {
+      string wavFilePath = @"C:\Users\simon\source\repos\OOP2\DungeonCrawlerProject\archivo (3).wav";
+      SoundManager soundManager = new SoundManager(wavFilePath);
+
+      soundManager.PlaySound();
+
       foreach (char c in text)
       {
         Console.Write(c);
-        Thread.Sleep(30); // Adjust the sleep duration to control the typing speed
+        Thread.Sleep(20); // Adjust the delay in milliseconds (1000ms = 1 second)
       }
+      soundManager.StopSound();
       Console.WriteLine();
-
     }
     public void DotDelay()
     {
