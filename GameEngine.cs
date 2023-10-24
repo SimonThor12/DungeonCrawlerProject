@@ -2,7 +2,6 @@
 {
   public class GameEngine
   {
-    public event Action<char> CharacterTyped;
 
     //make a player
     public PlayerCharacter currentPlayer { get; set; }
@@ -86,6 +85,8 @@
     }
     private void HandleUserDoorAction()
     {
+      Console.ReadKey();//remove
+      Console.Clear();
       Console.WriteLine("What do you want to do?");
       string action = Console.ReadLine();
       if (action.ToLower().Trim() != "open" && action.ToLower().Trim() != "open door" && action.ToLower().Trim() != "hit" && action.ToLower().Trim() != "use inventory" && action.ToLower().Trim() != "use potion" && action.ToLower().Trim() != "open inventory")

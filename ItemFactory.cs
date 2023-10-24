@@ -7,13 +7,13 @@
     {
       this.source = source;
     }
-    public List<T> PickRandom(int count, List<T> source)
+    public List<T> PickRandom(int count)
     {
       List<T> result = new List<T>();
 
       for (int i = 0; i < count; i++)
       {
-        Pick();
+        result.Add(Pick());
       }
       return result;
     }
