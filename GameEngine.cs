@@ -41,24 +41,33 @@
 
         Encounter encounter = new Encounter(currentPlayer);
 
-        while (currentPlayer.Health > 0)
+        while (encounter.Player.Health > 0)
         {
           encounter.StartEncounter();
 
           // Generate immersive kill descriptions
           string[] roomDescriptions = {
-        "As you triumph over the monstrous foe, the acrid smell of burnt scales fills the chamber, and you catch your breath.",
-        "In the aftermath of the intense battle, you notice the once flickering torches now casting steady light upon the room's battle-scarred walls.",
-        "After a fierce struggle, the room falls silent. You can hear the faint echo of your footsteps amidst the victorious silence.",
-        "With a final swing, the formidable beast lies defeated. Its bloodied scales and fiery breath are no more.",
-        "As the dust settles, you take in the sight of the vanquished enemy. The room's treasures and secrets await your exploration."
+        "As you triumph over the monstrous foe, the acrid smell of burnt scales fills the chamber, and you catch your breath. Another door appears!",
+        "In the aftermath of the intense battle, you notice the once flickering torches now casting steady light upon the room's battle-scarred walls. Another door appears!",
+        "After a fierce struggle, the room falls silent. You can hear the faint echo of your footsteps amidst the victorious silence. Another door appears!",
+        "With a final swing, the formidable beast lies defeated. Its bloodied scales and fiery breath are no more. Another door appears!",
+        "As the dust settles, you take in the sight of the vanquished enemy. The room's treasures and secrets await your exploration. Another door appears!"
         };
 
           Console.WriteLine();
 
+          //take player health and add it to the local gamengine player health
           // Continue the adventure
-          Console.WriteLine("After the room has been looted, you find yourself in front of another door, eager to uncover the mysteries that lie beyond.");
-          HandleUserDoorAction();
+          if (encounter.Player.Health > 0)
+          {
+            Console.WriteLine(roomDescriptions[new Random().Next(0, roomDescriptions.Length)]);
+            Console.WriteLine("Press enter to continue...");
+            HandleUserDoorAction();
+            Console.ReadKey();
+            Console.Clear();
+          }
+
+
         }
       }
       else if (input == "n")
