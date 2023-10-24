@@ -10,12 +10,12 @@
 
     public Inventory<IItem> personalInventory = new Inventory<IItem>();
     public IWeapon equipedWeapon { get; set; }
-
-    public int Strength = 1;
+    public int Strength { get; set; }
     public PlayerCharacter(int health, ICharacterAttackBehaviour attackBehaviour)
     {
       Health = health;
       AttackBehaviour = attackBehaviour;
+      Strength = 1;
     }
     //method that takes the attackbehaviour and the weapon and uses the attackbehaviour to attack with the weapon
     public int Attack()

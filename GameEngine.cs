@@ -23,10 +23,9 @@
         TypeTextWithDelay("your memories a distant echo in the darkness.");
         TypeTextWithDelay("As your eyes adjust to the inky blackness, a faint whisper of magic stirs in the air,");
         TypeTextWithDelay("beckoning you to explore the enigmatic depths of this wondrous realm");
-
-
         Console.WriteLine("Press enter to Continue");
         Console.ReadKey();
+        Console.Clear();
 
         TypeTextWithDelay("As you can not see or hear anything in the darkness, ");
         TypeTextWithDelay("you decide to randomly feel your way around the room");
@@ -37,7 +36,7 @@
         currentPlayer.personalInventory.AddItem(new PowerUp("Yellow Potion", new StrengthEffect(10)));
 
         DotDelay();
-        Console.WriteLine("You find a door, what do you want to do?");
+        Console.WriteLine("You find a door on one of the walls");
         HandleUserDoorAction();
 
         Encounter encounter = new Encounter(currentPlayer);
@@ -45,7 +44,20 @@
         while (currentPlayer.Health > 0)
         {
           encounter.StartEncounter();
-          Console.WriteLine("After the room has been looted you find yourself staring at another door");  //random lore 
+
+          // Generate immersive kill descriptions
+          string[] roomDescriptions = {
+        "As you triumph over the monstrous foe, the acrid smell of burnt scales fills the chamber, and you catch your breath.",
+        "In the aftermath of the intense battle, you notice the once flickering torches now casting steady light upon the room's battle-scarred walls.",
+        "After a fierce struggle, the room falls silent. You can hear the faint echo of your footsteps amidst the victorious silence.",
+        "With a final swing, the formidable beast lies defeated. Its bloodied scales and fiery breath are no more.",
+        "As the dust settles, you take in the sight of the vanquished enemy. The room's treasures and secrets await your exploration."
+        };
+
+          Console.WriteLine();
+
+          // Continue the adventure
+          Console.WriteLine("After the room has been looted, you find yourself in front of another door, eager to uncover the mysteries that lie beyond.");
           HandleUserDoorAction();
         }
       }
@@ -61,6 +73,7 @@
     }
     private void HandleUserDoorAction()
     {
+      Console.WriteLine("What do you want to do?");
       string action = Console.ReadLine();
       if (action.ToLower().Trim() != "open" && action.ToLower().Trim() != "open door" && action.ToLower().Trim() != "hit")
       {

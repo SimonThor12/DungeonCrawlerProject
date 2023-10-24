@@ -54,7 +54,13 @@ namespace DungeonCrawlerProject
 
     public IItem GetItem(int v)
     {
-      return Items[v];
+      if (v >= Items.Count)
+      {
+        v = Items.Count - 1;
+        return GetItem(v);
+      }
+      else
+        return Items[v];
     }
   }
 }
