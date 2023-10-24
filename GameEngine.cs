@@ -41,6 +41,7 @@
 
         DotDelay();
         Console.WriteLine("You find a door on one of the walls");
+        Console.WriteLine("");
         HandleUserDoorAction();
 
         Encounter encounter = new Encounter(currentPlayer);
@@ -64,7 +65,7 @@
           // Continue the adventure
           if (encounter.Player.Health > 0)
           {
-            Console.WriteLine(roomDescriptions[new Random().Next(0, roomDescriptions.Length)]);
+            TypeTextWithDelay(roomDescriptions[new Random().Next(0, roomDescriptions.Length)]);
             Console.WriteLine("Press enter to continue...");
             HandleUserDoorAction();
             Console.ReadKey();

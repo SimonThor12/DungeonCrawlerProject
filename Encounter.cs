@@ -199,8 +199,8 @@
           }
 
           encounterOver = true;
-          Console.WriteLine("Encounter has ended, and your health was restored. Press any key to continue...");    //tester om detta slutar encountern
-          Console.ReadKey();
+         // Console.WriteLine("Encounter has ended, and your health was restored. Press any key to continue...");    //tester om detta slutar encountern
+         // Console.ReadKey();
           return;
         }
         playerTurn = !playerTurn; // Switch turns between player and monster
@@ -288,17 +288,19 @@
       int damage = Player.Attack();
       Console.WriteLine($"You attack the {Monster.Name} with {Player.equipedWeapon.Name} and deal {damage} damage!");
       Monster.Health -= damage;
-      Console.WriteLine("Press any key to continue...");
-      Console.ReadKey();
-    }
+            // Console.WriteLine("Press any key to continue..."); 
+            // Console.ReadKey();
+      DotDelayShort();
+      }
 
     private void MonsterAttack()
     {
       int damage = Monster.Attack();
       Console.WriteLine($"The {Monster.Name} attacks you and deals {damage} damage!");
       Player.Health -= damage;
-      Console.WriteLine("Press any key to continue...");
-      Console.ReadKey();
+            //Console.WriteLine("Press any key to continue...");
+            //Console.ReadKey();
+            DotDelay();
     }
     public void TypeTextWithDelay(string text)
     {
@@ -310,6 +312,24 @@
       Console.WriteLine();
 
     }
+        public void DotDelay()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write(".");
+                Thread.Sleep(1000); // Adjust the delay in milliseconds (1000ms = 1 second)
+            }
+            Console.WriteLine();
+        }
+        public void DotDelayShort()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write(".");
+                Thread.Sleep(200); // Adjust the delay in milliseconds (1000ms = 1 second)
+            }
+            Console.WriteLine();
+        }
 
-  }
+    }
 }
