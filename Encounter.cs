@@ -30,9 +30,9 @@
         {
           if (Player.Strength > 1)
           {
-            Player.Strength -= 2;
+           Player.Strength = (int)(Player.Strength * 0.90);
 
-          }
+           }
           Console.Clear();
           Console.WriteLine("It's your turn. What will you do? (1-3)");
           Console.WriteLine(Player.Name + " HP: " + Player.Health + " | " + Monster.Name + " HP: " + Monster.Health);

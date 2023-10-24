@@ -84,18 +84,67 @@
     {
       Console.WriteLine("What do you want to do?");
       string action = Console.ReadLine();
-      if (action.ToLower().Trim() != "open" && action.ToLower().Trim() != "open door" && action.ToLower().Trim() != "hit")
+      if (action.ToLower().Trim() != "open" && action.ToLower().Trim() != "open door" && action.ToLower().Trim() != "hit" && action.ToLower().Trim() != "use inventory" && action.ToLower().Trim() != "use potion" && action.ToLower().Trim() != "open inventory")
       {
         Console.WriteLine("Try something else");
         HandleUserDoorAction();
       }
-      else if (action.ToLower().Trim() == "hit")
+            else if (action.ToLower().Trim() == "use inventory" || action.ToLower().Trim() == "use potion" || action.ToLower().Trim() == "open inventory")
+            {
+                Console.WriteLine("You open your inventory");
+                if (currentPlayer.personalInventory.Items.Count == 0)
+                {
+                    Console.WriteLine("Your inventory is empty.");
+                    HandleUserDoorAction(); 
+                    return;
+                }
+
+                int invNum = 1;
+                foreach (var item in currentPlayer.personalInventory.Items)
+                {
+                    Console.WriteLine($"{invNum}: {item.Name}");
+                    invNum++;
+                }
+
+                Console.WriteLine("What do you want to use? Or press 'B' to go back.");
+
+                string choice = Console.ReadLine().ToLower().Trim();
+
+                if (choice == "b")
+                {
+                    Console.WriteLine("You leave your inventory and go back to the door");
+                    HandleUserDoorAction(); 
+                    return;
+                }
+
+                if (int.TryParse(choice, out int itemNumber) && itemNumber >= 1 && itemNumber <= currentPlayer.personalInventory.Items.Count)
+                {
+                    var selectedItem = currentPlayer.personalInventory.GetItem(itemNumber - 1);
+                    if (selectedItem != null)
+                    {
+                        selectedItem.UseItem(currentPlayer);
+                        currentPlayer.personalInventory.RemoveItem(selectedItem);
+                    }
+                    else
+                    {
+                        Console.WriteLine("The selected item cannot be used.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice.");
+                }
+                Console.WriteLine("You leave the inventory and go back to the door.");
+                HandleUserDoorAction(); 
+            }
+            else if (action.ToLower().Trim() == "hit")
       {
         Console.WriteLine($"You hit with {currentPlayer.equipedWeapon.Name} in the door opening");
         Console.WriteLine("Nothing happens");
         HandleUserDoorAction();
       }
-      else
+           
+            else
       {
         DotDelay();
         Console.WriteLine("Door opened");
