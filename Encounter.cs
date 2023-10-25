@@ -29,8 +29,18 @@
         {
           if (Player.Strength > 1)
           {
-            Player.Strength = (int)(Player.Strength * 0.90);
-
+                        if (Player.Strength > 100 )
+                        {
+                            Player.Strength = (int)(Player.Strength * 0.60);
+                        }
+                        else if (Player.Strength > 50)
+                        {
+                            Player.Strength = (int)(Player.Strength * 0.75);
+                        }
+                        else
+                        {
+                            Player.Strength = (int)(Player.Strength * 0.90);
+                        }
           }
           Console.Clear();
           Console.WriteLine("It's your turn. What will you do? (1-3)");
@@ -130,10 +140,10 @@
         // Check if the encounter is over (e.g., player or monster health reaches zero)
         if (Player.Health <= 0)
         {
-          Console.WriteLine("You have been defeated!");
-          Console.WriteLine("GAME OVER");
-          //Try again?
-          Console.WriteLine("Press any key to continue...");
+          TypeTextWithDelay("You have been defeated!");
+          TypeTextWithDelay("GAME OVER");
+                    //Try again?
+          TypeTextWithDelay("Press any key to continue...");
           Console.ReadKey();
           Console.Clear();
 
@@ -141,7 +151,7 @@
         }
         else if (Monster.Health <= 0)
         {
-          Console.WriteLine($"You have defeated the {Monster.Name}!");
+        TypeTextWithDelay($"You have defeated the {Monster.Name}!");
           //ska randomisa vapen man får, ej hårdkoda
 
           List<PowerUp> powerups = new List<PowerUp> {
@@ -344,17 +354,27 @@
       //Console.ReadKey();
       DotDelay();
     }
-    public void TypeTextWithDelay(string text)
-    {
-      foreach (char c in text)
-      {
-        Console.Write(c);
-        Thread.Sleep(30); // Adjust the sleep duration to control the typing speed
-      }
-      Console.WriteLine();
+        public void TypeTextWithDelay(string text)
+        {
+            string wavFilePath = "archivo (3).wav";
+            SoundManager soundManager = new SoundManager(wavFilePath);
 
-    }
-    public void DotDelay()
+            soundManager.PlaySound();
+
+            foreach (char c in text)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept: true);
+                }
+                Console.Write(c);
+                Thread.Sleep(20); // Adjust the delay in milliseconds (1000ms = 1 second)
+
+            }
+            soundManager.StopSound();
+            Console.WriteLine();
+        }
+        public void DotDelay()
     {
       for (int i = 0; i < 3; i++)
       {
