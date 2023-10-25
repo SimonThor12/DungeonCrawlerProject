@@ -30,9 +30,9 @@
         {
           if (Player.Strength > 1)
           {
-           Player.Strength = (int)(Player.Strength * 0.90);
+            Player.Strength = (int)(Player.Strength * 0.90);
 
-           }
+          }
           Console.Clear();
           Console.WriteLine("It's your turn. What will you do? (1-3)");
           Console.WriteLine(Player.Name + " HP: " + Player.Health + " | " + Monster.Name + " HP: " + Monster.Health);
@@ -143,7 +143,6 @@
         else if (Monster.Health <= 0)
         {
           Console.WriteLine($"You have defeated the {Monster.Name}!");
-          Player.CompletedRooms++;
           //ska randomisa vapen man får, ej hårdkoda
 
           List<PowerUp> powerups = new List<PowerUp> {
@@ -158,25 +157,43 @@
             new PowerUp("Water bottle", new HealEffect(10)),
           };
           List<Weapon> weapons = new List<Weapon>
-        {
-            new Weapon("Dragonfang Blade", 40),
-            new Weapon("Shadowstrike Dagger", 90),
-            new Weapon("Mjölnir's Hammer", 50),
-            new Weapon("Elven Longsword", 80),
-            new Weapon("Obsidian Waraxe", 60),
-            new Weapon("Serpent's Fang", 95),
-            new Weapon("Holy Avenger", 100),
-            new Weapon("Runeblade of Frost", 80),
-            new Weapon("Thunderstrike Maul", 75),
-            new Weapon("Orcish Cleaver", 85)
-        };
+{
+    new Weapon("Iron Dagger", 20),
+    new Weapon("Rusty Shortsword", 25),
+    new Weapon("Steel Sword", 30),
+    new Weapon("Silver Sabre", 35),
+    new Weapon("Gold-Plated Rapier", 40),
+    new Weapon("Dragonfang Blade", 45),
 
-          ItemFactory<Weapon> weaponFactory = new ItemFactory<Weapon>(weapons);
+    new Weapon("Wooden Staff", 55),
+    new Weapon("Enchanted Wand", 60),
+    new Weapon("Shadowstrike Dagger", 65),
+    new Weapon("Mystic Spear", 70),
+    new Weapon("Elven Longsword", 75),
+    new Weapon("Mjölnir's Hammer", 80),
+
+    new Weapon("Firebrand Axe", 110),
+    new Weapon("Ice-Infused Greatsword", 120),
+    new Weapon("Thunderstrike Warhammer", 130),
+    new Weapon("Sorcerer's Staff", 140),
+    new Weapon("Venomous Dagger", 150),
+    new Weapon("Darkblade Scythe", 160),
+
+    new Weapon("Celestial Bow", 180),
+    new Weapon("Ancient Runeblade", 190),
+    new Weapon("Doomsday Halberd", 200),
+    new Weapon("Divine Excalibur", 220),
+    new Weapon("Eternal Staff", 230),
+    new Weapon("Dragonlord's Wrath", 250)
+};
+
           ItemFactory<PowerUp> powerUpFactory = new ItemFactory<PowerUp>(powerups);
+          ItemFactory<Weapon> weaponFactory = new ItemFactory<Weapon>(weapons);
+
 
           var loot1 = powerUpFactory.Pick();
           var loot2 = powerUpFactory.Pick();
-          var weapLoot = weaponFactory.Pick();
+          Random random = new Random();
 
           Player.personalInventory.AddItem(loot1);
           TypeTextWithDelay("You have gained a " + loot1.Name + "!");
@@ -186,21 +203,50 @@
           TypeTextWithDelay("You have gained a " + loot2.Name + "!");
           Console.ReadKey();
 
-          if (Player.equipedWeapon.ItemPower < weapLoot.ItemPower)
+          //drop a weapon corresponding to the room you are in
+          if (Player.CompletedRooms >= 10 && random.Next(1, 11) != 1)
           {
-            Player.equipedWeapon = weapLoot;
-            TypeTextWithDelay("You found a " + weapLoot.Name + " and equipped it!");
-            Console.ReadKey();
+            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 180).ToList();
+
+            //Make player choose what weapon they want to equip
+            PrintDroppedWeapons(tempList);
+            EquipAsk(tempList);
+
+          }
+          else if (Player.CompletedRooms >= 7 && random.Next(1, 11) != 1)
+          {
+            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 55).ToList();
+
+            PrintDroppedWeapons(tempList);
+
+            EquipAsk(tempList);
+          }
+          else if (Player.CompletedRooms >= 3 && random.Next(1, 11) != 1)
+          {
+            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 45 && w.ItemPower < 100).ToList();
+            PrintDroppedWeapons(tempList);
+            EquipAsk(tempList);
+          }
+          else if (Player.CompletedRooms < 3 && random.Next(1, 11) != 1)
+          {
+
+            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 10 && w.ItemPower < 100).ToList();
+            PrintDroppedWeapons(tempList);
+            EquipAsk(tempList);
           }
           else
           {
-            TypeTextWithDelay("You found a " + weapLoot.Name + " but it was not as strong as your current weapon, so you leave it behind.");
-            Console.ReadKey();
+            Console.WriteLine("The monster did not drop any weapons, but you got some potions a least...");
           }
-
           encounterOver = true;
-         // Console.WriteLine("Encounter has ended, and your health was restored. Press any key to continue...");    //tester om detta slutar encountern
-         // Console.ReadKey();
+
+        
+
+          Player.CompletedRooms++;
+          Console.WriteLine("Encounter has ended. Press any key to continue...");    //tester om detta slutar encountern
+          Console.ReadKey();
+          Console.Clear();
+
           return;
         }
         playerTurn = !playerTurn; // Switch turns between player and monster
@@ -331,5 +377,57 @@
             Console.WriteLine();
         }
 
+    public void EquipAsk(IEnumerable<Weapon> tempList)
+    {
+      TypeTextWithDelay("Do you want to equip? (input corresponding number, 0 for none of them)\n");
+      string input = Console.ReadLine();
+      switch (input)
+      {
+        case "1":
+          Player.equipedWeapon = tempList.ElementAt(0);
+          Console.WriteLine("Good Choice!");
+          break;
+        case "2":
+          Player.equipedWeapon = tempList.ElementAt(1);
+          Console.WriteLine("Good Choice!");
+          break;
+        case "3":
+          Player.equipedWeapon = tempList.ElementAt(2);
+          Console.WriteLine("Good Choice!");
+          break;
+        case "0":
+          Console.WriteLine("You leave the pile.");
+          break;
+        default:
+          Console.WriteLine("You can not do that, try again!");
+          Console.ReadKey();
+          EquipAsk(tempList);
+          break;
+      }
+      Console.ReadKey();
     }
+
+    public void PrintDroppedWeapons(IEnumerable<Weapon> tempList)
+    {
+      int i = 1;
+
+      //Make player choose what weapon they want to equip
+      if (tempList.Count() == 0)
+      {
+        Console.WriteLine("The monster did not drop any weapons, but you got some potions a least...");
+      }
+      else
+      {
+        TypeTextWithDelay($"The monster dropped this as well:\n ");
+        foreach (var weapLoot in tempList)
+        {
+          TypeTextWithDelay(i + ": " + weapLoot.Name + " with " + weapLoot.ItemPower + " power\n");
+          i++;
+        }
+      }
+
+    }
+
+  }
+
 }

@@ -11,7 +11,6 @@ using DungeonCrawlerProject;
 //Instantiate a new achievement observer
 
 GameEngine gameEngine = new GameEngine();
-gameEngine.CharacterTyped += c => Console.Beep(1000, 100);
 gameEngine.StartGame();
 
 
