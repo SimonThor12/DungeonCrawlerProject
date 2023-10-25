@@ -64,8 +64,6 @@
         "The room's treasures and secrets await your exploration. Another door appears!"
         };
 
-          Console.WriteLine();
-
           //take player health and add it to the local gamengine player health
           // Continue the adventure
           if (encounter.Player.Health > 0)
@@ -78,7 +76,6 @@
             HandleUserDoorAction();
             Console.Clear();
           }
-
 
         }
       }

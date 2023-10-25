@@ -233,10 +233,7 @@
             PrintDroppedWeapons(tempList);
             EquipAsk(tempList);
           }
-          else
-          {
-            Console.WriteLine("The monster did not drop any weapons, but you got some potions a least...");
-          }
+
           encounterOver = true;
 
 
