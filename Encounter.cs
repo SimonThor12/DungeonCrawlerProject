@@ -155,14 +155,14 @@
           //ska randomisa vapen man får, ej hårdkoda
 
           List<PowerUp> powerups = new List<PowerUp> {
-            new PowerUp("Health Potion", new HealEffect(50)),
-            new PowerUp("Strong Health Potion", new HealEffect(100)),
-            new PowerUp("Divine Health Potion", new HealEffect(200)),
+            new PowerUp("Health Potion", new HealEffect(30)),
+            new PowerUp("Strong Health Potion", new HealEffect(50)),
+            new PowerUp("Divine Health Potion", new HealEffect(100)),
             new PowerUp("Strength Potion", new StrengthEffect(20)),
-            new PowerUp("Strong Strength Potion", new StrengthEffect(40)),
-            new PowerUp("Divine Strength Potion", new StrengthEffect(80)),
-            new PowerUp("Devious Health Potion", new HealEffect(0)),
-            new PowerUp("Devious Strength Potion", new StrengthEffect(0)),
+            new PowerUp("Strong Strength Potion", new StrengthEffect(30)),
+            new PowerUp("Divine Strength Potion", new StrengthEffect(50)),
+            new PowerUp("Devious Health Potion", new HealEffect(5)),
+            new PowerUp("Devious Strength Potion", new StrengthEffect(5)),
             new PowerUp("Water bottle", new HealEffect(10)),
           };
           List<Weapon> weapons = new List<Weapon>
