@@ -181,6 +181,10 @@
     {
       for (int i = 0; i < 3; i++)
       {
+        if (Console.KeyAvailable)
+        {
+          ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept: true);
+        }
         Console.Write(".");
         Thread.Sleep(1000); // Adjust the delay in milliseconds (1000ms = 1 second)
       }
