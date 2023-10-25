@@ -382,32 +382,42 @@
 
     public void EquipAsk(IEnumerable<Weapon> tempList)
     {
-      TypeTextWithDelay("Do you want to equip? (input corresponding number, 0 for none of them)\n");
-      string input = Console.ReadLine();
-      switch (input)
+      if (tempList.Count() == 0)
       {
-        case "1":
-          Player.equipedWeapon = tempList.ElementAt(0);
-          Console.WriteLine("Good Choice!");
-          break;
-        case "2":
-          Player.equipedWeapon = tempList.ElementAt(1);
-          Console.WriteLine("Good Choice!");
-          break;
-        case "3":
-          Player.equipedWeapon = tempList.ElementAt(2);
-          Console.WriteLine("Good Choice!");
-          break;
-        case "0":
-          Console.WriteLine("You leave the pile.");
-          break;
-        default:
-          Console.WriteLine("You can not do that, try again!");
-          Console.ReadKey();
-          EquipAsk(tempList);
-          break;
+        Console.WriteLine("The monster did not drop any weapons, but you got some potions a least...");
+        Console.ReadKey();
+        return;
       }
-      Console.ReadKey();
+      else
+      {
+        TypeTextWithDelay("Do you want to equip? (input corresponding number, 0 for none of them)\n");
+        string input = Console.ReadLine();
+        switch (input)
+        {
+          case "1":
+            Player.equipedWeapon = tempList.ElementAt(0);
+            Console.WriteLine("Good Choice!");
+            break;
+          case "2":
+            Player.equipedWeapon = tempList.ElementAt(1);
+            Console.WriteLine("Good Choice!");
+            break;
+          case "3":
+            Player.equipedWeapon = tempList.ElementAt(2);
+            Console.WriteLine("Good Choice!");
+            break;
+          case "0":
+            Console.WriteLine("You leave the pile.");
+            break;
+          default:
+            Console.WriteLine("You can not do that, try again!");
+            Console.ReadKey();
+            EquipAsk(tempList);
+            break;
+        }
+        Console.ReadKey();
+      }
+
     }
 
     public void PrintDroppedWeapons(IEnumerable<Weapon> tempList)

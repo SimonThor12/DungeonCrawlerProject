@@ -40,7 +40,7 @@
 
         DotDelay();
         Console.WriteLine("You find a door on one of the walls");
-        Console.WriteLine("");
+        DotDelay();
         HandleUserDoorAction();
 
         Encounter encounter = new Encounter(currentPlayer);
@@ -51,11 +51,17 @@
 
           // Generate immersive kill descriptions
           string[] roomDescriptions = {
-        "As you triumph over the monstrous foe, the acrid smell of burnt scales fills the chamber, and you catch your breath. Another door appears!",
-        "In the aftermath of the intense battle, you notice the once flickering torches now casting steady light upon the room's battle-scarred walls. Another door appears!",
-        "After a fierce struggle, the room falls silent. You can hear the faint echo of your footsteps amidst the victorious silence. Another door appears!",
-        "With a final swing, the formidable beast lies defeated. Its bloodied scales and fiery breath are no more. Another door appears!",
-        "As the dust settles, you take in the sight of the vanquished enemy. The room's treasures and secrets await your exploration. Another door appears!"
+        "As you triumph over the monstrous foe, the acrid smell of burnt scales fills the chamber,\n" +
+        "and you catch your breath. Another door appears!",
+        "In the aftermath of the intense battle,\n" +
+        "you notice the once flickering torches now casting steady light upon the room's battle-scarred walls.\n" +
+        "Another door appears!",
+        "After a fierce struggle, the room falls silent.\n" +
+        "You can hear the faint echo of your footsteps\namidst the victorious silence. Another door appears!",
+        "With a final swing, the formidable beast lies defeated.\n" +
+        "Its bloodied scales and fiery breath are no more. Another door appears!",
+        "As the dust settles, you take in the sight of the vanquished enemy.\n" +
+        "The room's treasures and secrets await your exploration. Another door appears!"
         };
 
           Console.WriteLine();
@@ -65,9 +71,11 @@
           if (encounter.Player.Health > 0)
           {
             TypeTextWithDelay(roomDescriptions[new Random().Next(0, roomDescriptions.Length)]);
-            Console.WriteLine("Press enter to continue...");
-            HandleUserDoorAction();
+            Console.WriteLine("Press Enter to continue");
+
             Console.ReadKey();
+
+            HandleUserDoorAction();
             Console.Clear();
           }
 
