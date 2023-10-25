@@ -2,6 +2,12 @@
 
 namespace DungeonCrawlerProject
 {
+  //Inventory klassen implementerar IEnumerable för att kunna använda foreach loopar
+  //och behandla samlingen av items som en lista. Detta är en bra idé eftersom vi
+  //ville att Inventory skulle vara en samling av items. Detta är ett exempel på att 
+  //använda IEnumerable och därav också Iterator pattern. 
+  //När vi använder IEnumerable kan vi också nyttja yield return för att returnera
+  //Items från listan på ett "lazy" vis. Det gör att de returneras en och en, eller "on the fly".
   public class Inventory<IItem> : IEnumerable<IItem>
   {
     public int MaxInventorySize = 9;
