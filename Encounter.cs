@@ -189,7 +189,6 @@
           ItemFactory<PowerUp> powerUpFactory = new ItemFactory<PowerUp>(powerups);
           ItemFactory<Weapon> weaponFactory = new ItemFactory<Weapon>(weapons);
 
-
           var loot1 = powerUpFactory.Pick();
           var loot2 = powerUpFactory.Pick();
           Random random = new Random();
@@ -202,12 +201,15 @@
           TypeTextWithDelay("You have gained a " + loot2.Name + "!");
           Console.ReadKey();
 
-          //drop a weapon corresponding to the room you are in
+          //Här används LINQ för att filtrera ut vapen som är av rätt typ. Vi använder
+          //Where() för att filtrera ut vapen som har en viss ItemPower, från en lista av vapen.
+          //Vi använder också ToList() för att konvertera resultatet till en lista.
+          //Detta gör koden mer läsbar och förenklar den.
           if (Player.CompletedRooms >= 10 && random.Next(1, 11) != 1)
           {
             IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 180).ToList();
 
-            //Make player choose what weapon they want to equip
+            //spelare väljer vilket vapen de vill ha
             PrintDroppedWeapons(tempList);
             EquipAsk(tempList);
 
@@ -285,7 +287,8 @@
     private void PlayEncounterText(PlayerCharacter player, MonsterCharacter monster)
     {
 
-      // Define a Dictionary to store descriptions for each monster
+      // Vi definierar en Dictionary som är en samling av key-value pairs. Dictionary Implementerar ICollection<T>
+      //och kan därför använda metoder och egenskaper som återfinns i ICollection<T> (t.ex. Count). 
       var monsterDescriptions = new Dictionary<string, string>
       {
           { "Gremlin", "A small and mischievous creature lurks in the shadows." },
