@@ -86,7 +86,6 @@
     }
     private void HandleUserDoorAction()
     {
-      Console.ReadKey();//remove
       Console.Clear();
       Console.WriteLine("What do you want to do?");
       string action = Console.ReadLine();
@@ -167,8 +166,13 @@
 
       foreach (char c in text)
       {
+        if (Console.KeyAvailable)
+        {
+          ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept: true);
+        }
         Console.Write(c);
         Thread.Sleep(20); // Adjust the delay in milliseconds (1000ms = 1 second)
+
       }
       soundManager.StopSound();
       Console.WriteLine();
