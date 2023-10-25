@@ -39,7 +39,7 @@
         currentPlayer.personalInventory.AddItem(new PowerUp("Yellow Potion", new StrengthEffect(10)));
 
         DotDelay();
-        Console.WriteLine("You find a door on one of the walls");
+        TypeTextWithDelay("You find a door on one of the walls");
         DotDelay();
         HandleUserDoorAction();
 
@@ -97,12 +97,13 @@
       string action = Console.ReadLine();
       if (action.ToLower().Trim() != "open" && action.ToLower().Trim() != "open door" && action.ToLower().Trim() != "hit" && action.ToLower().Trim() != "use inventory" && action.ToLower().Trim() != "use potion" && action.ToLower().Trim() != "open inventory")
       {
-        Console.WriteLine("Try something else");
+        TypeTextWithDelay("Try something else");
+        DotDelay();
         HandleUserDoorAction();
       }
        else if (action.ToLower().Trim() == "use inventory" || action.ToLower().Trim() == "use potion" || action.ToLower().Trim() == "open inventory")
             {
-                Console.WriteLine("You open your inventory");
+                TypeTextWithDelay("You open your inventory");
                 UseInventory();
                 HandleUserDoorAction();
             }
@@ -176,7 +177,7 @@
             if (currentPlayer.personalInventory.Items.Count == 0)
             {
                 Console.WriteLine("Your inventory is empty.");
-                Thread.Sleep(1000);
+                DotDelay();
                 return;
             }
 
@@ -194,7 +195,8 @@
             if (choice == "b")
             {
                 Console.WriteLine("You leave your inventory and go back to the door");
-                Thread.Sleep(1000);
+                DotDelay();
+                Console.Clear();
                 return;
             }
 
@@ -203,8 +205,10 @@
                 var selectedItem = currentPlayer.personalInventory.GetItem(itemNumber - 1);
                 if (selectedItem != null)
                 {
+                    TypeTextWithDelay("You used a potion.");
                     selectedItem.UseItem(currentPlayer);
                     currentPlayer.personalInventory.RemoveItem(selectedItem);
+                    Console.Clear();
                     UseInventory();
                 }
                 else
