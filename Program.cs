@@ -14,14 +14,12 @@ using DungeonCrawlerProject;
 //- Bridge pattern: 
 //- Delegates
 //- Generic delegates
-//- Built in delegates
+//- Built in delegates: Encounter.cs, rad 313-314.
 //- Multicast delegates
-//- Lambdas: 
-//- Observer pattern
-//- Events
-//- Iterator pattern
-//- Enumerable/Enumerator
-//- Yield and lazy evaluation
+//- Lambdas: Encounter: rad 315-316.
+//- Observer pattern + Events
+//- Iterator pattern + Enumerable/Enumerator: Inventory.cs, rad 3-8.
+//- Yield and lazy evaluation: Inventory.cs, rad 8-10.
 //- LINQ: Encounter.cs, rad 204-207 
 //- Covariance
 //- Contravariance

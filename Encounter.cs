@@ -15,7 +15,7 @@
       bool playerTurn = true;
       // Create a monster based on the player's score 
       // (e.g., if the player's score is 10 or higher, create a boss monster)
-      //The goal is to change the equiped weapons more precicely...orkar inte fixa det nu.
+
       MonsterCharacter encounteredMonster = CreateMonsterForEncounter();
       Monster = encounteredMonster;
 
@@ -258,35 +258,31 @@
 
       if (Player.CompletedRooms >= 10)
       {
-        MonsterFactory = new BossMonsterFactory();
+        MonsterFactory = new BossMonsterFactory(new BossMonsterWeaponCreator());
         Monster = MonsterFactory.CreateMonster();
 
       }
       else if (Player.CompletedRooms >= 7)
       {
-        MonsterFactory = new HardMonsterFactory();
+        MonsterFactory = new HardMonsterFactory(new HardMonsterWeaponCreator());
         Monster = MonsterFactory.CreateMonster();
 
 
       }
       else if (Player.CompletedRooms >= 3)
       {
-        MonsterFactory = new MediumMonsterFactory();
+        MonsterFactory = new MediumMonsterFactory(new MediumMonsterWeaponCreator());
         Monster = MonsterFactory.CreateMonster();
       }
       else
       {
-        MonsterFactory = new EasyMonsterFactory();
+        MonsterFactory = new EasyMonsterFactory(new EasyMonsterWeaponCreator());
         Monster = MonsterFactory.CreateMonster();
       }
-
       return Monster;
-
     }
-
     private void PlayEncounterText(PlayerCharacter player, MonsterCharacter monster)
     {
-
       // Vi definierar en Dictionary som är en samling av key-value pairs. Dictionary Implementerar ICollection<T>
       //och kan därför använda metoder och egenskaper som återfinns i ICollection<T> (t.ex. Count). 
       var monsterDescriptions = new Dictionary<string, string>
@@ -314,7 +310,10 @@
 
       };
 
-      // Lambda expression that generates the description based on the monster's name
+      // Vi använder här inbyggda delegaten Func för att skapa en funktion som 
+      // tar in en MonsterCharacter och returnerar en string. 
+      //Vi använder oss också av ett lambda-uttryck för att det är en kortare och mer läsbar syntax.
+      //Det finns ingen mening med att göra denna metod icke-anonym eftersom den bara används här.
       Func<MonsterCharacter, string> generateMonsterDescription = (monster) =>
       {
         if (monsterDescriptions.TryGetValue(monster.Name, out var description))
@@ -337,11 +336,10 @@
       // Console.ReadKey();
       DotDelayShort();
     }
-
     private void MonsterAttack()
     {
       int damage = Monster.Attack();
-      Console.WriteLine($"The {Monster.Name} attacks you and deals {damage} damage!");
+      Console.WriteLine($"The {Monster.Name} attacks you  with {Monster.equipedWeapon.Name} and deals {damage} damage!");
       Player.Health -= damage;
       //Console.WriteLine("Press any key to continue...");
       //Console.ReadKey();
@@ -355,8 +353,9 @@
         Thread.Sleep(30); // Adjust the sleep duration to control the typing speed
       }
       Console.WriteLine();
-
     }
+    //make a delegate that takes nothing and returns void, just like DotDelay
+    public delegate void Delay();
     public void DotDelay()
     {
       for (int i = 0; i < 3; i++)
@@ -379,7 +378,6 @@
       }
       Console.WriteLine();
     }
-
     public void EquipAsk(IEnumerable<Weapon> tempList)
     {
       if (tempList.Count() == 0)

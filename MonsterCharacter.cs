@@ -9,13 +9,13 @@
     public ICharacterAttackBehaviour AttackBehaviour { get; set; }
     public IWeapon equipedWeapon { get; set; }
 
-    public MonsterCharacter(string name, int health, ICharacterAttackBehaviour attackBehaviour, int strength)
+    public MonsterCharacter(string name, int health, ICharacterAttackBehaviour attackBehaviour, int strength, IWeapon weapon)
     {
       Name = name;
       Health = health;
       AttackBehaviour = attackBehaviour;
       Strength = strength;
-      equipedWeapon = new Weapon("Fists", 1);
+      equipedWeapon = weapon;
     }
 
     public int Attack()
