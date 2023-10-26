@@ -13,7 +13,6 @@
 
     public void UseItem(PlayerCharacter player)
     {
-
     }
   }
 }

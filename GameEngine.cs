@@ -15,8 +15,6 @@
         //make a list of items
         public void StartGame()
     {
-
-
       Console.WriteLine("Create a new game? (y/n)");
       string input = Console.ReadLine().ToLower();
       if (input == "y")
@@ -108,12 +106,12 @@
         DotDelay();
         HandleUserDoorAction();
       }
-       else if (action.ToLower().Trim() == "use inventory" || action.ToLower().Trim() == "use potion" || action.ToLower().Trim() == "open inventory")
-            {
-                TypeTextWithDelay("You open your inventory");
-                UseInventory();
-                HandleUserDoorAction();
-            }
+      else if (action.ToLower().Trim() == "use inventory" || action.ToLower().Trim() == "use potion" || action.ToLower().Trim() == "open inventory")
+      {
+        TypeTextWithDelay("You open your inventory");
+        UseInventory();
+        HandleUserDoorAction();
+      }
       else if (action.ToLower().Trim() == "hit")
       {
         Console.WriteLine($"You hit with {currentPlayer.equipedWeapon.Name} in the door opening");
@@ -194,6 +192,7 @@
         return name;
       }
     }
+
         public void GrantBonusItem(PlayerCharacter player)
         {
             TypeTextWithDelay("When you enter the room you find yourself infront of a bag.");
@@ -267,4 +266,105 @@
         public delegate void PlayerEvent(PlayerCharacter player);
     }
    
+
+    private void UseInventory()
+    {
+      Console.WriteLine("");
+      Console.WriteLine("Inventory:");
+      if (currentPlayer.personalInventory.Items.Count == 0)
+      {
+        Console.WriteLine("Your inventory is empty.");
+        DotDelay();
+        return;
+      }
+
+      int invNum = 1;
+      foreach (var item in currentPlayer.personalInventory.Items)
+      {
+        Console.WriteLine($"{invNum}: {item.Name}");
+        invNum++;
+      }
+
+      Console.WriteLine("What do you want to use? Or press 'B' to go back.");
+
+      string choice = Console.ReadLine().ToLower().Trim();
+
+      if (choice == "b")
+      {
+        Console.WriteLine("You leave your inventory and go back to the door");
+        DotDelay();
+        Console.Clear();
+        return;
+      }
+
+      if (int.TryParse(choice, out int itemNumber) && itemNumber >= 1 && itemNumber <= currentPlayer.personalInventory.Items.Count)
+      {
+        var selectedItem = currentPlayer.personalInventory.GetItem(itemNumber - 1);
+        if (selectedItem != null)
+        {
+          TypeTextWithDelay("You used a potion.");
+          selectedItem.UseItem(currentPlayer);
+          currentPlayer.personalInventory.RemoveItem(selectedItem);
+          Console.Clear();
+          UseInventory();
+        }
+        else
+        {
+          Console.WriteLine("The selected item cannot be used.");
+          UseInventory();
+        }
+      }
+      else
+      {
+        Console.WriteLine("Invalid choice.");
+        UseInventory(); // Call the UseInventory method again for another choice.
+      }
+    }
+
+    public void RestartGame(int health)
+    {
+      if (health <= 0)
+      {
+        TypeTextWithDelay("GAME OVER");
+        Console.WriteLine("Do you want to restart the game? (y/n)");
+        string input = Console.ReadLine().ToLower();
+        if (input == "y")
+        {
+          Console.Clear();
+          StartGame();
+        }
+        else if (input == "n")
+        {
+          Console.WriteLine("Thank you for playing our game!");
+        }
+        else
+        {
+          Console.WriteLine("Wrong input, try again!");
+          RestartGame(health);
+        }
+      }
+      else
+      {
+        Console.WriteLine("You won!");
+        Console.WriteLine("Do you want to restart the game? (y/n)");
+        string input = Console.ReadLine().ToLower();
+        if (input == "y")
+        {
+          Console.Clear();
+          StartGame();
+        }
+        else if (input == "n")
+        {
+          Console.WriteLine("Thank you for playing our game!");
+        }
+        else
+        {
+          Console.WriteLine("Wrong input, try again!");
+          RestartGame(health);
+        }
+      }
+
+    }
+  }
+
 }

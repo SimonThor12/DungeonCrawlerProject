@@ -5,7 +5,10 @@
     //sending both attacker and target for future use in attack behaviours and armor
     public int Attack(ICharacter attacker)
     {
-      int damage = attacker.equipedWeapon.ItemPower + attacker.Strength;
+      int itempower = attacker.equipedWeapon.ItemPower;
+      var scalingfactor = attacker.Strength / 10;
+      itempower *= scalingfactor;
+      int damage = itempower + attacker.Strength;
       return damage;
 
     }

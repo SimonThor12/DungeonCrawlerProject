@@ -6,10 +6,10 @@
     private readonly Random random = new Random();
     private readonly List<string> weaponNames = new List<string>
     {
-        "Sword", "Axe", "Bow", "Dagger", "Mace", "Staff", "Spear", "Hammer", "Wand", "Crossbow"
+        "Sword", "Rusty Axe", "Dagger", "Mace", "Staff", "Spear", "Hammer",
     };
 
-    public IWeapon CreateWeapon(string name) //<-- added string name implement later
+    public IWeapon CreateWeapon(string name)
     {
       // Randomly generate a weapon name from the list of weapon names using the ItemFactory Pick method
       var itemFactory = new ItemFactory<string>(weaponNames);
