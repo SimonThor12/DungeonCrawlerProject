@@ -123,16 +123,26 @@
 
       else
       {
-        DotDelay();
-        Console.WriteLine("Door opened");
-        DotDelay();
-                if (rng.Next(100) < 90) //90% chance
+                DotDelay();
+                Console.WriteLine("Door opened");
+                Console.Clear();
+
+                int eventChance = rng.Next(100);
+
+                
+                if (eventChance < 45)
                 {
-                    playerEventDelegate(currentPlayer);   // triggrar event delegate
+                    GrantBonusItem(currentPlayer);
                     DotDelay();
                 }
-      
-        Console.Clear();
+               
+                else if (eventChance > 44)
+                {
+                    EncounterMysteriousAlly(currentPlayer);
+                    DotDelay();
+                }
+
+                Console.Clear();
       }
     }
 
@@ -191,6 +201,15 @@
             player.personalInventory.AddItem(new PowerUp("Strong Health Potion", new HealEffect(50)));
             TypeTextWithDelay("You found a Strong Health potion.");
             TypeTextWithDelay("But when you look up you see that you are no alone in the room.");
+        }
+        public void EncounterMysteriousAlly(PlayerCharacter player)
+        {
+            TypeTextWithDelay("A mysterious figure steps out of the shadows, observing you.");
+            TypeTextWithDelay("\"You seem like you could use some help,\" the figure says.");
+            TypeTextWithDelay("Without waiting for your response, they toss you a small object.");
+            player.personalInventory.AddItem(new PowerUp("Mystic Elixir", new StrengthEffect(10)));
+            TypeTextWithDelay("You've received a Mystic Elixir that boosts your strength.");
+            TypeTextWithDelay("The figure disappears as suddenly as they appeared, leaving you in wonder.");
         }
         private void UseInventory()
         {
