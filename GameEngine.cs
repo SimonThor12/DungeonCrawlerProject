@@ -235,9 +235,7 @@
       }
     }
     private void UseInventory()
-
     {
-
       Console.WriteLine("Inventory:");
       if (currentPlayer.personalInventory.Items.Count == 0)
       {
