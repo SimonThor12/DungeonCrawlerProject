@@ -128,13 +128,13 @@
         int eventChance = rng.Next(100);
 
 
-        if (eventChance < 45)
+        if (eventChance < 20) //20% chance to trigger event
         {
           GrantBonusItem(currentPlayer);
           DotDelay();
         }
 
-        else if (eventChance > 44)
+        else if (eventChance > 80) //20% chance to trigger
         {
           EncounterMysteriousAlly(currentPlayer);
           DotDelay();
@@ -158,7 +158,7 @@
           ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept: true);
         }
         Console.Write(c);
-        Thread.Sleep(20); // Adjust the delay in milliseconds (1000ms = 1 second)
+        Thread.Sleep(20);
 
       }
       soundManager.StopSound();
@@ -173,7 +173,7 @@
           ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept: true);
         }
         Console.Write(".");
-        Thread.Sleep(1000); // Adjust the delay in milliseconds (1000ms = 1 second)
+        Thread.Sleep(1000);
       }
       Console.WriteLine();
     }
@@ -197,6 +197,7 @@
     {
       TypeTextWithDelay("When you enter the room you find yourself infront of a bag.");
       TypeTextWithDelay("You open the bag and see something shiny inside the bag and decide to pick it up.");
+
       if (player.personalInventory.IsFull())
       {
         TypeTextWithDelay("However, your inventory is already full, and you can't pick up the shiny item.");
@@ -228,7 +229,31 @@
         TypeTextWithDelay("but as you look around in the room you see that you are not alone.");
       }
     }
-    private void UseInventory()
+  
+        public void EncounterMysteriousAlly(PlayerCharacter player)
+        {
+            TypeTextWithDelay("A mysterious figure steps out of the shadows, observing you.");
+            TypeTextWithDelay("\"You seem like you could use some help,\" the figure says.");
+
+            if (player.personalInventory.IsFull())
+            {
+                TypeTextWithDelay("You tried to take the Mystic Elixir, but your inventory is full!");
+                TypeTextWithDelay("The figure sighs, \"Perhaps another time then...\" and disappears into the shadows.");
+            }
+            else
+            {
+                TypeTextWithDelay("Without waiting for your response, they toss you a small object.");
+                Console.WriteLine();
+                player.personalInventory.AddItem(new PowerUp("Mystic Elixir", new StrengthEffect(60)));
+                TypeTextWithDelay("You've received a Mystic Elixir that boosts your strength.");
+                DotDelay();
+                TypeTextWithDelay("The figure disappears as suddenly as they appeared, leaving you in wonder.");
+                TypeTextWithDelay("The figure leaves you wondering about what just happened...");
+                TypeTextWithDelay("but as you look around in the room you see that you are not alone.");
+            }
+        }
+        private void UseInventory()
+
     {
 
       Console.WriteLine("Inventory:");
