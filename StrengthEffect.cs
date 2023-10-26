@@ -3,6 +3,7 @@
   public class StrengthEffect : IPowerUpEffect
   {
     public int StrengthAmount { get; set; }
+
     public StrengthEffect(int strengthAmount)
     {
       StrengthAmount = strengthAmount;

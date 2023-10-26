@@ -307,8 +307,8 @@
           { "Blob", $"A grotesque, amorphous blob oozes towards you,\nits insides filled with {Monster.equipedWeapon.Name}s." },
           { "Netherlord Zorath", "The ground trembles as Netherlord Zorath,\nan otherworldly terror, emerges from the void.\nHis dark eyes pierce your soul, and his power is immeasurable." },
           { "Serpentix the Devourer", "Serpentix, a colossal serpent with jagged fangs and venomous breath,\nslithers forth with an insatiable hunger for destruction." },
-          { "Molten Core Guardian", "The Molten Core Guardian, a living inferno of molten rock and searing flames,\nradiates intense heat and an aura of pure annihilation. Holding a {Monster.equipedWeapon.Name}" },
-          { "Abyssal Leviathan", "From the depths of the abyss, the Abyssal Leviathan rises,\nan ancient sea terror with jaws that can crush ships and a hunger for chaos." },
+          { "Molten Core Guardian", $"The Molten Core Guardian, a living inferno of molten rock and searing flames,\nradiates intense heat and an aura of pure annihilation. Holding The {Monster.equipedWeapon.Name}" },
+          { "Abyssal Leviathan", "From the depths of the abyss, the Abyssal Leviathan rises wielding ,\nan ancient sea terror with jaws that can crush ships and a hunger for chaos." },
 
       };
 
@@ -392,41 +392,34 @@
     }
     public void EquipAsk(IEnumerable<Weapon> tempList)
     {
-      if (tempList.Count() == 0)
+      TypeTextWithDelay("Do you want to equip? (input corresponding number, 0 for none of them)\n");
+      string input = Console.ReadLine();
+      switch (input)
       {
-        Console.WriteLine("The monster did not drop any weapons, but you got some potions a least...");
-        Console.ReadKey();
-        return;
+        case "1":
+          Player.equipedWeapon = tempList.ElementAt(0);
+          Console.WriteLine("Good Choice!");
+          break;
+        case "2":
+          Player.equipedWeapon = tempList.ElementAt(1);
+          Console.WriteLine("Good Choice!");
+          break;
+        case "3":
+          Player.equipedWeapon = tempList.ElementAt(2);
+          Console.WriteLine("Good Choice!");
+          break;
+        case "0":
+          Console.WriteLine("You leave the pile.");
+          break;
+        default:
+          Console.WriteLine("You can not do that, try again!");
+          Console.ReadKey();
+          EquipAsk(tempList);
+          break;
+
       }
-      else
-      {
-        TypeTextWithDelay("Do you want to equip? (input corresponding number, 0 for none of them)\n");
-        string input = Console.ReadLine();
-        switch (input)
-        {
-          case "1":
-            Player.equipedWeapon = tempList.ElementAt(0);
-            Console.WriteLine("Good Choice!");
-            break;
-          case "2":
-            Player.equipedWeapon = tempList.ElementAt(1);
-            Console.WriteLine("Good Choice!");
-            break;
-          case "3":
-            Player.equipedWeapon = tempList.ElementAt(2);
-            Console.WriteLine("Good Choice!");
-            break;
-          case "0":
-            Console.WriteLine("You leave the pile.");
-            break;
-          default:
-            Console.WriteLine("You can not do that, try again!");
-            Console.ReadKey();
-            EquipAsk(tempList);
-            break;
-        }
-        Console.ReadKey();
-      }
+      Console.ReadKey();
+
     }
     public void PrintDroppedWeapons(IEnumerable<Weapon> tempList)
     {
@@ -446,9 +439,7 @@
           i++;
         }
       }
-
     }
-
   }
 
 }
