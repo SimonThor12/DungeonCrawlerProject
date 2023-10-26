@@ -204,8 +204,11 @@
       }
       else
       {
+        Console.WriteLine();
         player.personalInventory.AddItem(new PowerUp("Strong Health Potion", new HealEffect(50)));
         TypeTextWithDelay("You found a Strong Health potion and added it to your inventory.");
+        DotDelay();
+
       }
       TypeTextWithDelay("But when you look up you see that you are no alone in the room.");
     }
@@ -222,37 +225,16 @@
       else
       {
         TypeTextWithDelay("Without waiting for your response, they toss you a small object.");
+        Console.WriteLine();
         player.personalInventory.AddItem(new PowerUp("Mystic Elixir", new StrengthEffect(60)));
         TypeTextWithDelay("You've received a Mystic Elixir that boosts your strength.");
+        DotDelay();
         TypeTextWithDelay("The figure disappears as suddenly as they appeared, leaving you in wonder.");
         TypeTextWithDelay("The figure leaves you wondering about what just happened...");
         TypeTextWithDelay("but as you look around in the room you see that you are not alone.");
       }
     }
-  
-        public void EncounterMysteriousAlly(PlayerCharacter player)
-        {
-            TypeTextWithDelay("A mysterious figure steps out of the shadows, observing you.");
-            TypeTextWithDelay("\"You seem like you could use some help,\" the figure says.");
-
-            if (player.personalInventory.IsFull())
-            {
-                TypeTextWithDelay("You tried to take the Mystic Elixir, but your inventory is full!");
-                TypeTextWithDelay("The figure sighs, \"Perhaps another time then...\" and disappears into the shadows.");
-            }
-            else
-            {
-                TypeTextWithDelay("Without waiting for your response, they toss you a small object.");
-                Console.WriteLine();
-                player.personalInventory.AddItem(new PowerUp("Mystic Elixir", new StrengthEffect(60)));
-                TypeTextWithDelay("You've received a Mystic Elixir that boosts your strength.");
-                DotDelay();
-                TypeTextWithDelay("The figure disappears as suddenly as they appeared, leaving you in wonder.");
-                TypeTextWithDelay("The figure leaves you wondering about what just happened...");
-                TypeTextWithDelay("but as you look around in the room you see that you are not alone.");
-            }
-        }
-        private void UseInventory()
+    private void UseInventory()
 
     {
 
