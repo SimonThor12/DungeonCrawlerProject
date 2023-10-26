@@ -383,21 +383,38 @@
 
         //Randomize what chest the player gets
         Random random = new Random();
-        int chestNumber = random.Next(0, 7);
+        int chestNumber = random.Next(0, 5);
         if (chestNumber != 0)
         {
-          var item2 = chest2.GiveItem();
-          TypeTextWithDelay($"You open the chest and find {item2.Name} inside!");
-          TypeTextWithDelay("You equip the ring");
-          item2.UseItem(Player);
+
+          var item = chest.GiveItem();
+          TypeTextWithDelay($"You open the chest and find {item.Name} inside.");
+          TypeTextWithDelay("You put it in your inventory");
+          DotDelay();
+          Player.personalInventory.AddItem(item);
 
         }
         else
         {
-          var item = chest.GiveItem();
-          TypeTextWithDelay($"You open the chest and find {item.Name} inside.");
-          TypeTextWithDelay("You put it in your inventory");
-          Player.personalInventory.AddItem(item);
+
+          if (Player.amountOfRings < 2)
+          {
+            var item2 = chest2.GiveItem();
+            TypeTextWithDelay($"You open the chest and find {item2.Name} inside!");
+            TypeTextWithDelay("You equip the ring");
+            DotDelay();
+            item2.UseItem(Player);
+            Player.amountOfRings++;
+          }
+          else
+          {
+            var item2 = chest2.GiveItem();
+            TypeTextWithDelay($"You open the chest and find {item2.Name} inside!");
+            Console.WriteLine("Sadly your vanity stops you from equipping more rings,\n" +
+              "so you leave it be.");
+
+          }
+
         }
       }
       else if (keyInfo.Key == ConsoleKey.D0)

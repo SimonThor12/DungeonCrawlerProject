@@ -2,6 +2,7 @@
 {
   public class PlayerCharacter : ICharacter
   {
+    public int amountOfRings = 0;
     public string Name { get; set; }
     public int MaxHealth = 300;
     public int Health { get; set; }
