@@ -3,6 +3,7 @@
   public class PlayerCharacter : ICharacter
   {
     public string Name { get; set; }
+    public int MaxHealth = 300;
     public int Health { get; set; }
 
     public int CompletedRooms = 0;

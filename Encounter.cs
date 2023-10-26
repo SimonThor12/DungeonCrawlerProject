@@ -44,7 +44,7 @@
           }
           Console.Clear();
           Console.WriteLine("It's your turn. What will you do? (1-3)");
-          Console.WriteLine(Player.Name + " HP: " + Player.Health + " | " + Monster.Name + " HP: " + Monster.Health);
+          Console.WriteLine(Player.Name + " HP: " + Player.Health + "/" + Player.MaxHealth + " | " + Monster.Name + " HP: " + Monster.Health);
           Console.WriteLine("**************************");
           Console.WriteLine("|> 1. Attack            <|");
           Console.WriteLine("|> 2. Flee (10% chance) <|");
@@ -248,9 +248,11 @@
 
           encounterOver = true;
           Player.CompletedRooms++;
-          Console.WriteLine("Encounter has ended. Press any key to continue...");    //tester om detta slutar encountern
+          Console.WriteLine("Encounter has ended. Press any key to continue...");
+
           Console.ReadKey();
           Console.Clear();
+          OpenChest();
 
         }
         playerTurn = !playerTurn; // Switch turns between player and monster
@@ -367,6 +369,48 @@
       soundManager.StopSound();
       Console.WriteLine();
     }
+
+    public void OpenChest()
+    {
+      TypeTextWithDelay("After looking around your surroundings you spot a chest in the rubble!");
+      TypeTextWithDelay("You walk over to the chest");
+      TypeTextWithDelay("Press enter to open the chest, press 0 to walk away");
+      ConsoleKeyInfo keyInfo = Console.ReadKey();
+      if (keyInfo.Key == ConsoleKey.Enter)
+      {
+        ItemChest<IItem> chest = new PowerUpChest();
+        ItemChest<IItem> chest2 = new RingChest();
+
+        //Randomize what chest the player gets
+        Random random = new Random();
+        int chestNumber = random.Next(0, 7);
+        if (chestNumber != 0)
+        {
+          var item2 = chest2.GiveItem();
+          TypeTextWithDelay($"You open the chest and find {item2.Name} inside!");
+          TypeTextWithDelay("You equip the ring");
+          item2.UseItem(Player);
+
+        }
+        else
+        {
+          var item = chest.GiveItem();
+          TypeTextWithDelay($"You open the chest and find {item.Name} inside.");
+          TypeTextWithDelay("You put it in your inventory");
+          Player.personalInventory.AddItem(item);
+        }
+      }
+      else if (keyInfo.Key == ConsoleKey.D0)
+      {
+        TypeTextWithDelay("You walk away from the chest");
+      }
+      else
+      {
+        TypeTextWithDelay("Wrong input, try again!");
+        OpenChest();
+      }
+    }
+
     public void DotDelay()
 
     {
@@ -428,7 +472,7 @@
       //Make player choose what weapon they want to equip
       if (tempList.Count() == 0)
       {
-        Console.WriteLine("The monster did not drop any weapons, but you got some potions a least...");
+        TypeTextWithDelay("The monster did not drop any weapons, but you got some potions a least...");
       }
       else
       {

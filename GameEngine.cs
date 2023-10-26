@@ -197,38 +197,38 @@
     {
       TypeTextWithDelay("When you enter the room you find yourself infront of a bag.");
       TypeTextWithDelay("You open the bag and see something shiny inside the bag and decide to pick it up.");
-            if (player.personalInventory.IsFull())
-            {
-                TypeTextWithDelay("However, your inventory is already full, and you can't pick up the shiny item.");
-            }
-            else
-            {
-                player.personalInventory.AddItem(new PowerUp("Strong Health Potion", new HealEffect(50)));
-                TypeTextWithDelay("You found a Strong Health potion and added it to your inventory.");
-            }
-            TypeTextWithDelay("But when you look up you see that you are no alone in the room.");
+      if (player.personalInventory.IsFull())
+      {
+        TypeTextWithDelay("However, your inventory is already full, and you can't pick up the shiny item.");
+      }
+      else
+      {
+        player.personalInventory.AddItem(new PowerUp("Strong Health Potion", new HealEffect(50)));
+        TypeTextWithDelay("You found a Strong Health potion and added it to your inventory.");
+      }
+      TypeTextWithDelay("But when you look up you see that you are no alone in the room.");
     }
-        public void EncounterMysteriousAlly(PlayerCharacter player)
-        {
-            TypeTextWithDelay("A mysterious figure steps out of the shadows, observing you.");
-            TypeTextWithDelay("\"You seem like you could use some help,\" the figure says.");
+    public void EncounterMysteriousAlly(PlayerCharacter player)
+    {
+      TypeTextWithDelay("A mysterious figure steps out of the shadows, observing you.");
+      TypeTextWithDelay("\"You seem like you could use some help,\" the figure says.");
 
-            if (player.personalInventory.IsFull())
-            {
-                TypeTextWithDelay("You tried to take the Mystic Elixir, but your inventory is full!");
-                TypeTextWithDelay("The figure sighs, \"Perhaps another time then...\" and disappears into the shadows.");
-            }
-            else
-            {
-                TypeTextWithDelay("Without waiting for your response, they toss you a small object.");
-                player.personalInventory.AddItem(new PowerUp("Mystic Elixir", new StrengthEffect(60)));
-                TypeTextWithDelay("You've received a Mystic Elixir that boosts your strength.");
-                TypeTextWithDelay("The figure disappears as suddenly as they appeared, leaving you in wonder.");
-                TypeTextWithDelay("The figure leaves you wondering about what just happened...");
-                TypeTextWithDelay("but as you look around in the room you see that you are not alone.");
-            }
-        }
-        private void UseInventory()
+      if (player.personalInventory.IsFull())
+      {
+        TypeTextWithDelay("You tried to take the Mystic Elixir, but your inventory is full!");
+        TypeTextWithDelay("The figure sighs, \"Perhaps another time then...\" and disappears into the shadows.");
+      }
+      else
+      {
+        TypeTextWithDelay("Without waiting for your response, they toss you a small object.");
+        player.personalInventory.AddItem(new PowerUp("Mystic Elixir", new StrengthEffect(60)));
+        TypeTextWithDelay("You've received a Mystic Elixir that boosts your strength.");
+        TypeTextWithDelay("The figure disappears as suddenly as they appeared, leaving you in wonder.");
+        TypeTextWithDelay("The figure leaves you wondering about what just happened...");
+        TypeTextWithDelay("but as you look around in the room you see that you are not alone.");
+      }
+    }
+    private void UseInventory()
     {
 
       Console.WriteLine("Inventory:");
@@ -325,6 +325,7 @@
       }
 
     }
+
 
     public delegate void PlayerEvent(PlayerCharacter player);
 
