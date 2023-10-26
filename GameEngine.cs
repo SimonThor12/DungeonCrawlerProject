@@ -5,8 +5,15 @@
 
     //make a player
     public PlayerCharacter currentPlayer { get; set; }
-    //make a list of items
-    public void StartGame()
+    private PlayerEvent playerEventDelegate;
+    private Random rng = new Random();
+        public GameEngine()
+        {
+            playerEventDelegate = GrantBonusItem; // Assign the function to the delegate
+        }
+
+        //make a list of items
+        public void StartGame()
     {
       Console.WriteLine("Create a new game? (y/n)");
       string input = Console.ReadLine().ToLower();
@@ -114,9 +121,26 @@
 
       else
       {
-        DotDelay();
-        Console.WriteLine("Door opened");
-        Console.Clear();
+                DotDelay();
+                Console.WriteLine("Door opened");
+                Console.Clear();
+
+                int eventChance = rng.Next(100);
+
+                
+                if (eventChance < 45)
+                {
+                    GrantBonusItem(currentPlayer);
+                    DotDelay();
+                }
+               
+                else if (eventChance > 44)
+                {
+                    EncounterMysteriousAlly(currentPlayer);
+                    DotDelay();
+                }
+
+                Console.Clear();
       }
     }
 
@@ -168,6 +192,81 @@
         return name;
       }
     }
+
+        public void GrantBonusItem(PlayerCharacter player)
+        {
+            TypeTextWithDelay("When you enter the room you find yourself infront of a bag.");
+            TypeTextWithDelay("You open the bag and see something shiny inside the bag and decide to pick it up.");
+            player.personalInventory.AddItem(new PowerUp("Strong Health Potion", new HealEffect(50)));
+            TypeTextWithDelay("You found a Strong Health potion.");
+            TypeTextWithDelay("But when you look up you see that you are no alone in the room.");
+        }
+        public void EncounterMysteriousAlly(PlayerCharacter player)
+        {
+            TypeTextWithDelay("A mysterious figure steps out of the shadows, observing you.");
+            TypeTextWithDelay("\"You seem like you could use some help,\" the figure says.");
+            TypeTextWithDelay("Without waiting for your response, they toss you a small object.");
+            player.personalInventory.AddItem(new PowerUp("Mystic Elixir", new StrengthEffect(10)));
+            TypeTextWithDelay("You've received a Mystic Elixir that boosts your strength.");
+            TypeTextWithDelay("The figure disappears as suddenly as they appeared, leaving you in wonder.");
+        }
+        private void UseInventory()
+        {
+
+            Console.WriteLine("Inventory:");
+            if (currentPlayer.personalInventory.Items.Count == 0)
+            {
+                Console.WriteLine("Your inventory is empty.");
+                DotDelay();
+                return;
+            }
+
+            int invNum = 1;
+            foreach (var item in currentPlayer.personalInventory.Items)
+            {
+                Console.WriteLine($"{invNum}: {item.Name}");
+                invNum++;
+            }
+
+            Console.WriteLine("What do you want to use? Or press 'B' to go back.");
+
+            string choice = Console.ReadLine().ToLower().Trim();
+
+            if (choice == "b")
+            {
+                Console.WriteLine("You leave your inventory and go back to the door");
+                DotDelay();
+                Console.Clear();
+                return;
+            }
+
+            if (int.TryParse(choice, out int itemNumber) && itemNumber >= 1 && itemNumber <= currentPlayer.personalInventory.Items.Count)
+            {
+                var selectedItem = currentPlayer.personalInventory.GetItem(itemNumber - 1);
+                if (selectedItem != null)
+                {
+                    TypeTextWithDelay("You used a potion.");
+                    selectedItem.UseItem(currentPlayer);
+                    currentPlayer.personalInventory.RemoveItem(selectedItem);
+                    Console.Clear();
+                    UseInventory();
+                }
+                else
+                {
+                    Console.WriteLine("The selected item cannot be used.");
+                    UseInventory();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
+                UseInventory(); // Call the UseInventory method again for another choice.
+            }
+        }
+        public delegate void PlayerEvent(PlayerCharacter player);
+    }
+   
+
     private void UseInventory()
     {
       Console.WriteLine("");
@@ -267,4 +366,5 @@
 
     }
   }
+
 }
