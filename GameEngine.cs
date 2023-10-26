@@ -126,7 +126,7 @@
         DotDelay();
         Console.WriteLine("Door opened");
         DotDelay();
-                if (rng.Next(100) < 90) 
+                if (rng.Next(100) < 90) //90% chance
                 {
                     playerEventDelegate(currentPlayer);   // triggrar event delegate
                     DotDelay();
