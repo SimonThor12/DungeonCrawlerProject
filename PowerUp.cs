@@ -6,7 +6,7 @@
   //powerups som inte faller under samma kontrakt som PowerUp. Då måste vi skapa en ny basklass för dessa powerups. Detta
   //är ofta en ond cirkel av arv. Man ska inte lösa arv med mer arv. Därför är detta en illustration av hur komposition 
   //är att föredra över arv.
-  class PowerUp : IItem
+  public class PowerUp : IItem
   {
     public string Name { get; set; }
     public IPowerUpEffect Effect { get; set; }
