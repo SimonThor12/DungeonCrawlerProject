@@ -31,6 +31,7 @@ using DungeonCrawlerProject;
 
 GameEngine gameEngine = new GameEngine();
 gameEngine.StartGame();
+gameEngine.RestartGame(gameEngine.currentPlayer.Health);
 
 
 

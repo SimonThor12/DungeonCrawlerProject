@@ -27,20 +27,20 @@
         //Slowly lose strength gained from item over time
         if (playerTurn)
         {
-          if (Player.Strength > 1)
+          if (Player.Strength > 5)
           {
-                        if (Player.Strength > 100 )
-                        {
-                            Player.Strength = (int)(Player.Strength * 0.60);
-                        }
-                        else if (Player.Strength > 50)
-                        {
-                            Player.Strength = (int)(Player.Strength * 0.75);
-                        }
-                        else
-                        {
-                            Player.Strength = (int)(Player.Strength * 0.90);
-                        }
+            if (Player.Strength > 100)
+            {
+              Player.Strength = (int)(Player.Strength * 0.60);
+            }
+            else if (Player.Strength > 50)
+            {
+              Player.Strength = (int)(Player.Strength * 0.75);
+            }
+            else
+            {
+              Player.Strength = (int)(Player.Strength * 0.90);
+            }
           }
           Console.Clear();
           Console.WriteLine("It's your turn. What will you do? (1-3)");
@@ -65,6 +65,7 @@
               {
                 Console.WriteLine("You successfully flee from the encounter!");
                 encounterOver = true;
+
                 break;
               }
               else
@@ -141,17 +142,16 @@
         if (Player.Health <= 0)
         {
           TypeTextWithDelay("You have been defeated!");
-          TypeTextWithDelay("GAME OVER");
-                    //Try again?
           TypeTextWithDelay("Press any key to continue...");
           Console.ReadKey();
           Console.Clear();
 
           encounterOver = true;
+
         }
         else if (Monster.Health <= 0)
         {
-        TypeTextWithDelay($"You have defeated the {Monster.Name}!");
+          TypeTextWithDelay($"You have defeated the {Monster.Name}!");
           //ska randomisa vapen man får, ej hårdkoda
 
           List<PowerUp> powerups = new List<PowerUp> {
@@ -179,7 +179,7 @@
     new Weapon("Shadowstrike Dagger", 65),
     new Weapon("Mystic Spear", 70),
     new Weapon("Elven Longsword", 75),
-    new Weapon("Mjölnir's Hammer", 80),
+    new Weapon("Hard Hammer", 80),
 
     new Weapon("Firebrand Axe", 110),
     new Weapon("Ice-Infused Greatsword", 120),
@@ -193,7 +193,7 @@
     new Weapon("Doomsday Halberd", 200),
     new Weapon("Divine Excalibur", 220),
     new Weapon("Eternal Staff", 230),
-    new Weapon("Dragonlord's Wrath", 250)
+    new Weapon("Wrath of Doom", 250)
 };
 
           ItemFactory<PowerUp> powerUpFactory = new ItemFactory<PowerUp>(powerups);
@@ -247,15 +247,11 @@
           }
 
           encounterOver = true;
-
-
-
           Player.CompletedRooms++;
           Console.WriteLine("Encounter has ended. Press any key to continue...");    //tester om detta slutar encountern
           Console.ReadKey();
           Console.Clear();
 
-          return;
         }
         playerTurn = !playerTurn; // Switch turns between player and monster
       }
@@ -297,25 +293,21 @@
       //och kan därför använda metoder och egenskaper som återfinns i ICollection<T> (t.ex. Count). 
       var monsterDescriptions = new Dictionary<string, string>
       {
-          { "Gremlin", "A small and mischievous creature lurks in the shadows." },
-          { "Orc", "A hulking and fearsome orc stands before you, ready for battle." },
-          { "Pesky Troll", "A massive, regenerating troll with a club confronts you." },
+          { "Gremlin", $"A small and mischievous creature lurks in the shadows\nand you see a {Monster.Name} wielding a {Monster.equipedWeapon.Name}." },
+          { "Orc", $"A hulking and fearsome {Monster.Name} stands before\nyou wielding a {Monster.equipedWeapon.Name}, ready for battle." },
+          { "Pesky Troll", $"A massive, regenerating troll with a {Monster.equipedWeapon.Name} confronts you." },
           { "Goblin", "A cunning goblin with a sharp blade prepares to strike." },
-          { "Dragon", "A colossal dragon with scales as hard as steel looms over you, its fiery breath ready to incinerate everything." },
-          { "Vampire", "A suave and mysterious vampire with sharp fangs approaches, his eyes glowing with hunger for your blood." },
-          { "Werewolf", "A massive, feral werewolf, its fur bristling and claws extended, prepares to pounce." },
-          { "Witch", "A cunning witch with a cackling laugh and a wicked coven of spells stands in your path, brewing mischief." },
-          { "Ogre", "A monstrous ogre with immense strength and a giant club threatens to crush you." },
-          { "Minotaur", "A formidable minotaur, part man and part bull, charges at you with its massive horns." },
-          { "Skeleton", "A skeletal warrior, risen from the dead, wields a rusty sword and clatters menacingly." },
+          { "Ogre", $"A monstrous ogre with immense strength and a giant {Monster.equipedWeapon.Name} threatens to crush you." },
+          { "Minotaur", $"A formidable minotaur, part man and part bull, charges at you with its massive horns\nwielding a {Monster.equipedWeapon.Name}." },
+          { "Skeleton", $"A skeletal warrior, risen from the dead, wields a {Monster.equipedWeapon.Name} and clatters menacingly." },
           { "Harpy", "A fierce harpy with razor-sharp talons and wings that can whip up storms swoops down to attack." },
-          { "Chimera", "A nightmarish chimera, a fusion of lion, goat, and serpent, stands ready to unleash its deadly breath." },
-          { "Goblin King", "A powerful and cunning goblin king, adorned with a crown, rules over his minions with authority." },
+          { "Chimera", "A nightmarish chimera, a fusion of lion, goat, and serpent,\nstands ready to unleash its deadly breath." },
+          { "Goblin King", $"A powerful and cunning goblin king, adorned with a crown approaches,\nwielding a {Monster.equipedWeapon.Name}." },
           { "Smaller Dragon", "A smaller but no less dangerous dragon awaits, ready to spit fire and claws at you." },
-          { "Blob", "A grotesque, amorphous blob oozes towards you, its acidic touch melting everything in its path." },
+          { "Blob", $"A grotesque, amorphous blob oozes towards you,\nits insides filled with {Monster.equipedWeapon.Name}s." },
           { "Netherlord Zorath", "The ground trembles as Netherlord Zorath,\nan otherworldly terror, emerges from the void.\nHis dark eyes pierce your soul, and his power is immeasurable." },
           { "Serpentix the Devourer", "Serpentix, a colossal serpent with jagged fangs and venomous breath,\nslithers forth with an insatiable hunger for destruction." },
-          { "Molten Core Guardian", "The Molten Core Guardian, a living inferno of molten rock and searing flames,\nradiates intense heat and an aura of pure annihilation." },
+          { "Molten Core Guardian", "The Molten Core Guardian, a living inferno of molten rock and searing flames,\nradiates intense heat and an aura of pure annihilation. Holding a {Monster.equipedWeapon.Name}" },
           { "Abyssal Leviathan", "From the depths of the abyss, the Abyssal Leviathan rises,\nan ancient sea terror with jaws that can crush ships and a hunger for chaos." },
 
       };
@@ -349,34 +341,33 @@
     private void MonsterAttack()
     {
       int damage = Monster.Attack();
-      Console.WriteLine($"The {Monster.Name} attacks you  with {Monster.equipedWeapon.Name} and deals {damage} damage!");
+      Console.WriteLine($"The {Monster.Name} attacks you with the {Monster.equipedWeapon.Name} and deals {damage} damage!");
       Player.Health -= damage;
-      //Console.WriteLine("Press any key to continue...");
       //Console.ReadKey();
       DotDelay();
     }
 
-        public void TypeTextWithDelay(string text)
+    public void TypeTextWithDelay(string text)
+    {
+      string wavFilePath = "archivo (3).wav";
+      SoundManager soundManager = new SoundManager(wavFilePath);
+
+      soundManager.PlaySound();
+
+      foreach (char c in text)
+      {
+        if (Console.KeyAvailable)
         {
-            string wavFilePath = "archivo (3).wav";
-            SoundManager soundManager = new SoundManager(wavFilePath);
-
-            soundManager.PlaySound();
-
-            foreach (char c in text)
-            {
-                if (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept: true);
-                }
-                Console.Write(c);
-                Thread.Sleep(20); // Adjust the delay in milliseconds (1000ms = 1 second)
-
-            }
-            soundManager.StopSound();
-            Console.WriteLine();
+          ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(intercept: true);
         }
-        public void DotDelay()
+        Console.Write(c);
+        Thread.Sleep(20); // Adjust the delay in milliseconds (1000ms = 1 second)
+
+      }
+      soundManager.StopSound();
+      Console.WriteLine();
+    }
+    public void DotDelay()
 
     {
       for (int i = 0; i < 3; i++)
@@ -436,9 +427,7 @@
         }
         Console.ReadKey();
       }
-
     }
-
     public void PrintDroppedWeapons(IEnumerable<Weapon> tempList)
     {
       int i = 1;
