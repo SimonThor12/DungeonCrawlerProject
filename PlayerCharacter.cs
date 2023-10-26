@@ -20,7 +20,7 @@
     {
       Health = health;
       AttackBehaviour = attackBehaviour;
-      Strength = 1;
+      Strength = 5;
     }
     //method that takes the attackbehaviour and the weapon and uses the attackbehaviour to attack with the weapon
     public int Attack()

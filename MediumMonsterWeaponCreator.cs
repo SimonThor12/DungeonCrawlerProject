@@ -5,19 +5,30 @@
     private readonly Random random = new Random();
     private readonly List<string> weaponNames = new List<string>
     {
-        "Sword", "Axe", "Bow", "Dagger", "Mace", "Staff", "Spear", "Hammer", "Wand", "Crossbow"
+        "Sword", "Sharp Axe", "Dagger", "Mace", "Staff", "Spear", "Hammer",
     };
 
-    public IWeapon CreateWeapon(string name) //<-- added string name implement later
+    public IWeapon CreateWeapon(string name)
     {
-      // Randomly generate a weapon name from the list of weapon names using the ItemFactory Pick method
-      var itemFactory = new ItemFactory<string>(weaponNames);
-      string weaponName = itemFactory.Pick();
-
-      // Randomly generate an item power from 1 to 10
       int itemPower = random.Next(5, 20);
 
-      return new Weapon(weaponName, itemPower);
+      if (name == "Harpy")
+      {
+        string weaponName = "Talon";
+        return new Weapon(weaponName, itemPower);
+
+      }
+      else
+      {
+        // Randomly generate a weapon name from the list of weapon names using the ItemFactory Pick method
+        var itemFactory = new ItemFactory<string>(weaponNames);
+        string weaponName = itemFactory.Pick();
+
+        // Randomly generate an item power from 1 to 10
+
+        return new Weapon(weaponName, itemPower);
+      }
+
     }
   }
 
