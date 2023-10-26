@@ -5,8 +5,15 @@
 
     //make a player
     public PlayerCharacter currentPlayer { get; set; }
-    //make a list of items
-    public void StartGame()
+    private PlayerEvent playerEventDelegate;
+    private Random rng = new Random();
+        public GameEngine()
+        {
+            playerEventDelegate = GrantBonusItem; // Assign the function to the delegate
+        }
+
+        //make a list of items
+        public void StartGame()
     {
 
 
@@ -118,6 +125,13 @@
       {
         DotDelay();
         Console.WriteLine("Door opened");
+        DotDelay();
+                if (rng.Next(100) < 90) 
+                {
+                    playerEventDelegate(currentPlayer);   // triggrar event delegate
+                    DotDelay();
+                }
+      
         Console.Clear();
       }
     }
@@ -170,9 +184,17 @@
         return name;
       }
     }
+        public void GrantBonusItem(PlayerCharacter player)
+        {
+            TypeTextWithDelay("When you enter the room you find yourself infront of a bag.");
+            TypeTextWithDelay("You open the bag and see something shiny inside the bag and decide to pick it up.");
+            player.personalInventory.AddItem(new PowerUp("Strong Health Potion", new HealEffect(50)));
+            TypeTextWithDelay("You found a Strong Health potion.");
+            TypeTextWithDelay("But when you look up you see that you are no alone in the room.");
+        }
         private void UseInventory()
         {
-            Console.WriteLine("");
+
             Console.WriteLine("Inventory:");
             if (currentPlayer.personalInventory.Items.Count == 0)
             {
@@ -223,5 +245,7 @@
                 UseInventory(); // Call the UseInventory method again for another choice.
             }
         }
+        public delegate void PlayerEvent(PlayerCharacter player);
     }
+   
 }
