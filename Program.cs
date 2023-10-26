@@ -11,7 +11,7 @@ using DungeonCrawlerProject;
 //- Dependency injection: PlayerCharacter.cs, rad 15-18.
 //- Composition over inheritance: PowerUp.cs, rad 3-8.
 //- Strategy pattern: IPowerUpEffect.cs, rad 3-7.
-//- Bridge pattern: 
+//- Bridge pattern: IMonsterWeaponCreator.cs, rad 3-12.
 //- Delegates
 //- Generic delegates
 //- Built in delegates: Encounter.cs, rad 313-314.
