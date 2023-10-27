@@ -1,4 +1,6 @@
-﻿namespace DungeonCrawlerProject
+﻿using System.Numerics;
+
+namespace DungeonCrawlerProject
 {
   public class Encounter
   {
@@ -152,9 +154,9 @@
         else if (Monster.Health <= 0)
         {
           TypeTextWithDelay($"You have defeated the {Monster.Name}!");
-          //ska randomisa vapen man får, ej hårdkoda
-
-          List<PowerUp> powerups = new List<PowerUp> {
+                    //ska randomisa vapen man får, ej hårdkoda
+        Player.DefeatMonster();   // här får man experience
+                    List<PowerUp> powerups = new List<PowerUp> {
             new PowerUp("Health Potion", new HealEffect(30)),
             new PowerUp("Strong Health Potion", new HealEffect(50)),
             new PowerUp("Divine Health Potion", new HealEffect(100)),
@@ -210,7 +212,7 @@
           Player.personalInventory.AddItem(loot2);
           TypeTextWithDelay("You have gained a " + loot2.Name + "!");
           Console.ReadKey();
-
+          
           //Här används LINQ för att filtrera ut vapen som är av rätt typ. Vi använder
           //Where() för att filtrera ut vapen som har en viss ItemPower, från en lista av vapen.
           //Vi använder också ToList() för att konvertera resultatet till en lista.

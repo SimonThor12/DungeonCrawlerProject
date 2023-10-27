@@ -1,4 +1,6 @@
-﻿namespace DungeonCrawlerProject
+﻿using System.Numerics;
+
+namespace DungeonCrawlerProject
 {
   public class GameEngine
   {
@@ -21,7 +23,8 @@
       {
         Console.Clear();
         currentPlayer = new PlayerCharacter(100, new NormalAttack());
-        TypeTextWithDelay("Welcome to the Monster Dungeon!");
+                currentPlayer.PlayerLeveledUp += Player_OnLeveledUp;
+                TypeTextWithDelay("Welcome to the Monster Dungeon!");
         TypeTextWithDelay("What is your name?");
 
         currentPlayer.Name = GetPlayerName();
@@ -330,9 +333,24 @@
       }
 
     }
+        private void Player_OnLeveledUp(object sender, EventArgs e)            // HÄR LEVELAR MAN
+        {
+            var player = sender as PlayerCharacter;
 
+            if (player != null)
+            {
+                player.MaxHealth += 50;
+                player.Health += 50; 
+                player.Strength += 10;
+                Console.WriteLine("Congratulations! You leveled up!");
+                Console.WriteLine("+50 Max Health");
+                Console.WriteLine("+10 Strength");
+                DotDelay();
+                DotDelay(); // för att hinna läsa
+            }
+        }
 
-    public delegate void PlayerEvent(PlayerCharacter player);
+        public delegate void PlayerEvent(PlayerCharacter player);
 
   }
 
