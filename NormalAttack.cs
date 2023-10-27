@@ -6,10 +6,20 @@
     public int Attack(ICharacter attacker)
     {
       int itempower = attacker.equipedWeapon.ItemPower;
-      var scalingfactor = (attacker.Strength / 10) + 1;
-      itempower *= scalingfactor;
-      int damage = itempower; //+ attacker.Strength;
+      int strength = attacker.Strength;
+      int damage;
+
+      if (itempower >= strength)
+      {
+        damage = itempower;
+      }
+      else
+      {
+        damage = itempower + strength;
+      }
+
       return damage;
+
 
     }
   }

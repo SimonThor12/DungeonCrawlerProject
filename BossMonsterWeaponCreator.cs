@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawlerProject
 {
-  public class BossMonsterWeaponCreator : IMonsterWeaponCreator
+  public class BossMonsterWeaponCreator : IMonsterWeaponCreator<IWeapon>
   {
     private readonly Random random = new Random();
     public IWeapon CreateWeapon(string bossname)

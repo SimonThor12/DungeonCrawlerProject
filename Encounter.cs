@@ -311,6 +311,15 @@
           { "Serpentix the Devourer", "Serpentix, a colossal serpent with jagged fangs and venomous breath,\nslithers forth with an insatiable hunger for destruction." },
           { "Molten Core Guardian", $"The Molten Core Guardian, a living inferno of molten rock and searing flames,\nradiates intense heat and an aura of pure annihilation. Holding The {Monster.equipedWeapon.Name}" },
           { "Abyssal Leviathan", "From the depths of the abyss, the Abyssal Leviathan rises wielding ,\nan ancient sea terror with jaws that can crush ships and a hunger for chaos." },
+          { "Bandit", $"A cunning {Monster.Name} emerges from the shadows, wielding a {Monster.equipedWeapon.Name} and ready to rob you." },
+          { "Dead Soldier", $"A dead {Monster.Name} in uniform confronts you, armed with a {Monster.equipedWeapon.Name}." },
+          { "Thief", $"A sneaky {Monster.Name} lurks in the darkness, ready to steal your valuables with a {Monster.equipedWeapon.Name}." },
+          { "Brigand", $"A menacing {Monster.Name} with a wild look in its eyes wields a {Monster.equipedWeapon.Name} and demands your treasure." },
+          { "Mage Apprentice", $"A young {Monster.Name} with a pointed hat and a {Monster.equipedWeapon.Name} conjures magical spells with a mischievous grin." },
+          { "Knight", $"A noble {Monster.Name} in shining armor charges at you with a {Monster.equipedWeapon.Name}, ready for a chivalrous battle." },
+          { "Rogue", $"A rogue {Monster.Name} with stealthy movements and a {Monster.equipedWeapon.Name} prepares to strike from the shadows." },
+          { "Assassin", $"A deadly {Monster.Name} with a poisoned {Monster.equipedWeapon.Name} moves with lethal precision, ready to eliminate its target." },
+          { "Guardian", $"A fierce {Monster.Name} stands guard with a towering {Monster.equipedWeapon.Name}, determined to protect its territory." }
 
       };
 
@@ -453,33 +462,41 @@
     }
     public void EquipAsk(IEnumerable<Weapon> tempList)
     {
-      TypeTextWithDelay("Do you want to equip? (input corresponding number, 0 for none of them)\n");
-      string input = Console.ReadLine();
-      switch (input)
+      if (tempList.Count() == 0)
       {
-        case "1":
-          Player.equipedWeapon = tempList.ElementAt(0);
-          Console.WriteLine("Good Choice!");
-          break;
-        case "2":
-          Player.equipedWeapon = tempList.ElementAt(1);
-          Console.WriteLine("Good Choice!");
-          break;
-        case "3":
-          Player.equipedWeapon = tempList.ElementAt(2);
-          Console.WriteLine("Good Choice!");
-          break;
-        case "0":
-          Console.WriteLine("You leave the pile.");
-          break;
-        default:
-          Console.WriteLine("You can not do that, try again!");
-          Console.ReadKey();
-          EquipAsk(tempList);
-          break;
-
+        return;
       }
-      Console.ReadKey();
+      else
+      {
+        TypeTextWithDelay("Do you want to equip? (input corresponding number, 0 for none of them)\n");
+        string input = Console.ReadLine();
+        switch (input)
+        {
+          case "1":
+            Player.equipedWeapon = tempList.ElementAt(0);
+            Console.WriteLine("Good Choice!");
+            break;
+          case "2":
+            Player.equipedWeapon = tempList.ElementAt(1);
+            Console.WriteLine("Good Choice!");
+            break;
+          case "3":
+            Player.equipedWeapon = tempList.ElementAt(2);
+            Console.WriteLine("Good Choice!");
+            break;
+          case "0":
+            Console.WriteLine("You leave the pile.");
+            break;
+          default:
+            Console.WriteLine("You can not do that, try again!");
+            Console.ReadKey();
+            EquipAsk(tempList);
+            break;
+
+        }
+        Console.ReadKey();
+      }
+
 
     }
     public void PrintDroppedWeapons(IEnumerable<Weapon> tempList)
@@ -499,6 +516,8 @@
           TypeTextWithDelay(i + ": " + weapLoot.Name + " with " + weapLoot.ItemPower + " power\n");
           i++;
         }
+
+        Console.WriteLine($"This is your current weapon: {Player.equipedWeapon.Name}({Player.equipedWeapon.ItemPower})");
       }
     }
   }

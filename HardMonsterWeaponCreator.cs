@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawlerProject
 {
-  public class HardMonsterWeaponCreator : IMonsterWeaponCreator
+  public class HardMonsterWeaponCreator : IMonsterWeaponCreator<IWeapon>
   {
     private readonly Random random = new Random();
     private readonly List<string> weaponNames = new List<string>
