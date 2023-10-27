@@ -6,10 +6,10 @@
     public int Health { get; set; }
 
     public int Strength { get; set; }
-    public ICharacterAttackBehaviour AttackBehaviour { get; set; }
+    public ICharacterAttackBehaviour<int> AttackBehaviour { get; set; }
     public IWeapon equipedWeapon { get; set; }
 
-    public MonsterCharacter(string name, int health, ICharacterAttackBehaviour attackBehaviour, int strength, IWeapon weapon)
+    public MonsterCharacter(string name, int health, ICharacterAttackBehaviour<int> attackBehaviour, int strength, IWeapon weapon)
     {
       Name = name;
       Health = health;
