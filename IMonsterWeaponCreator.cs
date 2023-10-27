@@ -10,8 +10,10 @@
   //vänstra sidan av bridge pattern, dvs. i detta fallet, MonsterFactory. Om vi vill kan vi nu göra "Easy" monster som
   //har "HardMonsterWeaponCreator". Man kan tänka sig ett scenario där ett monster plockar upp ett bättre vapen under
   //fighten, vilket nu med detta mönster är möjligt under runtime. 
-  public interface IMonsterWeaponCreator
+
+  //Här ser vi även ett exempel på kovarians, då vi returnerar T i metoden CreateWeapon. T är därför kovariant, eftersom att allt som händer med T i gränssnittet är att den returneras.    
+  public interface IMonsterWeaponCreator<out T> where T : IWeapon
   {
-    public IWeapon CreateWeapon(string name);
+    public T CreateWeapon(string name);
   }
 }

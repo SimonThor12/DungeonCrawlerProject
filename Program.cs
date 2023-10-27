@@ -21,7 +21,7 @@ using DungeonCrawlerProject;
 //- Iterator pattern + Enumerable/Enumerator: Inventory.cs, rad 3-8.
 //- Yield and lazy evaluation: Inventory.cs, rad 8-10.
 //- LINQ: Encounter.cs, rad 204-207 
-//- Covariance
+//- Covariance: IMonsterWeaponCreator.cs, rad 14.
 //- Contravariance
 //- Invariance
 //- Variant Classes
