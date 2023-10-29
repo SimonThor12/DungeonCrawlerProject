@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace DungeonCrawlerProject
+﻿namespace DungeonCrawlerProject
 {
   public class Encounter
   {
@@ -13,6 +11,7 @@ namespace DungeonCrawlerProject
     }
     public void StartEncounter()
     {
+      bool combatChoiceSucess = false;
       bool encounterOver = false;
       bool playerTurn = true;
       // Create a monster based on the player's score 
@@ -44,6 +43,7 @@ namespace DungeonCrawlerProject
               Player.Strength = (int)(Player.Strength * 0.90);
             }
           }
+
           Console.Clear();
           Console.WriteLine("It's your turn. What will you do? (1-3)");
           Console.WriteLine(Player.Name + " HP: " + Player.Health + "/" + Player.MaxHealth + " | " + Monster.Name + " HP: " + Monster.Health);
@@ -53,86 +53,8 @@ namespace DungeonCrawlerProject
           Console.WriteLine("|> 3. Inventory         <|");
           Console.WriteLine("**************************");
 
-          string input = Console.ReadLine();
+          GetCombatChoice();
 
-          switch (input)
-          {
-            case "1":
-              PlayerAttack();
-              break;
-
-            case "2":
-              //try to flee from the encounter, with a small chance of success
-              if (new Random().Next(1, 11) == 1)
-              {
-                Console.WriteLine("You successfully flee from the encounter!");
-                encounterOver = true;
-
-                break;
-              }
-              else
-              {
-                Console.WriteLine("You failed to flee from the encounter!");
-                break;
-              }
-
-            case "3":
-              Console.WriteLine("You open your inventory");
-              var inv = Player.personalInventory.GetEnumerator();
-              int invNum = 1;
-              while (inv.MoveNext())
-              {
-                Console.WriteLine(invNum + ": " + inv.Current.Name);
-                invNum++;
-              }
-              Console.WriteLine("What do you want to use?");
-              switch (Console.ReadLine())
-              {
-                case "1":
-                  Player.personalInventory.GetItem(0).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(0));
-                  break;
-                case "2":
-                  Player.personalInventory.GetItem(1).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(1));
-                  break;
-                case "3":
-                  Player.personalInventory.GetItem(2).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(2));
-                  break;
-                case "4":
-                  Player.personalInventory.GetItem(3).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(3));
-                  break;
-                case "5":
-                  Player.personalInventory.GetItem(4).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(4));
-                  break;
-                case "6":
-                  Player.personalInventory.GetItem(5).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(5));
-                  break;
-                case "7":
-                  Player.personalInventory.GetItem(6).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(6));
-                  break;
-                case "8":
-                  Player.personalInventory.GetItem(7).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(7));
-                  break;
-                case "9":
-                  Player.personalInventory.GetItem(8).UseItem(Player);
-                  Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(8));
-                  break;
-
-              }
-              break;
-
-            default:
-              Console.WriteLine("You fumble and flail your arms, to no use. Try again next time.");
-              Console.ReadKey();
-              break;
-          }
         }
         else
         {
@@ -154,9 +76,9 @@ namespace DungeonCrawlerProject
         else if (Monster.Health <= 0)
         {
           TypeTextWithDelay($"You have defeated the {Monster.Name}!");
-                    //ska randomisa vapen man får, ej hårdkoda
-        Player.DefeatMonster();   // här får man experience
-                    List<PowerUp> powerups = new List<PowerUp> {
+          //ska randomisa vapen man får, ej hårdkoda
+          Player.DefeatMonster();   // här får man experience
+          List<PowerUp> powerups = new List<PowerUp> {
             new PowerUp("Health Potion", new HealEffect(30)),
             new PowerUp("Strong Health Potion", new HealEffect(50)),
             new PowerUp("Divine Health Potion", new HealEffect(100)),
@@ -212,7 +134,7 @@ namespace DungeonCrawlerProject
           Player.personalInventory.AddItem(loot2);
           TypeTextWithDelay("You have gained a " + loot2.Name + "!");
           Console.ReadKey();
-          
+
           //Här används LINQ för att filtrera ut vapen som är av rätt typ. Vi använder
           //Where() för att filtrera ut vapen som har en viss ItemPower, från en lista av vapen.
           //Vi använder också ToList() för att konvertera resultatet till en lista.
@@ -520,6 +442,115 @@ namespace DungeonCrawlerProject
         }
 
         Console.WriteLine($"This is your current weapon: {Player.equipedWeapon.Name}({Player.equipedWeapon.ItemPower})");
+      }
+    }
+
+    public bool UseInventory()
+    {
+      var invEnumerator = Player.personalInventory.GetEnumerator();
+      int invNum = 1;
+      bool itemChosen = false; //change to correct!
+      while (invEnumerator.MoveNext())
+      {
+        Console.WriteLine(invNum + ": " + invEnumerator.Current.Name);
+        invNum++;
+      }
+      Console.WriteLine("What do you want to use?");
+
+      switch (Console.ReadLine())
+      {
+        case "1":
+          Player.personalInventory.GetItem(0).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(0));
+          itemChosen = true;
+          break;
+        case "2":
+          Player.personalInventory.GetItem(1).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(1));
+          itemChosen = true;
+          break;
+        case "3":
+          Player.personalInventory.GetItem(2).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(2));
+          itemChosen = true;
+          break;
+        case "4":
+          Player.personalInventory.GetItem(3).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(3));
+          itemChosen = true;
+
+          break;
+        case "5":
+          Player.personalInventory.GetItem(4).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(4));
+          itemChosen = true;
+
+          break;
+        case "6":
+          Player.personalInventory.GetItem(5).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(5));
+          itemChosen = true;
+
+          break;
+        case "7":
+          Player.personalInventory.GetItem(6).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(6));
+          itemChosen = true;
+
+          break;
+        case "8":
+          Player.personalInventory.GetItem(7).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(7));
+          itemChosen = true;
+
+          break;
+        case "9":
+          Player.personalInventory.GetItem(8).UseItem(Player);
+          Player.personalInventory.RemoveItem(Player.personalInventory.GetItem(8));
+          itemChosen = true;
+
+          break;
+        default:
+          Console.WriteLine("You leave your inventory");
+          break;
+      }
+      return itemChosen;
+    }
+
+    public void GetCombatChoice()
+    {
+      string input = Console.ReadLine();
+
+      switch (input)
+      {
+        case "1":
+          PlayerAttack();
+          break;
+
+        case "2":
+          //try to flee from the encounter, with a small chance of success
+          if (new Random().Next(1, 11) == 1)
+          {
+            Console.WriteLine("You successfully flee from the encounter!");
+            break;
+          }
+          else
+          {
+            Console.WriteLine("You failed to flee from the encounter!");
+            break;
+          }
+
+        case "3":
+          Console.WriteLine("You open your inventory");
+          UseInventory();
+          break;
+
+        default:
+          Console.WriteLine("Not a valid input, try again!");
+          //Redo the switch statement
+          GetCombatChoice();
+          Console.ReadKey();
+          break;
       }
     }
   }
