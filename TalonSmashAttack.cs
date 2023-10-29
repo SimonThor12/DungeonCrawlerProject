@@ -1,6 +1,6 @@
 ﻿namespace DungeonCrawlerProject
 {
-  public class TalonSmashAttack : ICharacterAttackBehaviour
+  public class TalonSmashAttack : ICharacterAttackBehaviour<int>
   {
     public int Attack(ICharacter character)
     {

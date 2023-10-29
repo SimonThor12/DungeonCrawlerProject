@@ -1,8 +1,8 @@
 ﻿namespace DungeonCrawlerProject
 {
-  public class NormalAttack : ICharacterAttackBehaviour
+  public class NormalAttack : ICharacterAttackBehaviour<int>
   {
- 
+
     public int Attack(ICharacter attacker)
     {
       int itempower = attacker.equipedWeapon.ItemPower;

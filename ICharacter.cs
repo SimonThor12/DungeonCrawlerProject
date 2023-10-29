@@ -5,7 +5,7 @@
   {
     string Name { get; set; }
     public int Health { get; set; }
-    public ICharacterAttackBehaviour AttackBehaviour { get; set; }
+    public ICharacterAttackBehaviour<int> AttackBehaviour { get; set; }
     IWeapon equipedWeapon { get; set; }
 
     public int Strength { get; set; }

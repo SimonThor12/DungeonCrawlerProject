@@ -1,10 +1,10 @@
 ﻿namespace DungeonCrawlerProject
 {
-  public class NoAttack : ICharacterAttackBehaviour
+  public class NoAttack : ICharacterAttackBehaviour<bool>
   {
-    public int Attack(ICharacter character)
+    public bool Attack(ICharacter character)
     {
-      return 0;
+      return true;
     }
   }
 

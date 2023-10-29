@@ -5,7 +5,7 @@ using DungeonCrawlerProject;
 //OBS!
 //Kommentarer för koncepten som ska täckas i projektet är i följande filer på följande rader:
 //- Generic classes: ItemFactory.cs, rad 3-5.
-//- Generic supertypes: 
+//- Generic supertypes: ICharacterAttackBehaviour.cs, rad 3.
 //- Type parameter constraints: Inventory.cs, rad 12.
 //- Collections: Encounter.cs, rad 287.
 //- Dependency injection: PlayerCharacter.cs, rad 15-18.
