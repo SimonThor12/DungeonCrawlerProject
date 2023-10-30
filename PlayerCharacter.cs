@@ -26,9 +26,9 @@
       {
         _experience = value;
 
-        while (_experience >= 5)
+        while (_experience >= 3)
         {
-          _experience -= 5;
+          _experience -= 3;
           Level++;
           PlayerLeveledUp?.Invoke(this, EventArgs.Empty); // Raise the event
         }
@@ -64,7 +64,7 @@
     public void DefeatMonster()
     {
 
-      this.Experience += 5;
+      this.Experience += 1;
     }
 
   }
