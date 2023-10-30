@@ -22,7 +22,7 @@ using DungeonCrawlerProject;
 //- Yield and lazy evaluation: Inventory.cs, rad 8-10.
 //- LINQ: Encounter.cs, rad 204-207 
 //- Covariance: IMonsterWeaponCreator.cs, rad 14.
-//- Contravariance
+//- Contravariance IMonsterWeaponCreator.cs, rad 16.
 //- Invariance: Encounter.cs, rad 81.
 //- Variant Classes
 //- Variant delegates
