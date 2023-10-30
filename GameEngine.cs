@@ -131,14 +131,14 @@ namespace DungeonCrawlerProject
         int eventChance = rng.Next(100);
 
 
-        if (eventChance < 79) //20% chance to trigger event
+        if (eventChance < 11) //20% chance to trigger event
         {
                     playerEventDelegate = GrantBonusItem;
                     playerEventDelegate(currentPlayer);
                     DotDelay();
         }
 
-        else if (eventChance > 21) //20% chance to trigger
+        else if (eventChance > 89) //20% chance to trigger
         {
                     playerEventDelegate = EncounterMysteriousAlly;
                     playerEventDelegate(currentPlayer);
