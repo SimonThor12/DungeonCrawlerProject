@@ -177,7 +177,6 @@
 
           Console.ReadKey();
           Console.Clear();
-          OpenChest();
 
         }
         playerTurn = !playerTurn; // Switch turns between player and monster
@@ -304,63 +303,6 @@
       Console.WriteLine();
     }
 
-    public void OpenChest()
-    {
-      TypeTextWithDelay("After looking around your surroundings you spot a chest in the rubble!");
-      TypeTextWithDelay("You walk over to the chest");
-      TypeTextWithDelay("Press enter to open the chest, press 0 to walk away");
-      ConsoleKeyInfo keyInfo = Console.ReadKey();
-      if (keyInfo.Key == ConsoleKey.Enter)
-      {
-        ItemChest<IItem> chest = new PowerUpChest();
-        ItemChest<IItem> chest2 = new RingChest();
-
-        //Randomize what chest the player gets
-        Random random = new Random();
-        int chestNumber = random.Next(0, 5);
-        if (chestNumber != 0)
-        {
-
-          var item = chest.GiveItem();
-          TypeTextWithDelay($"You open the chest and find {item.Name} inside.");
-          TypeTextWithDelay("You put it in your inventory");
-          DotDelay();
-          Player.personalInventory.AddItem(item);
-
-        }
-        else
-        {
-
-          if (Player.amountOfRings < 2)
-          {
-            var item2 = chest2.GiveItem();
-            TypeTextWithDelay($"You open the chest and find {item2.Name} inside!");
-            TypeTextWithDelay("You equip the ring");
-            DotDelay();
-            item2.UseItem(Player);
-            Player.amountOfRings++;
-          }
-          else
-          {
-            var item2 = chest2.GiveItem();
-            TypeTextWithDelay($"You open the chest and find {item2.Name} inside!");
-            Console.WriteLine("Sadly your vanity stops you from equipping more rings,\n" +
-              "so you leave it be.");
-
-          }
-
-        }
-      }
-      else if (keyInfo.Key == ConsoleKey.D0)
-      {
-        TypeTextWithDelay("You walk away from the chest");
-      }
-      else
-      {
-        TypeTextWithDelay("Wrong input, try again!");
-        OpenChest();
-      }
-    }
 
     public void DotDelay()
 
