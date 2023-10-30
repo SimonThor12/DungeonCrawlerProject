@@ -23,7 +23,7 @@ using DungeonCrawlerProject;
 //- LINQ: Encounter.cs, rad 204-207 
 //- Covariance: IMonsterWeaponCreator.cs, rad 14.
 //- Contravariance
-//- Invariance
+//- Invariance: Encounter.cs, rad 81.
 //- Variant Classes
 //- Variant delegates
 //- Variant generic delegates

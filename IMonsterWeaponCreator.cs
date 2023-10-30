@@ -11,7 +11,7 @@
   //har "HardMonsterWeaponCreator". Man kan tänka sig ett scenario där ett monster plockar upp ett bättre vapen under
   //fighten, vilket nu med detta mönster är möjligt under runtime. 
 
-  //Här ser vi även ett exempel på kovarians, då vi returnerar T i metoden CreateWeapon. T är därför kovariant, eftersom att allt som händer med T i gränssnittet är att den returneras.    
+  //Här är även ett exempel på kovarians, då vi returnerar T i metoden CreateWeapon. T är därför kovariant, eftersom att allt som händer med T i gränssnittet är att den returneras.    
 
 
   public interface IMonsterWeaponCreator<out T> where T : IWeapon

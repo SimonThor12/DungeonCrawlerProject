@@ -76,8 +76,9 @@
         else if (Monster.Health <= 0)
         {
           TypeTextWithDelay($"You have defeated the {Monster.Name}!");
-          //ska randomisa vapen man får, ej hårdkoda
+
           Player.DefeatMonster();   // här får man experience
+          //Dessa listor är ett exempel på en IList<T> som är en samling av objekt av typen T. T i IList<T> är inte kovariant eller kontravariant och är därför ett exempel på en invariant typ.
           List<PowerUp> powerups = new List<PowerUp> {
             new PowerUp("Health Potion", new HealEffect(30)),
             new PowerUp("Strong Health Potion", new HealEffect(50)),
