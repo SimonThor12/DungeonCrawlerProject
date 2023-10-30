@@ -76,13 +76,12 @@
           {
             Random random = new Random();
 
+
+            TypeTextWithDelay(roomDescriptions[new Random().Next(0, roomDescriptions.Length)]);
             if (random.Next(5) == 1)
             {
               OpenChest();
             }
-            TypeTextWithDelay(roomDescriptions[new Random().Next(0, roomDescriptions.Length)]);
-            Console.WriteLine("Press Enter to continue");
-
             Console.ReadKey();
 
             HandleUserDoorAction();
