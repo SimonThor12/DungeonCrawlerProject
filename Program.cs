@@ -12,12 +12,12 @@ using DungeonCrawlerProject;
 //- Composition over inheritance: PowerUp.cs, rad 3-8.
 //- Strategy pattern: IPowerUpEffect.cs, rad 3-7.
 //- Bridge pattern: IMonsterWeaponCreator.cs, rad 3-12.
-//- Delegates
-//- Generic delegates
+//- Delegates: GameEngine, rad 363
+//- Generic delegates: GameEngine, rad 363
 //- Built in delegates: Encounter.cs, rad 313-314.
 //- Multicast delegates
 //- Lambdas: Encounter: rad 315-316.
-//- Observer pattern + Events
+//- Observer pattern + Events   GameEngine rad 341-356        
 //- Iterator pattern + Enumerable/Enumerator: Inventory.cs, rad 3-8.
 //- Yield and lazy evaluation: Inventory.cs, rad 8-10.
 //- LINQ: Encounter.cs, rad 204-207 

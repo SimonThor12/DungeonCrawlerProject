@@ -7,8 +7,8 @@ namespace DungeonCrawlerProject
 
     //make a player
     public PlayerCharacter currentPlayer { get; set; }
-    private PlayerEvent playerEventDelegate;
-    private Random rng = new Random();
+        private PlayerEvent<PlayerCharacter> playerEventDelegate;
+        private Random rng = new Random();
     public GameEngine()
     {
       playerEventDelegate = GrantBonusItem; // Assign the function to the delegate
@@ -131,16 +131,18 @@ namespace DungeonCrawlerProject
         int eventChance = rng.Next(100);
 
 
-        if (eventChance < 20) //20% chance to trigger event
+        if (eventChance < 79) //20% chance to trigger event
         {
-          GrantBonusItem(currentPlayer);
-          DotDelay();
+                    playerEventDelegate = GrantBonusItem;
+                    playerEventDelegate(currentPlayer);
+                    DotDelay();
         }
 
-        else if (eventChance > 80) //20% chance to trigger
+        else if (eventChance > 21) //20% chance to trigger
         {
-          EncounterMysteriousAlly(currentPlayer);
-          DotDelay();
+                    playerEventDelegate = EncounterMysteriousAlly;
+                    playerEventDelegate(currentPlayer);
+                    DotDelay();
         }
 
         Console.Clear();
@@ -233,7 +235,6 @@ namespace DungeonCrawlerProject
         TypeTextWithDelay("You've received a Mystic Elixir that boosts your strength.");
         DotDelay();
         TypeTextWithDelay("The figure disappears as suddenly as they appeared, leaving you in wonder.");
-        TypeTextWithDelay("The figure leaves you wondering about what just happened...");
         TypeTextWithDelay("but as you look around in the room you see that you are not alone.");
       }
     }
@@ -333,7 +334,12 @@ namespace DungeonCrawlerProject
       }
 
     }
-        private void Player_OnLeveledUp(object sender, EventArgs e)            // HÄR LEVELAR MAN
+        // Eventhandler: Player_OnLeveledUp
+        // Denna metod hanterar när en spelare nivåhöjs 
+        // denna event hanterare använder sig av observer-pattern.
+        // Där 'Player' är det subjekt som observeras och denna metod fungerar som en observerare som svarar på förändringar (i det här fallet, en nivåhöjning).
+        // Event ger möjlighet för andra delar av programmet att svara på en nivåhöjning utan att behöva ändra källkoden direkt.
+        private void Player_OnLeveledUp(object sender, EventArgs e) 
         {
             var player = sender as PlayerCharacter;
 
@@ -345,14 +351,18 @@ namespace DungeonCrawlerProject
                 Console.WriteLine("Congratulations! You leveled up!");
                 Console.WriteLine("+50 Max Health");
                 Console.WriteLine("+10 Strength");
-                DotDelay();
-                DotDelay(); // för att hinna läsa
+                DotDelay(); 
             }
         }
+        // Här har vi definierat en generisk delegat med namnet `PlayerEvent`.
+        // Delegaten representerar en metod som tar en parameter av typen `T` 
+        // och returnerar inget (`void`). Genom att använda en generisk typ 
+        // kan `PlayerEvent` fungera med olika datatyper, vilket gör det möjligt 
+        // att använda samma delegat för olika slags spelare eller karaktärer 
+        // i ett spel, snarare än att skapa en ny delegat för varje typ.
+        public delegate void PlayerEvent<T>(T player);
 
-        public delegate void PlayerEvent(PlayerCharacter player);
-
-  }
+    }
 
 
 }
