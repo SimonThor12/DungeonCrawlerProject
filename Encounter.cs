@@ -136,10 +136,14 @@
           TypeTextWithDelay("You have gained a " + loot2.Name + "!");
           Console.ReadKey();
 
-          //Här används LINQ för att filtrera ut vapen som är av rätt typ. Vi använder
-          //Where() för att filtrera ut vapen som har en viss ItemPower, från en lista av vapen.
-          //Vi använder också ToList() för att konvertera resultatet till en lista.
-          //Detta gör koden mer läsbar och förenklar den.
+          /*KONCEPT: LINQ.
+          HUR: Här används LINQ för att filtrera ut vapen som är av rätt typ. Vi använder
+          Where() för att filtrera ut vapen som har en viss ItemPower, från en lista av vapen.
+          Vi använder också ToList() för att konvertera resultatet till en lista.
+          VARFÖR: Detta gör koden mer läsbar och förenklar den. LINQ är otroligt effektivt för att filtrera ur en samling
+          eller databas. Det gör att kod som annars skulle vara jättelång och komplex, blir kort och lättskriven, samt lätt att 
+          förstå. 
+          */
           if (Player.CompletedRooms >= 10 && random.Next(1, 11) != 1)
           {
             IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 180).ToList();
