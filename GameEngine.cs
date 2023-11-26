@@ -9,7 +9,7 @@
     private Random rng = new Random();
     public GameEngine()
     {
-      playerEventDelegate = GrantBonusItem; // Assign the function to the delegate
+      playerEventDelegate = GrantBonusItem; 
     }
 
     //make a list of items
@@ -416,12 +416,14 @@
         DotDelay();
       }
     }
-    // Här har vi definierat en generisk delegat med namnet `PlayerEvent`.
-    // Delegaten representerar en metod som tar en parameter av typen `T` 
-    // och returnerar inget (`void`). Genom att använda en generisk typ 
-    // kan `PlayerEvent` fungera med olika datatyper, vilket gör det möjligt 
-    // att använda samma delegat för olika slags spelare eller karaktärer 
-    // i ett spel, snarare än att skapa en ny delegat för varje typ.
+    /* KONCEPT: Delegate och generic delegate
+     HUR: Här har vi definierat en generisk delegat med namnet `PlayerEvent`.
+     Delegaten representerar en metod som tar en parameter av typen `T` 
+     och returnerar inget (`void`).
+     VARFÖR: Genom att använda en generisk typ kan `PlayerEvent` fungera med olika datatyper, vilket gör det möjligt 
+     att använda samma delegat för olika slags spelare eller karaktärer 
+     i ett spel, snarare än att skapa en ny delegat för varje typ.
+    */
     public delegate void PlayerEvent<T>(T player);
 
   }
