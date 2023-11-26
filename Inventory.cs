@@ -8,11 +8,17 @@ namespace DungeonCrawlerProject
   
   VARFÖR: för att kunna använda foreach loopar och behandla samlingen av items som en lista.
   Detta är en bra idé eftersom vi ville att Inventory skulle vara en samling av items. Detta är ett exempel på att 
-  använda IEnumerable och därav också Iterator pattern. 
-  När vi använder IEnumerable kan vi också nyttja yield return för att returnera
-  Items från listan på ett "lazy" vis. Det gör att de returneras en och en, eller "on the fly".
-  Vi får möjligheten att iterera över
+  använda IEnumerable och därav också Iterator pattern. Vi får möjligheten att iterera över
   varje element i samlingen utan att exponera dess underliggande struktur.
+  */
+  
+  /* KONCEPT: Yield och lazy evaluation.
+  HUR: När vi använder IEnumerable kan vi också nyttja yield return för att returnera
+  Items från listan på ett "lazy" vis. Det gör att de returneras en och en, eller "on the fly".
+  VARFÖR: Användningen av yield return och lazy evaluation är fördelaktig för prestanda och minnesanvändning.
+  Genom att använda yield return får vi möjligheten att generera och returnera items i samlingen successivt,
+  bara när de efterfrågas, istället för att returnera hela listan på en gång. Detta är speciellt användbart för
+  potentiellt oändliga samlingar. Det är bra främst för framtida utveckling av Inventory klassen.
   */
   
   /* KONCEPT: Type parameter constraints
