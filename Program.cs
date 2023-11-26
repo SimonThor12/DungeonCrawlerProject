@@ -15,7 +15,6 @@ using DungeonCrawlerProject;
 //- Delegates: GameEngine, rad 363
 //- Generic delegates: GameEngine, rad 363
 //- Built in delegates: Encounter.cs, rad 313-314.
-//- Multicast delegates
 //- Lambdas: Encounter: rad 315-316.
 //- Observer pattern + Events   GameEngine rad 341-356        
 //- Iterator pattern + Enumerable/Enumerator: Inventory.cs, rad 3-8.
@@ -24,10 +23,6 @@ using DungeonCrawlerProject;
 //- Covariance: IMonsterWeaponCreator.cs, rad 14.
 //- Contravariance IMonsterWeaponCreator.cs, rad 16.
 //- Invariance: Encounter.cs, rad 81.
-//- Variant Classes
-//- Variant delegates
-//- Variant generic delegates
-//- Variant generic interfaces
 
 GameEngine gameEngine = new GameEngine();
 gameEngine.StartGame();
