@@ -254,10 +254,22 @@
 
       };
 
-      // Vi använder här inbyggda delegaten Func för att skapa en funktion som 
-      // tar in en MonsterCharacter och returnerar en string. 
-      //Vi använder oss också av ett lambda-uttryck för att det är en kortare och mer läsbar syntax.
-      //Det finns ingen mening med att göra denna metod icke-anonym eftersom den bara används här.
+      /* KONCEPT: built in delegates.
+      HUR: Vi använder här inbyggda delegaten Func för att skapa en funktion som 
+      tar in en MonsterCharacter och returnerar en string. 
+      VARFÖR: Detta ökar läsbarheten och underhållbarheten i koden,
+      samtidigt som det tillåter oss att utnyttja den inbyggda funktionaliteten
+      hos delegater för att skapa dynamiska och återanvändbara funktioner. 
+      */
+      
+      /*KONCEPT: Lambda.
+      HUR: I detta fall har vi en Func-delegat med parametertypen MonsterCharacter och returtypen string, som refererar
+      till ett lambda-uttryck. Lambda-funktionen tar emot en MonsterCharacter och returnerar
+      en sträng. Den används här för att generera en beskrivning för en MonsterCharacter baserat på dess namn.
+      VARFÖR: Vi använder oss av ett lambda-uttryck här för att det är en kortare och mer läsbar syntax.
+      Det finns ingen mening med att göra denna metod icke-anonym eftersom den bara används här.
+      */
+      
       Func<MonsterCharacter, string> generateMonsterDescription = (monster) =>
       {
         if (monsterDescriptions.TryGetValue(monster.Name, out var description))
