@@ -78,7 +78,17 @@
           TypeTextWithDelay($"You have defeated the {Monster.Name}!");
 
           Player.DefeatMonster();   // här får man experience
-          //Dessa listor är ett exempel på en IList<T> som är en samling av objekt av typen T. T i IList<T> är inte kovariant eller kontravariant och är därför ett exempel på en invariant typ.
+          /*KONCEPT: Invarians.
+            HUR: Dessa listor är ett exempel på en IList<T> som är en samling av objekt av typen T.
+            T i IList<T> är inte kovariant eller kontravariant och är därför ett exempel på en invariant typ.
+            VARFÖR: listor är en väldigt effektiv samling som kommer med inbyggda metoder i C#. Anledningen till att den är invariant
+            i C# är främst för att vi kan både hämta och sätta element av typen T i en lista enligt definitionen av List i C#.
+            Det tyder på att den är både kovariant och kontravariant. 
+            Det bryter alltså mot statisk typ-säkerhet att ha List<T> som kovariant, eller kontravariant.
+            Med andra ord så blir risken stor för runtime-exception när vi använder listor som att de vore 
+            ko/kontra-varianta
+            i C#.
+          */
           List<PowerUp> powerups = new List<PowerUp> {
             new PowerUp("Health Potion", new HealEffect(30)),
             new PowerUp("Strong Health Potion", new HealEffect(50)),
