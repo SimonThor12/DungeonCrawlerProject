@@ -9,7 +9,13 @@ namespace DungeonCrawlerProject
   //När vi använder IEnumerable kan vi också nyttja yield return för att returnera
   //Items från listan på ett "lazy" vis. Det gör att de returneras en och en, eller "on the fly".
 
-  //Vi använder här type parameter constraints för att säkerställa att T är en IItem. Detta gör att vi kan behålla typinformation om T när vi använder den i metoder i Inventory.
+  /* KONCEPT: Type parameter constraints
+  HUR: genom att ha en generisk typ T så abstraherar vi typen. Men vi sätter dessutom en constraint genom att
+  T måste vara ett IItem. 
+  VARFÖR: Vi använder här constraints för att säkerställa att T är en IItem. 
+  Den främsta nyttan med detta i vårt fall är att vi kan behålla typinformation om T
+  när vi använder den i metoder i Inventory. 
+  */
   public class Inventory<T> : IEnumerable<T> where T : IItem
   {
     public int MaxInventorySize = 9;
