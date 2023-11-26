@@ -2,13 +2,19 @@
 
 namespace DungeonCrawlerProject
 {
-  //Inventory klassen implementerar IEnumerable för att kunna använda foreach loopar
-  //och behandla samlingen av items som en lista. Detta är en bra idé eftersom vi
-  //ville att Inventory skulle vara en samling av items. Detta är ett exempel på att 
-  //använda IEnumerable och därav också Iterator pattern. 
-  //När vi använder IEnumerable kan vi också nyttja yield return för att returnera
-  //Items från listan på ett "lazy" vis. Det gör att de returneras en och en, eller "on the fly".
-
+  /*KONCEPT: Enumerable + Iterator patterns.
+  HUR: genom att Inventory klassen implementerar IEnumerable gör vi den till något som är en komkretisering av en 
+  itererbar interface som är inbyggd i C#. Vi möjliggär att vi kan iterera över alla items i inventory i GetInventory-metoden.
+  
+  VARFÖR: för att kunna använda foreach loopar och behandla samlingen av items som en lista.
+  Detta är en bra idé eftersom vi ville att Inventory skulle vara en samling av items. Detta är ett exempel på att 
+  använda IEnumerable och därav också Iterator pattern. 
+  När vi använder IEnumerable kan vi också nyttja yield return för att returnera
+  Items från listan på ett "lazy" vis. Det gör att de returneras en och en, eller "on the fly".
+  Vi får möjligheten att iterera över
+  varje element i samlingen utan att exponera dess underliggande struktur.
+  */
+  
   /* KONCEPT: Type parameter constraints
   HUR: genom att ha en generisk typ T så abstraherar vi typen. Men vi sätter dessutom en constraint genom att
   T måste vara ett IItem. 
