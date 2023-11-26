@@ -215,8 +215,15 @@
     }
     private void PlayEncounterText(PlayerCharacter player, MonsterCharacter monster)
     {
-      // Vi definierar en Dictionary som är en samling av key-value pairs. Dictionary Implementerar ICollection<T>
-      //och kan därför använda metoder och egenskaper som återfinns i ICollection<T> (t.ex. Count). 
+      /* KONCEPT: Collections
+      HUR: Vi definierar en Dictionary som är en samling av key-value pairs. Dictionary Implementerar ICollection<T>
+      och kan därför använda metoder och egenskaper som återfinns i ICollection<T> (t.ex. Count). 
+      VARFÖR: Användningen av en Dictionary möjliggör effektiv hantering av data genom att tilldela varje
+      element en unik nyckel och koppla det till ett värde. Dessutom ger ICollection-implementeringen oss
+      tillgång till gemensamma funktioner för hantering av kollektioner, som att räkna antalet element i samlingen
+      (Count), vilket är användbart för styrning av programmet. 
+      */
+      */
       var monsterDescriptions = new Dictionary<string, string>
       {
           { "Gremlin", $"A small and mischievous creature lurks in the shadows\nand you see a {Monster.Name} wielding a {Monster.equipedWeapon.Name}." },
