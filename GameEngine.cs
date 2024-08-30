@@ -9,9 +9,13 @@
     private Random rng = new Random();
     public GameEngine()
     {
+<<<<<<< HEAD
       playerEventDelegate = GrantBonusItem;
       currentPlayer = new PlayerCharacter(100, new NormalAttack());
       // Assign the function to the delegate
+=======
+      playerEventDelegate = GrantBonusItem; 
+>>>>>>> fdcdc4507193128f33ced57d6c377b26938857b1
     }
 
     //make a list of items
@@ -447,11 +451,18 @@
       }
 
     }
-    // Eventhandler: Player_OnLeveledUp
-    // Denna metod hanterar när en spelare nivåhöjs 
-    // denna event hanterare använder sig av observer-pattern.
-    // Där 'Player' är det subjekt som observeras och denna metod fungerar som en observerare som svarar på förändringar (i det här fallet, en nivåhöjning).
-    // Event ger möjlighet för andra delar av programmet att svara på en nivåhöjning utan att behöva ändra källkoden direkt.
+    /*
+    KONCEPT: Observer pattern + events.
+    HUR: Denna metod hanterar när en spelare nivåhöjs denna event-hanterare använder sig av observer-pattern.
+     Där 'Player' är det subjekt som observeras.
+     Denna metod fungerar som en observerare som svarar på förändringar (i det här fallet, en nivåhöjning).
+     VARFÖR: Event ger möjlighet för andra delar av programmet att svara på en nivåhöjning.
+     Det ger en lös koppling mellan olika delar av programmet. När en spelare höjer sin nivå
+     agerar eventet som en notifiering som andra delar av koden kan prenumerera på och svara på utan att direkt påverka
+     källkoden för 'Player'. Detta främjar moduläritet och underhållbarhet genom att olika delar av programmet kan svara på
+     händelser på ett decentraliserat sätt. Det ger också en öppen arkitektur där nya funktioner enkelt kan skrivas utan
+     att kräva stora ändringar i koden.
+    */
     private void Player_OnLeveledUp(object sender, EventArgs e)
     {
       var player = sender as PlayerCharacter;
@@ -467,12 +478,14 @@
         DotDelay();
       }
     }
-    // Här har vi definierat en generisk delegat med namnet `PlayerEvent`.
-    // Delegaten representerar en metod som tar en parameter av typen `T` 
-    // och returnerar inget (`void`). Genom att använda en generisk typ 
-    // kan `PlayerEvent` fungera med olika datatyper, vilket gör det möjligt 
-    // att använda samma delegat för olika slags spelare eller karaktärer 
-    // i ett spel, snarare än att skapa en ny delegat för varje typ.
+    /* KONCEPT: Delegate och generic delegate
+     HUR: Här har vi definierat en generisk delegat med namnet `PlayerEvent`.
+     Delegaten representerar en metod som tar en parameter av typen `T` 
+     och returnerar inget (`void`).
+     VARFÖR: Genom att använda en generisk typ kan `PlayerEvent` fungera med olika datatyper, vilket gör det möjligt 
+     att använda samma delegat för olika slags spelare eller karaktärer 
+     i ett spel, snarare än att skapa en ny delegat för varje typ.
+    */
     public delegate void PlayerEvent<T>(T player);
 
   }

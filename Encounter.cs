@@ -78,7 +78,17 @@
           TypeTextWithDelay($"You have defeated the {Monster.Name}!");
 
           Player.DefeatMonster();   // här får man experience
-          //Dessa listor är ett exempel på en IList<T> som är en samling av objekt av typen T. T i IList<T> är inte kovariant eller kontravariant och är därför ett exempel på en invariant typ.
+          /*KONCEPT: Invarians.
+            HUR: Dessa listor är ett exempel på en IList<T> som är en samling av objekt av typen T.
+            T i IList<T> är inte kovariant eller kontravariant och är därför ett exempel på en invariant typ.
+            VARFÖR: listor är en väldigt effektiv samling som kommer med inbyggda metoder i C#. Anledningen till att den är invariant
+            i C# är främst för att vi kan både hämta och sätta element av typen T i en lista enligt definitionen av List i C#.
+            Det tyder på att den är både kovariant och kontravariant. 
+            Det bryter alltså mot statisk typ-säkerhet att ha List<T> som kovariant, eller kontravariant.
+            Med andra ord så blir risken stor för runtime-exception när vi använder listor som att de vore 
+            ko/kontra-varianta
+            i C#.
+          */
           List<PowerUp> powerups = new List<PowerUp> {
             new PowerUp("Health Potion", new HealEffect(50)),
             new PowerUp("Strong Health Potion", new HealEffect(750)),
@@ -134,6 +144,7 @@
           Console.ReadKey();
 
 
+<<<<<<< HEAD
           if (random.Next(3) == 1)
           {
             Player.personalInventory.AddItem(loot2);
@@ -144,6 +155,16 @@
           //Where() för att filtrera ut vapen som har en viss ItemPower, från en lista av vapen.
           //Vi använder också ToList() för att konvertera resultatet till en lista.
           //Detta gör koden mer läsbar och förenklar den.
+=======
+          /*KONCEPT: LINQ.
+          HUR: Här används LINQ för att filtrera ut vapen som är av rätt typ. Vi använder
+          Where() för att filtrera ut vapen som har en viss ItemPower, från en lista av vapen.
+          Vi använder också ToList() för att konvertera resultatet till en lista.
+          VARFÖR: Detta gör koden mer läsbar och förenklar den. LINQ är otroligt effektivt för att filtrera ur en samling
+          eller databas. Det gör att kod som annars skulle vara jättelång och komplex, blir kort och lättskriven, samt lätt att 
+          förstå. 
+          */
+>>>>>>> fdcdc4507193128f33ced57d6c377b26938857b1
           if (Player.CompletedRooms >= 10 && random.Next(1, 11) != 1)
           {
             IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 180).ToList();
@@ -218,8 +239,15 @@
     }
     private void PlayEncounterText(PlayerCharacter player, MonsterCharacter monster)
     {
-      // Vi definierar en Dictionary som är en samling av key-value pairs. Dictionary Implementerar ICollection<T>
-      //och kan därför använda metoder och egenskaper som återfinns i ICollection<T> (t.ex. Count). 
+      /* KONCEPT: Collections
+      HUR: Vi definierar en Dictionary som är en samling av key-value pairs. Dictionary Implementerar ICollection<T>
+      och kan därför använda metoder och egenskaper som återfinns i ICollection<T> (t.ex. Count). 
+      VARFÖR: Användningen av en Dictionary möjliggör effektiv hantering av data genom att tilldela varje
+      element en unik nyckel och koppla det till ett värde. Dessutom ger ICollection-implementeringen oss
+      tillgång till gemensamma funktioner för hantering av kollektioner, som att räkna antalet element i samlingen
+      (Count), vilket är användbart för styrning av programmet. 
+      */
+      */
       var monsterDescriptions = new Dictionary<string, string>
       {
           { "Gremlin", $"A small and mischievous creature lurks in the shadows\nand you see a {Monster.Name} wielding a {Monster.equipedWeapon.Name}." },
@@ -250,10 +278,22 @@
 
       };
 
-      // Vi använder här inbyggda delegaten Func för att skapa en funktion som 
-      // tar in en MonsterCharacter och returnerar en string. 
-      //Vi använder oss också av ett lambda-uttryck för att det är en kortare och mer läsbar syntax.
-      //Det finns ingen mening med att göra denna metod icke-anonym eftersom den bara används här.
+      /* KONCEPT: built in delegates.
+      HUR: Vi använder här inbyggda delegaten Func för att skapa en funktion som 
+      tar in en MonsterCharacter och returnerar en string. 
+      VARFÖR: Detta ökar läsbarheten och underhållbarheten i koden,
+      samtidigt som det tillåter oss att utnyttja den inbyggda funktionaliteten
+      hos delegater för att skapa dynamiska och återanvändbara funktioner. 
+      */
+      
+      /*KONCEPT: Lambda.
+      HUR: I detta fall har vi en Func-delegat med parametertypen MonsterCharacter och returtypen string, som refererar
+      till ett lambda-uttryck. Lambda-funktionen tar emot en MonsterCharacter och returnerar
+      en sträng. Den används här för att generera en beskrivning för en MonsterCharacter baserat på dess namn.
+      VARFÖR: Vi använder oss av ett lambda-uttryck här för att det är en kortare och mer läsbar syntax.
+      Det finns ingen mening med att göra denna metod icke-anonym eftersom den bara används här.
+      */
+      
       Func<MonsterCharacter, string> generateMonsterDescription = (monster) =>
       {
         if (monsterDescriptions.TryGetValue(monster.Name, out var description))

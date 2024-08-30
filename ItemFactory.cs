@@ -1,7 +1,8 @@
 ﻿namespace DungeonCrawlerProject
 {
-  //ItemFactory klassen är en generisk klass som tar emot en lista av ett visst objekt, med typ-parameter 'T'.
-  //Detta gör att det går att arbeta med olika typer av listor, t.ex. en lista av PowerUp-objekt eller en lista av 
+  //KONCEPT: Generic Classes
+  //HUR: ItemFactory klassen är en generisk klass som tar emot en lista av ett visst objekt, med typ-parameter 'T'.
+  //VARFÖR: Detta gör att det går att arbeta med olika typer av listor, t.ex. en lista av PowerUp-objekt eller en lista av 
   //Weapon-objekt. Vi kan alltså använda samma klass-definition för listor av arbiträrt innehåll.
   public class ItemFactory<T>
   {

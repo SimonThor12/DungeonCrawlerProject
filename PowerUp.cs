@@ -1,11 +1,13 @@
 ﻿namespace DungeonCrawlerProject
 {
-  //Vi har här en powerup klass som har ett beteende som är en IPowerUpEffect. Detta är en strategi som används av
-  //PowerUp-objektet för att utföra en effekt på en PlayerCharacter. Ett alternativ är att vi kunde ha haft arv, där 
-  //varje olika powerup ärver från PowerUp som basklass. Detta kan dock vara ett problem om vi vill skapa nya klasser av 
-  //powerups som inte faller under samma kontrakt som PowerUp. Då måste vi skapa en ny basklass för dessa powerups. Detta
-  //är ofta en ond cirkel av arv. Man ska inte lösa arv med mer arv. Därför är detta en illustration av hur komposition 
-  //är att föredra över arv.
+  /* KONCEPT: composition over inheritance.
+  HUR: Vi har här en powerup klass som har ett beteende som är en IPowerUpEffect. 
+  IPowerUpEffect används av PowerUp-objektet för att utföra en effekt på en PlayerCharacter. 
+  VARFÖR: det är sällan en bra idé att lösa arv med mer arv. Ett alternativ är att vi kunde ha haft arv, där 
+  varje olika powerup ärver från PowerUp som basklass. Detta kan dock vara ett problem om vi vill skapa nya klasser av 
+  powerups som inte faller under samma kontrakt som PowerUp. Då måste vi skapa en ny basklass för dessa powerups. Detta
+  är ofta en ond cirkel av arv.
+  */
   public class PowerUp : IItem
   {
     public string Name { get; set; }

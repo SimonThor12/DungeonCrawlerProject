@@ -2,14 +2,32 @@
 
 namespace DungeonCrawlerProject
 {
-  //Inventory klassen implementerar IEnumerable för att kunna använda foreach loopar
-  //och behandla samlingen av items som en lista. Detta är en bra idé eftersom vi
-  //ville att Inventory skulle vara en samling av items. Detta är ett exempel på att 
-  //använda IEnumerable och därav också Iterator pattern. 
-  //När vi använder IEnumerable kan vi också nyttja yield return för att returnera
-  //Items från listan på ett "lazy" vis. Det gör att de returneras en och en, eller "on the fly".
-
-  //Vi använder här type parameter constraints för att säkerställa att T är en IItem. Detta gör att vi kan behålla typinformation om T när vi använder den i metoder i Inventory.
+  /*KONCEPT: Enumerable + Iterator patterns.
+  HUR: genom att Inventory klassen implementerar IEnumerable gör vi den till något som är en komkretisering av en 
+  itererbar interface som är inbyggd i C#. Vi möjliggär att vi kan iterera över alla items i inventory i GetInventory-metoden.
+  
+  VARFÖR: för att kunna använda foreach loopar och behandla samlingen av items som en lista.
+  Detta är en bra idé eftersom vi ville att Inventory skulle vara en samling av items. Detta är ett exempel på att 
+  använda IEnumerable och därav också Iterator pattern. Vi får möjligheten att iterera över
+  varje element i samlingen utan att exponera dess underliggande struktur.
+  */
+  
+  /* KONCEPT: Yield och lazy evaluation.
+  HUR: När vi använder IEnumerable kan vi också nyttja yield return för att returnera
+  Items från listan på ett "lazy" vis. Det gör att de returneras en och en, eller "on the fly".
+  VARFÖR: Användningen av yield return och lazy evaluation är fördelaktig för prestanda och minnesanvändning.
+  Genom att använda yield return får vi möjligheten att generera och returnera items i samlingen successivt,
+  bara när de efterfrågas, istället för att returnera hela listan på en gång. Detta är speciellt användbart för
+  potentiellt oändliga samlingar. Det är bra främst för framtida utveckling av Inventory klassen.
+  */
+  
+  /* KONCEPT: Type parameter constraints
+  HUR: genom att ha en generisk typ T så abstraherar vi typen. Men vi sätter dessutom en constraint genom att
+  T måste vara ett IItem. 
+  VARFÖR: Vi använder här constraints för att säkerställa att T är en IItem. 
+  Den främsta nyttan med detta i vårt fall är att vi kan behålla typinformation om T
+  när vi använder den i metoder i Inventory. 
+  */
   public class Inventory<T> : IEnumerable<T> where T : IItem
   {
     private int MaxInventorySize { get; set; } = 9;
