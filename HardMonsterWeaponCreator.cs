@@ -10,7 +10,7 @@
 
     public IWeapon CreateWeapon(string name)
     {
-      int itemPower = random.Next(15, 30);
+      int itemPower = random.Next(40, 70);
 
       if (name == "Smaller Dragon")
       {

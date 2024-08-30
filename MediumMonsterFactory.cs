@@ -13,16 +13,16 @@
       //Random number generator
       Random random = new Random();
 
-      switch (random.Next(1, 4))
+      switch (random.Next(1, 5))
       {
         case 1:
-          return new MonsterCharacter("Ogre", random.Next(100, 150), new NormalAttack(), random.Next(10, 30), monsterWeaponCreator.CreateWeapon("Ogre"));
+          return new MonsterCharacter("Ogre", random.Next(75, 125), new NormalAttack(), random.Next(10, 20), monsterWeaponCreator.CreateWeapon("Ogre"));
         case 2:
-          return new MonsterCharacter("Minotaur", random.Next(100, 150), new NormalAttack(), random.Next(10, 30), monsterWeaponCreator.CreateWeapon("Minotaur"));
+          return new MonsterCharacter("Minotaur", random.Next(75, 125), new NormalAttack(), random.Next(10, 20), monsterWeaponCreator.CreateWeapon("Minotaur"));
         case 3:
-          return new MonsterCharacter("Skeleton", random.Next(100, 150), new NormalAttack(), random.Next(10, 30), monsterWeaponCreator.CreateWeapon("Skeleton"));
+          return new MonsterCharacter("Skeleton", random.Next(75, 125), new NormalAttack(), random.Next(10, 20), monsterWeaponCreator.CreateWeapon("Skeleton"));
         default:
-          return new MonsterCharacter("Harpy", random.Next(100, 150), new TalonSmashAttack(), random.Next(10, 30), monsterWeaponCreator.CreateWeapon("Harpy"));
+          return new MonsterCharacter("Harpy", random.Next(75, 125), new TalonSmashAttack(), random.Next(10, 20), monsterWeaponCreator.CreateWeapon("Harpy"));
       }
     }
   }

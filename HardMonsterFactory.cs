@@ -13,7 +13,7 @@
       //Random number generator
       Random random = new Random();
 
-      switch (random.Next(1, 4))
+      switch (random.Next(1, 5))
       {
         case 1:
           return new MonsterCharacter("Goblin King", random.Next(150, 300), new NormalAttack(), random.Next(30, 50), monsterWeaponCreator.CreateWeapon("Goblin King"));

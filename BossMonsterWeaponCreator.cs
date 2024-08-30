@@ -6,7 +6,7 @@
     public IWeapon CreateWeapon(string bossname)
     {
       // Randomly generate a weapon name from the list of weapon names using the ItemFactory Pick method
-      int itemPower = random.Next(50, 100);
+      int itemPower = random.Next(80, 150);
       if (bossname == "Netherlord Zorath")
       {
         return new Weapon("Never Ending Sword Of Nether", itemPower);

@@ -16,7 +16,7 @@
       string weaponName = itemFactory.Pick();
 
       // Randomly generate an item power from 1 to 10
-      int itemPower = random.Next(1, 11);
+      int itemPower = random.Next(5, 12);
 
       return new Weapon(weaponName, itemPower);
     }

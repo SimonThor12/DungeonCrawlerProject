@@ -10,7 +10,7 @@
 
     public IWeapon CreateWeapon(string name)
     {
-      int itemPower = random.Next(5, 20);
+      int itemPower = random.Next(15, 30);
 
       if (name == "Harpy")
       {

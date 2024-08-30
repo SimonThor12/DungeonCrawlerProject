@@ -12,16 +12,16 @@
       // Random number generator
       Random random = new Random();
 
-      switch (random.Next(1, 4))
+      switch (random.Next(1, 5))
       {
         case 1:
-          return new MonsterCharacter("Netherlord Zorath", random.Next(500, 2001), new NormalAttack(), random.Next(50, 150), monsterWeaponCreator.CreateWeapon("Netherlord Zorath"));
+          return new MonsterCharacter("Netherlord Zorath", random.Next(900, 2001), new NormalAttack(), random.Next(50, 150), monsterWeaponCreator.CreateWeapon("Netherlord Zorath"));
         case 2:
-          return new MonsterCharacter("Serpentix the Devourer", random.Next(500, 2001), new NormalAttack(), random.Next(50, 150), monsterWeaponCreator.CreateWeapon("Serpentix the Devourer"));
+          return new MonsterCharacter("Serpentix the Devourer", random.Next(900, 2001), new NormalAttack(), random.Next(50, 150), monsterWeaponCreator.CreateWeapon("Serpentix the Devourer"));
         case 3:
-          return new MonsterCharacter("Molten Core Guardian", random.Next(500, 2001), new NormalAttack(), random.Next(50, 150), monsterWeaponCreator.CreateWeapon("Molten Core Guardian"));
+          return new MonsterCharacter("Molten Core Guardian", random.Next(900, 2001), new NormalAttack(), random.Next(50, 150), monsterWeaponCreator.CreateWeapon("Molten Core Guardian"));
         default:
-          return new MonsterCharacter("Abyssal Leviathan", random.Next(500, 2001), new NormalAttack(), random.Next(50, 150), monsterWeaponCreator.CreateWeapon("Abyssal Leviathan"));
+          return new MonsterCharacter("Abyssal Leviathan", random.Next(900, 2001), new NormalAttack(), random.Next(50, 150), monsterWeaponCreator.CreateWeapon("Abyssal Leviathan"));
       }
     }
   }

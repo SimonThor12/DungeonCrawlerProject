@@ -80,14 +80,14 @@
           Player.DefeatMonster();   // här får man experience
           //Dessa listor är ett exempel på en IList<T> som är en samling av objekt av typen T. T i IList<T> är inte kovariant eller kontravariant och är därför ett exempel på en invariant typ.
           List<PowerUp> powerups = new List<PowerUp> {
-            new PowerUp("Health Potion", new HealEffect(30)),
-            new PowerUp("Strong Health Potion", new HealEffect(50)),
-            new PowerUp("Divine Health Potion", new HealEffect(100)),
+            new PowerUp("Health Potion", new HealEffect(50)),
+            new PowerUp("Strong Health Potion", new HealEffect(750)),
+            new PowerUp("Divine Health Potion", new HealEffect(150)),
             new PowerUp("Strength Potion", new StrengthEffect(20)),
             new PowerUp("Strong Strength Potion", new StrengthEffect(30)),
             new PowerUp("Divine Strength Potion", new StrengthEffect(50)),
             new PowerUp("Devious Health Potion", new HealEffect(5)),
-            new PowerUp("Devious Strength Potion", new StrengthEffect(5)),
+            new PowerUp("Devious Strength Potion", new StrengthEffect(1)),
             new PowerUp("Water bottle", new HealEffect(10)),
           };
           List<Weapon> weapons = new List<Weapon>
@@ -128,14 +128,18 @@
           var loot2 = powerUpFactory.Pick();
           Random random = new Random();
 
+
           Player.personalInventory.AddItem(loot1);
           TypeTextWithDelay("You have gained a " + loot1.Name + "!");
           Console.ReadKey();
 
-          Player.personalInventory.AddItem(loot2);
-          TypeTextWithDelay("You have gained a " + loot2.Name + "!");
-          Console.ReadKey();
 
+          if (random.Next(3) == 1)
+          {
+            Player.personalInventory.AddItem(loot2);
+            TypeTextWithDelay("You have gained a " + loot2.Name + "!");
+            Console.ReadKey();
+          }
           //Här används LINQ för att filtrera ut vapen som är av rätt typ. Vi använder
           //Where() för att filtrera ut vapen som har en viss ItemPower, från en lista av vapen.
           //Vi använder också ToList() för att konvertera resultatet till en lista.
@@ -151,7 +155,7 @@
           }
           else if (Player.CompletedRooms >= 7 && random.Next(1, 11) != 1)
           {
-            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 55).ToList();
+            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 80 && w.ItemPower <= 160).ToList();
 
             PrintDroppedWeapons(tempList);
 
@@ -159,14 +163,14 @@
           }
           else if (Player.CompletedRooms >= 3 && random.Next(1, 11) != 1)
           {
-            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 45 && w.ItemPower < 100).ToList();
+            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 55 && w.ItemPower <= 80).ToList();
             PrintDroppedWeapons(tempList);
             EquipAsk(tempList);
           }
           else if (Player.CompletedRooms < 3 && random.Next(1, 11) != 1)
           {
 
-            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 10 && w.ItemPower < 100).ToList();
+            IEnumerable<Weapon> tempList = weaponFactory.PickRandom(3).Where(w => w.ItemPower >= 10 && w.ItemPower <= 45).ToList();
             PrintDroppedWeapons(tempList);
             EquipAsk(tempList);
           }
@@ -186,7 +190,6 @@
 
     private MonsterCharacter CreateMonsterForEncounter()
     {
-      //make a list of weapons that the bosses can equip when they are created
 
       if (Player.CompletedRooms >= 10)
       {

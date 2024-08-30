@@ -9,19 +9,20 @@
     private Random rng = new Random();
     public GameEngine()
     {
-      playerEventDelegate = GrantBonusItem; // Assign the function to the delegate
+      playerEventDelegate = GrantBonusItem;
+      currentPlayer = new PlayerCharacter(100, new NormalAttack());
+      // Assign the function to the delegate
     }
 
     //make a list of items
     public void StartGame()
     {
       Console.WriteLine("Create a new game? (y/n)");
-      string input = Console.ReadLine().ToLower();
+      string input = Console.ReadLine()!.ToLower();
       if (input == "y")
       {
         Console.Clear();
-        currentPlayer = new PlayerCharacter(100, new NormalAttack());
-        currentPlayer.PlayerLeveledUp += Player_OnLeveledUp;
+        currentPlayer.PlayerLeveledUp += Player_OnLeveledUp!;
         TypeTextWithDelay("Welcome to the Monster Dungeon!");
         TypeTextWithDelay("What is your name?");
 
@@ -39,14 +40,17 @@
         TypeTextWithDelay("As you can not see or hear anything in the darkness, ");
         TypeTextWithDelay("you decide to randomly feel your way around the room");
         DotDelay();
-        TypeTextWithDelay("You find a sturdy stick beside 2 small potions, one yellow and one red, and decide to pick them up");
+        TypeTextWithDelay("You find a sturdy stick beside two small potions,\n" +
+          "one yellow and one red.\n" +
+          "You equip the stick and put the potions in a bag.");
         currentPlayer.equipedWeapon = new Weapon("Stick", 10);
         currentPlayer.personalInventory.AddItem(new PowerUp("Red Potion", new HealEffect(30)));
         currentPlayer.personalInventory.AddItem(new PowerUp("Yellow Potion", new StrengthEffect(10)));
-
         DotDelay();
-        TypeTextWithDelay("You find a door on one of the walls");
-        DotDelay();
+        TypeTextWithDelay("Looking around you, You spot a door on one of the walls");
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
+        Console.Clear();
         HandleUserDoorAction();
 
         Encounter encounter = new Encounter(currentPlayer);
@@ -57,15 +61,15 @@
 
           // Generate immersive kill descriptions
           string[] roomDescriptions = {
-        "As you triumph over the monstrous foe, the acrid smell of burnt scales fills the chamber,\n" +
+        "As you triumph over the monstrous foe, the acrid smell of combat fills the chamber,\n" +
         "and you catch your breath. Another door appears!",
         "In the aftermath of the intense battle,\n" +
         "you notice the once flickering torches now casting steady light upon the room's battle-scarred walls.\n" +
         "Another door appears!",
         "After a fierce struggle, the room falls silent.\n" +
         "You can hear the faint echo of your footsteps\namidst the victorious silence. Another door appears!",
-        "With a final swing, the formidable beast lies defeated.\n" +
-        "Its bloodied scales and fiery breath are no more. Another door appears!",
+        "With a final swing, the formidable foe lies defeated.\n" +
+        "The monster is no more...\nas you catch your breath another door appears!",
         "As the dust settles, you take in the sight of the vanquished enemy.\n" +
         "The room's treasures and secrets await your exploration. Another door appears!"
         };
@@ -103,53 +107,87 @@
     private void HandleUserDoorAction()
     {
       Console.Clear();
-      TypeTextWithDelay("You are standing infront of the door.");
-      TypeTextWithDelay("What do you want to do?");
+      TypeTextWithDelay($"You are standing infront of the door, with a bag and a {currentPlayer.equipedWeapon.Name}.");
+      TypeTextWithDelay("What do you want to do? (hint: hit, open or use something)");
+
       string action = Console.ReadLine();
-      if (action.ToLower().Trim() != "open" && action.ToLower().Trim() != "open door" && action.ToLower().Trim() != "hit" && action.ToLower().Trim() != "use inventory" && action.ToLower().Trim() != "use potion" && action.ToLower().Trim() != "open inventory")
-      {
-        TypeTextWithDelay("Try something else");
-        DotDelay();
-        HandleUserDoorAction();
-      }
-      else if (action.ToLower().Trim() == "use inventory" || action.ToLower().Trim() == "use potion" || action.ToLower().Trim() == "open inventory")
+
+
+      if (action.ToLower().Trim() == "use inventory" || action.ToLower().Trim() == "use potion" || action.ToLower().Trim() == "open inventory" || action.ToLower().Trim() == "use bag" || action.ToLower().Trim() == "use the bag" || action.ToLower().Trim() == "open the bag" || action.ToLower().Trim() == "open bag")
       {
         TypeTextWithDelay("You open your inventory");
         UseInventory();
         HandleUserDoorAction();
       }
-      else if (action.ToLower().Trim() == "hit")
+      else if (action.ToLower().Trim() == "hit" || action.ToLower().Trim() == "hit door" || action.ToLower().Trim() == "use weapon" || action.ToLower().Trim() == "hit the door" || action.ToLower().Trim() == "use weapon")
       {
-        Console.WriteLine($"You hit with {currentPlayer.equipedWeapon.Name} in the door opening");
-        Console.WriteLine("Nothing happens");
+        TypeTextWithDelay($"You hit with {currentPlayer.equipedWeapon.Name} in the door opening");
+
+        if (currentPlayer.equipedWeapon.Name == "Stick")
+        {
+          TypeTextWithDelay("The stick breaks :(");
+          currentPlayer.equipedWeapon = new Weapon("Broken stick", 2);
+          Console.ReadKey();
+          HandleUserDoorAction();
+        }
+        else if (currentPlayer.equipedWeapon.ItemPower >= 100)
+        {
+          DotDelay();
+          TypeTextWithDelay("The door scatters by the force from your weapon!");
+          DotDelay();
+          Console.WriteLine("Door opened");
+          Console.Clear();
+        }
+        else
+        {
+          TypeTextWithDelay("The strong hit creates an echo in the room, but nothing happens");
+          Console.WriteLine("Press any key to continue");
+          Console.ReadKey();
+
+          HandleUserDoorAction();
+        }
+      }
+      else if (action.ToLower().Trim() == "use door" || action.ToLower().Trim() == "open door" || action.ToLower().Trim() == "open the door" || action.ToLower().Trim() == "door open")
+      {
+        DotDelay();
+        TypeTextWithDelay("Door opened");
+        Console.ReadKey();
+        Console.Clear();
+      }
+      else
+      {
+        TypeTextWithDelay("Not valid");
+        Console.ReadKey();
         HandleUserDoorAction();
       }
 
-      else
+      int eventChance = rng.Next(100);
+      Console.WriteLine(eventChance);
+      Console.ReadKey();
+
+      if (eventChance > 90)
       {
-        DotDelay();
-        Console.WriteLine("Door opened");
-        Console.Clear();
+        playerEventDelegate = GrantBonusItem;
+        playerEventDelegate(currentPlayer);
 
-        int eventChance = rng.Next(100);
-
-
-        if (eventChance < 11) //20% chance to trigger event
-        {
-          playerEventDelegate = GrantBonusItem;
-          playerEventDelegate(currentPlayer);
-          DotDelay();
-        }
-
-        else if (eventChance > 89) //20% chance to trigger
-        {
-          playerEventDelegate = EncounterMysteriousAlly;
-          playerEventDelegate(currentPlayer);
-          DotDelay();
-        }
-
-        Console.Clear();
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
       }
+      else if (eventChance < 10)
+      {
+        playerEventDelegate = EncounterMysteriousAlly;
+        playerEventDelegate(currentPlayer);
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
+      }
+      else if (eventChance > 11 && eventChance < 21)
+      {
+        playerEventDelegate = GenerateWellOfHealth;
+        playerEventDelegate(currentPlayer);
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
+      }
+      Console.Clear();
     }
 
     public void TypeTextWithDelay(string text)
@@ -188,7 +226,7 @@
 
     public string GetPlayerName()
     {
-      string name = Console.ReadLine();
+      string name = Console.ReadLine()!;
 
       if (name == null || name == "")
       {
@@ -216,9 +254,22 @@
         player.personalInventory.AddItem(new PowerUp("Strong Health Potion", new HealEffect(50)));
         TypeTextWithDelay("You found a Strong Health potion and added it to your inventory.");
         DotDelay();
-
       }
       TypeTextWithDelay("But when you look up you see that you are no alone in the room.");
+    }
+    public void GenerateWellOfHealth(PlayerCharacter player)
+    {
+      TypeTextWithDelay("As you explore the area, you stumble upon a mysterious well of health.");
+      TypeTextWithDelay("The well is adorned with ancient runes and glistening waters.");
+      TypeTextWithDelay("Feeling a magical presence, you cautiously approach the well.");
+
+      TypeTextWithDelay("You carefully slurp up some of the rejuvenating water from the well.");
+      player.MaxHealth += 50;
+      player.Health += 250;
+      TypeTextWithDelay("You feel healthy and ready for action like never before!");
+
+      TypeTextWithDelay("With the well of health behind you,\nyou continue your adventure, feeling the magical aura still resonating within.");
+
     }
     public void EncounterMysteriousAlly(PlayerCharacter player)
     {

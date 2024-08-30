@@ -12,7 +12,7 @@ namespace DungeonCrawlerProject
   //Vi använder här type parameter constraints för att säkerställa att T är en IItem. Detta gör att vi kan behålla typinformation om T när vi använder den i metoder i Inventory.
   public class Inventory<T> : IEnumerable<T> where T : IItem
   {
-    public int MaxInventorySize = 9;
+    private int MaxInventorySize { get; set; } = 9;
     public List<T> Items { get; set; }
 
     public Inventory()
@@ -74,6 +74,10 @@ namespace DungeonCrawlerProject
       }
       else
         return Items[v];
+    }
+    public void ChangeSize(int newSize)
+    {
+      MaxInventorySize = newSize;
     }
   }
 }

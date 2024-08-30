@@ -11,7 +11,7 @@
     public void UsePowerUp(PlayerCharacter player)
     {
       player.Strength += StrengthAmount;
-      Console.WriteLine("You gained some mass!");
+      Console.WriteLine($"You gained {StrengthAmount} strength!");
       Console.WriteLine("Press any key to continue...");
       Console.ReadKey();
 
